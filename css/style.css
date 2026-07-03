@@ -119,11 +119,11 @@ nav a:hover{
 .hero-text{
     max-width:850px;
     padding:20px;
-    color:white;
+    color:#000;
 }
 
 .hero-text h1{
-    font-size:4rem;
+    font-size:3rem;
     margin-bottom:20px;
     letter-spacing:3px;
 }
