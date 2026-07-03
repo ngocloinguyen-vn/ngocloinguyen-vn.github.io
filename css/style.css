@@ -400,9 +400,36 @@ nav ul{
     font-size:1.1rem;
 }
 
+/* =========================
+      Project Item
+========================= */
 
+.project-item{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:40px;
+    align-items:center;
+    margin-bottom:60px;
+}
 
+.project-text h3{
+    color:var(--primary);
+    margin-bottom:15px;
+}
 
+.project-text p{
+    line-height:1.8;
+}
+
+.project-image img{
+    width:100%;
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    transition:.3s;
+}
+
+.project-image img:hover{
+    transform:scale(1.02);
 
 
 
