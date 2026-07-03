@@ -383,12 +383,13 @@ nav ul{
 ========================= */
 .page-hero{
     height:40vh;
-    background:url("../images/background.jpg") center center/cover no-repeat;
+    background: var(--hero-bg) center center/cover no-repeat;
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
 }
+
 .page-hero-text{
     color:var(--white);
     padding:20px;
