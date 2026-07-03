@@ -1,6 +1,5 @@
 /* ==========================================
    NGOC-LOI NGUYEN
-   Academic Website
 ========================================== */
 
 :root{
@@ -11,12 +10,10 @@
     --gray:#6b7280;
     --border:#e5e7eb;
     --shadow:0 8px 24px rgba(0,0,0,.08);
-
     --max-width:1200px;
 }
 
 /* Reset */
-
 *{
     margin:0;
     padding:0;
@@ -28,33 +25,23 @@ html{
 }
 
 body{
-
     font-family:'Montserrat',sans-serif;
-
     background:var(--light);
-
     color:var(--secondary);
-
     line-height:1.8;
-
 }
 
 /* Links */
 
 a{
-
     text-decoration:none;
-
     color:inherit;
-
 }
 
 /* Images */
 
 img{
-
     max-width:100%;
-
     display:block;
 
 }
@@ -153,8 +140,6 @@ nav a:hover{
 
     background:url("../images/background.jpg") center center/cover no-repeat;
 
-    position:relative;
-
     display:flex;
 
     justify-content:center;
@@ -165,33 +150,17 @@ nav a:hover{
 
 }
 
-.hero::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:rgba(0,0,0,.45);
-
-}
-
-.overlay{
-
-    position:relative;
-
-    z-index:2;
-
-    color:white;
+.hero-text{
 
     max-width:850px;
 
     padding:20px;
 
+    color:white;
+
 }
 
-.overlay h1{
+.hero-text h1{
 
     font-size:4rem;
 
@@ -201,7 +170,7 @@ nav a:hover{
 
 }
 
-.overlay h2{
+.hero-text h2{
 
     font-size:1.8rem;
 
@@ -211,7 +180,7 @@ nav a:hover{
 
 }
 
-.overlay p{
+.hero-text p{
 
     font-size:1.15rem;
 
