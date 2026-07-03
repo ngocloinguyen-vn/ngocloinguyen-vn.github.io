@@ -98,7 +98,7 @@ nav a:hover{
 
 .hero{
 
-    height:80vh;
+    height:100vh;
     background:url("../images/background.jpg") center center/cover no-repeat;
     display:flex;
     justify-content:center;
@@ -362,6 +362,36 @@ nav ul{
 }
 
 }
+
+/* =========================
+      PAGE HERO
+========================= */
+.page-hero{
+    height:35vh;
+    background:url("../images/background.jpg") center center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+.page-hero-text{
+    color:var(--white);
+    padding:20px;
+}
+.page-hero-text h1{
+    font-size:2.8rem;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+.page-hero-text p{
+    font-size:1.1rem;
+}
+
+
+
+
+
+
 
 
 
