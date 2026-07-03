@@ -2,16 +2,12 @@
 
 window.addEventListener("scroll", () => {
 
-const navbar = document.querySelector(".navbar");
+    const header = document.querySelector("header");
 
-if(window.scrollY > 40){
-
-navbar.classList.add("shadow");
-
-}else{
-
-navbar.classList.remove("shadow");
-
-}
+    if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+    } else {
+        header.classList.remove("scrolled");
+    }
 
 });
