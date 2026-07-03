@@ -97,7 +97,6 @@ nav a:hover{
 ========================= */
 
 .hero{
-
     height:100vh;
     background:url("../images/background.jpg") center center/cover no-repeat;
     display:flex;
@@ -107,9 +106,10 @@ nav a:hover{
 }
 
 .hero-text{
-    max-width:850px;
+    max-width:300px;
     padding:20px;
     color:var(--secondary);
+    font-family:"Times New Roman", Times, serif;
 }
 
 .hero-text h1{
