@@ -539,3 +539,12 @@ nav ul{
 }
 
 }
+
+/* =========================
+        TOP SPACE
+========================= */
+
+.top-space{
+    height:30px;          /* Điều chỉnh chiều cao theo ý muốn */
+    background:#ffffff;
+}
