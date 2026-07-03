@@ -174,7 +174,7 @@ nav a:hover{
 ========================= */
 
 .container{
-    max-width:var(--max-width);
+    max-width:80%;
     margin:auto;
     padding:80px 25px;
 }
