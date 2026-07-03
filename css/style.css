@@ -29,6 +29,7 @@ body{
     background:var(--light);
     color:var(--secondary);
     line-height:1.8;
+    padding-top:110px;   /* 30px top space + khoảng 80px navbar */
 }
 
 /* Links */
@@ -43,7 +44,6 @@ a{
 img{
     max-width:100%;
     display:block;
-
 }
 
 /* =========================
@@ -53,81 +53,53 @@ img{
 header{
 
     position:fixed;
-
-    top:0;
-
+    top:30px;                 /* cách mép trên 30px */
+    left:0;
     width:100%;
-
     background:white;
-
     z-index:999;
-
     box-shadow:0 2px 12px rgba(0,0,0,.05);
 
 }
 
 nav{
-
     max-width:var(--max-width);
-
     margin:auto;
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     padding:18px 25px;
-
 }
 
 .logo{
-
     font-size:1.4rem;
-
     font-weight:700;
-
     letter-spacing:2px;
-
     color:var(--primary);
 
 }
 
 nav ul{
-
     display:flex;
-
     list-style:none;
-
     gap:28px;
-
 }
 
 nav li{
-
     font-size:.95rem;
-
     font-weight:600;
-
 }
 
 nav a{
-
     transition:.3s;
-
 }
 
 nav a:hover{
-
     color:var(--primary);
-
 }
 
 .active{
-
     color:var(--primary);
-
 }
 
 /* =========================
@@ -137,55 +109,34 @@ nav a:hover{
 .hero{
 
     height:100vh;
-
     background:url("../images/background.jpg") center center/cover no-repeat;
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     text-align:center;
-
 }
 
 .hero-text{
-
     max-width:850px;
-
     padding:20px;
-
     color:white;
-
 }
 
 .hero-text h1{
-
     font-size:4rem;
-
     margin-bottom:20px;
-
     letter-spacing:3px;
-
 }
 
 .hero-text h2{
-
     font-size:1.8rem;
-
     font-weight:400;
-
     margin-bottom:25px;
-
 }
 
 .hero-text p{
-
     font-size:1.15rem;
-
     margin-bottom:40px;
-
 }
 
 /* =========================
@@ -195,27 +146,17 @@ nav a:hover{
 .button{
 
     display:inline-block;
-
     background:var(--primary);
-
     color:white;
-
     padding:14px 32px;
-
     border-radius:40px;
-
     transition:.3s;
-
     font-weight:600;
-
 }
 
 .button:hover{
-
     background:#08345d;
-
     transform:translateY(-2px);
-
 }
 
 /* =========================
@@ -223,23 +164,15 @@ nav a:hover{
 ========================= */
 
 .page-header{
-
     margin-top:85px;
-
     background:var(--primary);
-
     color:white;
-
     padding:90px 20px;
-
     text-align:center;
-
 }
 
 .page-header h1{
-
     font-size:3rem;
-
 }
 
 /* =========================
@@ -247,29 +180,19 @@ nav a:hover{
 ========================= */
 
 .container{
-
     max-width:var(--max-width);
-
     margin:auto;
-
     padding:80px 25px;
-
 }
 
 .container h2{
-
     color:var(--primary);
-
     margin-bottom:25px;
-
     font-size:2rem;
-
 }
 
 .container p{
-
     margin-bottom:20px;
-
 }
 
 /* =========================
@@ -277,15 +200,10 @@ nav a:hover{
 ========================= */
 
 .profile{
-
     width:240px;
-
     border-radius:50%;
-
     margin:0 auto 40px;
-
     box-shadow:var(--shadow);
-
 }
 
 /* =========================
@@ -293,43 +211,27 @@ nav a:hover{
 ========================= */
 
 .cards{
-
     display:grid;
-
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
     gap:30px;
-
     margin-top:30px;
-
 }
 
 .card{
-
     background:white;
-
     border-radius:12px;
-
     padding:30px;
-
     box-shadow:var(--shadow);
-
     transition:.3s;
-
 }
 
 .card:hover{
-
     transform:translateY(-8px);
-
 }
 
 .card h3{
-
     color:var(--primary);
-
     margin-bottom:15px;
-
 }
 
 /* =========================
@@ -337,15 +239,10 @@ nav a:hover{
 ========================= */
 
 ul{
-
     padding-left:22px;
-
 }
-
 li{
-
     margin-bottom:10px;
-
 }
 
 /* =========================
@@ -353,31 +250,19 @@ li{
 ========================= */
 
 table{
-
     width:100%;
-
     border-collapse:collapse;
-
     margin-top:30px;
-
 }
-
 th{
-
     background:var(--primary);
-
     color:white;
-
 }
 
 th,td{
-
     padding:15px;
-
     border:1px solid var(--border);
-
     text-align:left;
-
 }
 
 /* =========================
@@ -385,29 +270,19 @@ th,td{
 ========================= */
 
 .gallery{
-
     display:grid;
-
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
     gap:20px;
-
 }
 
 .gallery img{
-
     border-radius:12px;
-
     transition:.3s;
-
     box-shadow:var(--shadow);
-
 }
 
 .gallery img:hover{
-
     transform:scale(1.03);
-
 }
 
 /* =========================
@@ -415,17 +290,11 @@ th,td{
 ========================= */
 
 footer{
-
     background:#111827;
-
     color:white;
-
     text-align:center;
-
     padding:40px 20px;
-
     margin-top:60px;
-
 }
 
 /* =========================
@@ -433,27 +302,18 @@ footer{
 ========================= */
 
 .text-center{
-
     text-align:center;
-
 }
-
 .mt-2{
-
     margin-top:20px;
-
 }
 
 .mt-3{
-
     margin-top:30px;
-
 }
 
 .mt-5{
-
     margin-top:50px;
-
 }
 
 /* =========================
@@ -463,61 +323,38 @@ footer{
 @media(max-width:900px){
 
 nav{
-
     flex-direction:column;
-
     gap:20px;
-
 }
 
 nav ul{
-
     flex-wrap:wrap;
-
     justify-content:center;
-
     gap:15px;
-
 }
 
-.overlay h1{
-
+.hero-text h1{
     font-size:2.8rem;
-
 }
 
-.overlay h2{
-
+.hero-text h2{
     font-size:1.4rem;
-
 }
 
 .page-header h1{
-
     font-size:2.2rem;
-
 }
-
 }
-
 @media(max-width:600px){
-
 .container{
-
     padding:60px 20px;
-
 }
-
-.overlay h1{
-
+.hero-text h1{
     font-size:2.2rem;
-
 }
 
-.overlay p{
-
+.hero-text p{
     font-size:1rem;
-
 }
 
 .profile{
@@ -545,6 +382,19 @@ nav ul{
 ========================= */
 
 .top-space{
-    height:30px;          /* Điều chỉnh chiều cao theo ý muốn */
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:30px;
+
     background:#ffffff;
+
+    z-index:1000;
+
 }
