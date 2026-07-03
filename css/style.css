@@ -357,15 +357,11 @@ nav ul{
 }
 
 .cards{
-
     grid-template-columns:1fr;
-
 }
 
 .gallery{
-
     grid-template-columns:1fr;
-
 }
 
 }
@@ -381,9 +377,7 @@ nav ul{
     width:100%;
     height:70px;
     background:#ffffff;
-
     z-index:1000;
-
 }
 
 
