@@ -382,19 +382,20 @@ nav ul{
 ========================= */
 
 .top-space{
-
     position:fixed;
-
     top:0;
-
     left:0;
-
     width:100%;
-
-    height:30px;
-
+    height:70px;
     background:#ffffff;
 
     z-index:1000;
 
 }
+
+
+
+
+
+
+
