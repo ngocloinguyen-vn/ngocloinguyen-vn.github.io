@@ -50,7 +50,7 @@ img{
 header{
 
     position:fixed;
-    top:30px;                 /* cách mép trên 30px */
+    top:0;                 
     left:0;
     width:100%;
     background:white;
