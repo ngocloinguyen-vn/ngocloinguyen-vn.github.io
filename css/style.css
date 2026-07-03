@@ -101,7 +101,7 @@ nav a:hover{
 
 .hero{
 
-    height:100vh;
+    height:80vh;
     background:url("../images/background.jpg") center center/cover no-repeat;
     display:flex;
     justify-content:center;
