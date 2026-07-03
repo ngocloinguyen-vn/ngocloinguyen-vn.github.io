@@ -26,10 +26,10 @@ html{
 
 body{
     font-family:'Montserrat',sans-serif;
-    background:var(--light);
+    background:var(--white);
     color:var(--secondary);
     line-height:1.8;
-    padding-top:200px;   / đổi thêm 200 px /
+    padding-top:200px;
 }
 
 /* Links */
@@ -48,7 +48,6 @@ img{
         NAVBAR
 ========================= */
 header{
-
     position:fixed;
     top:0;                 
     left:0;
@@ -56,7 +55,6 @@ header{
     background:white;
     z-index:999;
     box-shadow:0 2px 12px rgba(0,0,0,.05);
-
 }
 
 nav{
@@ -156,7 +154,7 @@ nav a:hover{
 .page-header{
     margin-top:85px;
     background:var(--white);
-    color:white;
+    color:var(--secondary);
     padding:90px 20px;
     text-align:center;
 }
@@ -185,6 +183,9 @@ nav a:hover{
     margin-bottom:20px;
 }
 
+.container{
+    background:var(--white);
+}
 /* =========================
       PROFILE
 ========================= */
@@ -208,17 +209,18 @@ nav a:hover{
 }
 
 .card{
-    background:white;
+    background:#f3f4f6;
+    border:1px solid var(--border);
     border-radius:12px;
     padding:30px;
-    box-shadow:var(--shadow);
+    box-shadow:none;
     transition:.3s;
 }
 
 .card:hover{
-    transform:translateY(-8px);
+    background:#eceff1;
+    transform:translateY(-4px);
 }
-
 .card h3{
     color:var(--primary);
     margin-bottom:15px;
@@ -238,6 +240,9 @@ li{
 /* =========================
       TABLE
 ========================= */
+table{
+    background:var(--white);
+}
 
 table{
     width:100%;
@@ -267,8 +272,9 @@ th,td{
 
 .gallery img{
     border-radius:12px;
+    border:1px solid var(--border);
+    box-shadow:none;
     transition:.3s;
-    box-shadow:var(--shadow);
 }
 
 .gallery img:hover{
@@ -280,8 +286,9 @@ th,td{
 ========================= */
 
 footer{
-    background:#111827;
-    color:white;
+    background:var(--white);
+    color:var(--gray);
+    border-top:1px solid var(--border);
     text-align:center;
     padding:40px 20px;
     margin-top:60px;
