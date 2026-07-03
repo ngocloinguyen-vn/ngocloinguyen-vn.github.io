@@ -105,8 +105,9 @@ nav a:hover{
     background:url("../images/background.jpg") center center/cover no-repeat;
     display:flex;
     justify-content:center;
-    align-items:center;
+    align-items:flex-start;
     text-align:center;
+    padding-top:80px; 
 }
 
 .hero-text{
@@ -126,6 +127,7 @@ nav a:hover{
     font-size:1.8rem;
     font-weight:400;
     margin-bottom:25px;
+   font-weight:800;
 }
 
 .hero-text p{
