@@ -382,7 +382,7 @@ nav ul{
       PAGE HERO
 ========================= */
 .page-hero{
-    height:40vh;
+    height:50vh;
     background: var(--hero-bg) center center/cover no-repeat;
     display:flex;
     justify-content:center;
