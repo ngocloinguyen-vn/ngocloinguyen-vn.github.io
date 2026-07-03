@@ -29,7 +29,7 @@ body{
     background:var(--light);
     color:var(--secondary);
     line-height:1.8;
-    padding-top:110px;   /* 30px top space + khoảng 80px navbar */
+    padding-top:200px;   / đổi thêm 200 px /
 }
 
 /* Links */
