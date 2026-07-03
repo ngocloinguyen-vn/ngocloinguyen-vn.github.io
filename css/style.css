@@ -49,31 +49,26 @@ img{
 
 header{
     position:fixed;
-    top:60px;
+    top:60px;                    /* Khoảng cách từ mép trên */
     left:50%;
     transform:translateX(-50%);
     z-index:999;
-
-    background:transparent;
-    box-shadow:none;
-
-    transition:all .35s ease;
+    background:#ffffff;
+    border-radius:50px;
+    box-shadow:0 2px 12px rgba(0,0,0,0);
 }
 
 nav{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:0;
+    padding:18px 35px;
 }
 
 nav ul{
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
+    list-style:none;
     gap:28px;
 
-    list-style:none;
     margin:0;
     padding:0;
 }
@@ -96,27 +91,6 @@ nav a:hover{
     color:var(--primary);
 }
 
-/* Khi cuộn xuống */
-
-header.header-scrolled{
-
-    top:0;
-    left:0;
-    transform:none;
-
-    width:100%;
-
-    background:#ffffff;
-
-    box-shadow:0 2px 12px rgba(0,0,0,0);
-}
-
-header.header-scrolled nav{
-
-    max-width:var(--max-width);
-    margin:auto;
-    padding:18px 25px;
-}
 
 /* =========================
         HERO
