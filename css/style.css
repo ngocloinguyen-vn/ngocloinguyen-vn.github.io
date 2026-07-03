@@ -110,8 +110,8 @@ nav a:hover{
 }
 
 .hero-text{
-    max-width:600px;
-    padding:50px;
+    max-width:300px;
+    padding:20px;
     color:var(--secondary);
     font-family:"Times New Roman", Times, serif;
 }
