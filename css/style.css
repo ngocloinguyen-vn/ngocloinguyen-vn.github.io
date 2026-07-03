@@ -49,12 +49,11 @@ img{
 
 header{
     position:fixed;
-    top:60px;                    /* Khoảng cách từ mép trên */
+    top:70px;                    /* Khoảng cách từ mép trên */
     left:50%;
     transform:translateX(-50%);
     z-index:999;
     background:#ffffff;
-    border-radius:50px;
 }
 
 nav{
