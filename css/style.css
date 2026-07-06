@@ -514,10 +514,26 @@ nav ul{
 
 }
 
+/* =========================
+     visitor-widget
+========================= */
+.visitor-widget{
+    width: 260px;          /* kích thước widget */
+    margin: 40px auto;     /* căn giữa */
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: center;
+}
 
 
-
-
+@media (max-width: 768px){
+    .visitor-widget{
+        width: 90%;
+    }
+}
 
 
 
