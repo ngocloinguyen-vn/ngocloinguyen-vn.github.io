@@ -393,10 +393,10 @@ nav ul{
 
 .page-hero-text{
     color:var(--white);
-    padding:20px;
+    padding:15px;
 }
 .page-hero-text h1{
-    font-size:2rem;
+    font-size:1.8rem;
     letter-spacing:2px;
     margin-bottom:10px;
 }
