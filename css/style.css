@@ -115,7 +115,7 @@ nav a:hover{
     padding:20px;
     color:var(--secondary);
     font-family:"Times New Roman", Times, serif;
-    font-weight:800;
+    font-weight:700;
 }
 
 .hero-text h1{
@@ -126,9 +126,8 @@ nav a:hover{
 
 .hero-text h2{
     font-size:1.8rem;
-    font-weight:400;
+    font-weight:600;
     margin-bottom:25px;
-    font-weight:800;
 }
 
 .hero-text p{
