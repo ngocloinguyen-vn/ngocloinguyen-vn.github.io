@@ -462,6 +462,67 @@ nav ul{
 }
 
 
+/* =========================
+     publication-item
+========================= */
+
+.publication-item{
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
+    margin-bottom:30px;
+    padding-bottom:25px;
+    border-bottom:1px solid #ddd;
+}
+
+.publication-badge{
+    min-width:70px;
+    text-align:center;
+}
+
+.publication-content{
+    flex:1;
+}
+
+.publication-content h3{
+    margin:0 0 10px;
+    font-size:1.2rem;
+    line-height:1.4;
+}
+
+.publication-content p{
+    margin:6px 0;
+}
+
+.authors{
+    color:#555;
+}
+
+@media (max-width:768px){
+
+    .publication-item{
+        flex-direction:column;
+    }
+
+    .publication-badge{
+        margin-bottom:10px;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
