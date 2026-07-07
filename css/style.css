@@ -343,6 +343,20 @@ UTILITIES - Các class hỗ trợ dùng nhanh
 }
 
 /* =========================
+MENU TOGGLE BUTTON  Nút hamburger
+Mặc định ẩn trên desktop
+========================= */
+
+.menu-toggle{
+    display:none;              /* Ẩn trên máy tính */
+    background:none;           /* Không có nền */
+    border:none;               /* Bỏ viền */
+    font-size:2rem;            /* Kích thước biểu tượng */
+    cursor:pointer;             /* Hiển thị con trỏ click */
+    color:var(--primary);      /* Màu nút */
+}
+
+/* =========================
 RESPONSIVE - Điều chỉnh giao diện cho tablet và mobile
 ========================= */
 
@@ -356,7 +370,7 @@ RESPONSIVE - Điều chỉnh giao diện cho tablet và mobile
     ========================= */
 
     .menu-toggle{
-        display:none;              /* Ẩn nút hamburger trên desktop */
+        display:block;              /* Ẩn nút hamburger trên desktop */
         background:none;                /* Không có nền */
         border:none;                    /* Bỏ viền */
         font-size:2rem;                 /* Kích thước biểu tượng */
