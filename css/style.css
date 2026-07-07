@@ -1,138 +1,146 @@
 /* ==========================================
-   NGOC-LOI NGUYEN
+  CSS chính
+========================================== */
+:root{
+    --primary:#0f4c81;          /* Màu chính: nút bấm, tiêu đề, liên kết */
+    --secondary:#1f2937;        /* Màu chữ chính trong website */
+    --white:#ffffff;            /* Màu nền trắng */
+    --gray:#6b7280;             /* Màu chữ phụ */
+    --border:#e5e7eb;           /* Màu đường viền */
+    --max-width:1200px;         /* Chiều rộng tối đa của nội dung chính */
+    --wide-width:1600px;        /* Chiều rộng lớn cho video, gallery, banner */
+}
+
+*{
+    margin:0;                   /* Xóa khoảng cách ngoài mặc định */
+    padding:0;                  /* Xóa khoảng cách trong mặc định */
+    box-sizing:border-box;      /* Tính kích thước bao gồm cả padding và border */
+}
+
+html{
+    scroll-behavior:smooth;     /* Cuộn trang mượt khi sử dụng liên kết neo */
+}
+
+/* ==========================================
+   BODY
 ========================================== */
 
-:root{
-    --primary:#0f4c81;
-    --secondary:#1f2937;
-    --white:#ffffff;
-    --gray:#6b7280;
-    --border:#e5e7eb;
-    --max-width:1200px;
-   --wide-width:1600px;
-}
-
-/* Reset */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-html{
-    scroll-behavior:smooth;
-}
-
 body{
-    font-family:'Montserrat',sans-serif;
-    background:var(--white);
-    color:var(--secondary);
-    line-height:1.8;
-    padding-top:200px;
+    font-family:'Montserrat',sans-serif; /* Font chữ chính của website */
+    background:var(--white);             /* Màu nền trang */
+    color:var(--secondary);              /* Màu chữ mặc định */
+    line-height:1.8;                     /* Khoảng cách giữa các dòng chữ */
+    padding-top:200px;                   /* Khoảng trống phía trên do navbar cố định */
 }
 
-/* Links */
+/* ==========================================
+   Thiết lập cho các đường dẫn
+========================================== */
 
 a{
-    text-decoration:none;
-    color:inherit;
+    text-decoration:none;                /* Bỏ gạch chân mặc định của link */
+    color:inherit;                       /* Link dùng màu của phần tử cha */
 }
 
-/* Images */
+
+/* ==========================================
+   Thiết lập chung cho hình ảnh
+========================================== */
+
 img{
-    max-width:100%;
-    display:block;
+    max-width:100%;                      /* Không cho ảnh vượt quá chiều rộng container */
+    height:auto;                           /* Giữ đúng tỷ lệ ảnh */
+    display:block;                       /* Loại bỏ khoảng trắng nhỏ dưới ảnh inline */
 }
 
 /* =========================
-        NAVBAR
+   Thanh điều hướng cố định
 ========================= */
 
 header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    background:#ffffff;
-    z-index:999;
-    box-shadow:0 2px 12px rgba(0,0,0,.05);
-    transition:all .3s ease;
+    position:fixed;                  /* Cố định navbar khi cuộn trang */
+    top:0;                           /* Căn sát phía trên màn hình */
+    left:0;                          /* Căn sát bên trái */
+    width:100%;                      /* Chiếm toàn bộ chiều rộng trang */
+    background:var(--white);         /* Màu nền navbar */
+    z-index:999;                     /* Đặt navbar nằm trên các thành phần khác */
+    box-shadow:0 2px 12px rgba(0,0,0,.05); /* Tạo bóng nhẹ bên dưới navbar */
+    transition:all .3s ease;         /* Hiệu ứng chuyển đổi mượt */
 }
 
+/* Container chính của menu */
 nav{
-    width:100%;
-    max-width:var(--max-width);
-    margin:0 auto;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:18px 25px;
+    width:100%;                      /* Chiều rộng đầy đủ */
+    max-width:var(--max-width);      /* Giới hạn chiều rộng tối đa */
+    margin:0 auto;                   /* Căn giữa navbar */
+    display:flex;                    /* Sử dụng flexbox */
+    justify-content:center;          /* Căn menu theo chiều ngang */
+    align-items:center;              /* Căn giữa theo chiều dọc */
+    padding:18px 25px;               /* Khoảng cách trong navbar */
 }
 
 nav ul{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    list-style:none;
-    gap:28px;
-    margin:0;
-    padding:0;
+    display:flex;                    /* Hiển thị các mục theo hàng ngang */
+    justify-content:center;          /* Căn giữa danh sách */
+    align-items:center;              /* Căn giữa theo chiều dọc */
+    list-style:none;                 /* Bỏ dấu chấm của danh sách */
+    gap:28px;                        /* Khoảng cách giữa các mục menu */
+    margin:0;                        /* Xóa margin mặc định */
+    padding:0;                       /* Xóa padding mặc định */
 }
 
 nav li{
-    font-size:.85rem;
-    font-weight:600;
+    font-size:.85rem;                /* Kích thước chữ menu */
+    font-weight:600;                 /* Độ đậm chữ */
 }
 
 nav a{
-    color:var(--gray);
-    transition:.3s;
+    color:var(--gray);               /* Màu chữ mặc định */
+    transition:color .3s ease;       /* Hiệu ứng đổi màu khi hover */
 }
 
 nav a:hover{
-    color:var(--primary);
+    color:var(--primary);            /* Đổi sang màu chính */
 }
 
-.active{
-    color:var(--primary);
+nav a.active{
+    color:var(--primary);            /* Đánh dấu trang đang mở */
 }
 
 /* =========================
-        HERO
+HERO - Phần banner lớn ở trang chủ
 ========================= */
 
 .hero{
-    height:70vh;
-    background:url("../images/background.jpg") center center/cover no-repeat;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    text-align:center;
-    padding-top:10px; 
+    height:70vh;                     /* Chiều cao hero bằng 70% chiều cao màn hình */
+    background:url("../images/background.jpg");  /* Ảnh nền của hero */
+    background-position:center center; /* Căn ảnh nền vào chính giữa */
+    background-size:cover;             /* Ảnh phủ toàn bộ khu vực hero */
+    background-repeat:no-repeat;       /* Không lặp lại ảnh nền */
+    display:flex;                      /* Sử dụng flexbox để căn chỉnh nội dung */
+    justify-content:center;            /* Căn giữa nội dung theo chiều ngang */
+    align-items:flex-start;            /* Đặt nội dung ở phía trên hero */
+    text-align:center;                 /* Căn giữa toàn bộ chữ */
+    padding-top:10px;                  /* Khoảng cách từ đầu hero đến nội dung */
 }
 
 .hero-text{
-    max-width:var(--max-width);
-    padding:20px;
-    color:var(--secondary);
-    font-family:"Times New Roman", Times, serif;
-    font-weight:700;
+    max-width:var(--max-width);        /* Giới hạn chiều rộng nội dung */
+    padding:20px;                      /* Khoảng cách bên trong */
+    color:var(--secondary);            /* Màu chữ chính */
+    font-family:"Times New Roman", Times, serif;      /* Font chữ */
+    font-weight:700;                   /* Chữ đậm */
 }
 
 .hero-text h1{
-    font-size:3rem;
-    margin-bottom:20px;
-    letter-spacing:3px;
-}
-
-.hero-text h2{
-    font-size:1.5rem;
-    font-weight:600;
-    margin-bottom:25px;
+    font-size:3rem;                    /* Kích thước tiêu đề lớn */
+    margin-bottom:20px;                /* Khoảng cách dưới tiêu đề */
+    letter-spacing:3px;                /* Tăng khoảng cách giữa các ký tự */
 }
 
 .hero-text p{
-    font-size:1.5rem;
-    margin-bottom:40px;
+    font-size:1.5rem;                  /* Kích thước chữ mô tả */
+    margin-bottom:40px;                /* Khoảng cách trước phần tiếp theo */
 }
 
 /* =========================
