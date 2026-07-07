@@ -143,6 +143,15 @@ HERO - Phần banner lớn ở trang chủ
     margin-bottom:40px;                /* Khoảng cách trước phần tiếp theo */
 }
 
+.header-caption{
+    text-align:center;
+    font-size:0.9rem;
+    color:#666;
+    font-style:italic;
+    padding:10px 20px;
+    line-height:1.5;
+}
+
 /* =========================
 BUTTON -  Nút bấm dùng trong website
 ========================= */
