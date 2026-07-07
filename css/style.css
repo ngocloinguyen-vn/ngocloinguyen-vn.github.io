@@ -431,60 +431,79 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
 }
 
 /* =========================
-      PAGE HERO
+PAGE HERO  Ảnh nền lớn cho các trang con
 ========================= */
+
+/* Khu vực hero của từng trang */
 .page-hero{
-    height:50vh;
-    background: var(--hero-bg) center center/cover no-repeat;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
+    height:50vh;                                  /* Chiều cao bằng 50% chiều cao màn hình */
+    background:var(--hero-bg) center center/cover no-repeat;
+    display:flex;                                 /* Sử dụng Flexbox để căn chỉnh nội dung */
+    justify-content:center;                       /* Căn giữa theo chiều ngang */
+    align-items:center;                           /* Căn giữa theo chiều dọc */
+    text-align:center;                            /* Căn giữa chữ */
 }
 
+/* Phần nội dung chữ nằm trên ảnh nền */
 .page-hero-text{
-    color:var(--white);
-    padding:15px;
+    color:var(--white);                           /* Chữ màu trắng để nổi trên ảnh nền */
+    padding:15px;                                 /* Khoảng cách bên trong vùng chữ */
 }
+
+/* Tiêu đề chính của trang */
 .page-hero-text h1{
-    font-size:1.8rem;
-    letter-spacing:2px;
-    margin-bottom:10px;
+    font-size:1.8rem;                             /* Kích thước tiêu đề */
+    letter-spacing:2px;                           /* Tăng khoảng cách giữa các ký tự */
+    margin-bottom:10px;                           /* Khoảng cách phía dưới tiêu đề */
 }
+
+/* Mô tả nhỏ bên dưới tiêu đề */
 .page-hero-text p{
-    font-size:1.1rem;
+    font-size:1.1rem;                             /* Kích thước chữ mô tả */
+}
+/* =========================
+Project Item Bố cục hiển thị từng dự án
+   gồm phần chữ + hình ảnh
+========================= */
+
+/* Khối chứa một project */
+.project-item{
+    display:flex;                          /* Sử dụng Flexbox để chia bố cục ngang */
+    gap:40px;                              /* Khoảng cách giữa phần chữ và hình */
+    align-items:center;                    /* Căn giữa nội dung theo chiều dọc */
+    margin-bottom:60px;                    /* Khoảng cách giữa các project */
 }
 
 /* =========================
-      Project Item
+ Project Text - Phần mô tả dự án bên trái
 ========================= */
-
-.project-item{
-    display:flex;
-    gap:40px;
-    align-items:center;
-    margin-bottom:60px;
-}
-
-/* text bên trái */
 .project-text{
-    flex:1;
+    flex:1;                                /* Chiếm 50% chiều rộng của project */
 }
 
-/* image bên phải */
+
+/* =========================
+Project Image - Phần hình ảnh bên phải
+========================= */
 .project-image{
-    flex:1;
+    flex:1;                                /* Chiếm 50% chiều rộng của project */
 }
 
+/* Hình ảnh trong project */
 .project-image img{
-    width:100%;
-    border-radius:12px;
-    box-shadow:var(--shadow);
-    display:block;
+    width:100%;                            /* Ảnh chiếm toàn bộ chiều rộng vùng chứa */
+    border-radius:12px;                    /* Bo góc ảnh */
+    box-shadow:var(--shadow);              /* Tạo hiệu ứng bóng cho ảnh */
+    display:block;                         /* Loại bỏ khoảng trắng dư bên dưới ảnh */
 }
+
+
+/* =========================
+RESPONSIVE PROJECT - Chuyển sang dạng dọc trên mobile
+========================= */
 @media(max-width:900px){
     .project-item{
-        flex-direction:column;
+        flex-direction:column;             /* Chữ và ảnh xếp thành hai hàng */
     }
 }
 
@@ -492,150 +511,154 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
      Social links
 ========================= */
 
+/* Khung chứa các biểu tượng mạng xã hội */
 .social-links{
-    list-style:none;
-    display:flex;
-    gap:15px;
-    padding:0;
-    margin-top:20px;
-    align-items:center;
+    list-style:none;                 /* Bỏ dấu chấm đầu dòng của danh sách */
+    display:flex;                    /* Hiển thị các icon theo hàng ngang */
+    gap:15px;                        /* Khoảng cách giữa các biểu tượng */
+    padding:0;                       /* Bỏ khoảng đệm mặc định của ul */
+    margin-top:20px;                 /* Tạo khoảng cách với nội dung phía trên */
+    align-items:center;              /* Căn giữa các icon theo chiều dọc */
 }
 
+/* Hình ảnh icon mạng xã hội */
 .social-links img{
-    width:32px;
-    height:32px;
-    object-fit:contain;
-    transition:transform 0.2s ease;
+    width:40px;                      /* Chiều rộng icon */
+    height:40px;                     /* Chiều cao icon */
+    object-fit:contain;              /* Giữ nguyên tỷ lệ icon, không bị méo */
+    transition:transform 0.2s ease;  /* Tạo hiệu ứng phóng to mượt khi hover */
 }
 
+/* Hiệu ứng khi rê chuột vào icon */
 .social-links a:hover img{
-    transform:scale(1.1);
+    transform:scale(1.1);            /* Phóng to icon nhẹ 10% */
 }
 
-
 /* =========================
-     publication-item
-========================= */
+  Publication-item
+ ========================= */
 
+/* Khối chứa một publication */
 .publication-item{
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    margin-bottom: 30px;
-    padding-bottom: 25px;
-    border-bottom: 1px solid #ddd;
+    display:flex;                         /* Sử dụng Flexbox để chia bố cục ngang */
+    align-items:flex-start;               /* Căn nội dung từ phía trên */
+    gap:20px;                             /* Khoảng cách giữa nội dung và badge */
+    margin-bottom:30px;                   /* Khoảng cách giữa các bài báo */
+    padding-bottom:25px;                  /* Khoảng cách phía dưới trước đường kẻ */
+    border-bottom:1px solid #ddd;         /* Đường phân cách giữa các publication */
 }
 
+/* Phần nội dung bài báo */
 .publication-content{
-    flex: 1;
+    flex:1;                               /* Chiếm phần không gian còn lại */
 }
 
+/* Phần badge bên phải */
 .publication-badge{
-    flex: 0 0 100px;      /* chiều rộng cột badge */
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
+    flex:0 0 100px;                       /* Cố định chiều rộng badge là 100px */
+    display:flex;                         /* Dùng flex để căn chỉnh badge */
+    justify-content:flex-end;             /* Đẩy badge về phía bên phải */
+    align-items:flex-start;               /* Căn badge phía trên */
 }
 
-.publication-content h3{
-    margin: 0 0 10px;
-    font-size: 1.2rem;
-    line-height: 1.4;
-}
-
+/* Thông tin mô tả bài báo */
 .publication-content p{
-    margin: 6px 0;
+    margin:6px 0;                         /* Khoảng cách giữa các dòng thông tin */
+
 }
 
-.authors{
-    color: #555;
-}
-
-@media (max-width:768px){
-
+@media(max-width:768px){
+    /* Chuyển publication thành dạng dọc */
     .publication-item{
-        flex-direction: column;
+        flex-direction:column;             /* Nội dung và badge xếp thành từng hàng */
     }
-
+    /* Badge trên mobile */
     .publication-badge{
-        flex: none;
-        width: 100%;
-        justify-content: flex-start;
-        margin-top: 10px;
+        flex:none;                         /* Không cho co giãn */
+        width:100%;                        /* Chiếm toàn bộ chiều rộng */
+        justify-content:flex-start;        /* Căn badge sang trái */
+        margin-top:10px;                   /* Tạo khoảng cách với nội dung */
     }
-
 }
-
 /* =========================
-     visitor-widget
+Visitor Widget
 ========================= */
+
+/* Khung chứa visitor widget */
 .visitor-widget{
-    width: 260px;          /* kích thước widget */
-    margin: 40px auto;     /* căn giữa */
-    padding: 10px;
-    background: #fff;
-    text-align: center;
+    width:260px;                  /* Chiều rộng cố định của widget trên desktop */
+    margin:40px auto;             /*  Tạo khoảng cách phía trên 40px
+                                      và căn giữa theo chiều ngang
+                                   */
+    padding:10px;                 /* Khoảng cách giữa nội dung và viền khung */
+    background:#fff;              /* Màu nền trắng */
+    text-align:center;             /* Căn giữa nội dung bên trong */
 }
 
-
-@media (max-width: 768px){
+@media(max-width:768px){
     .visitor-widget{
-        width: 90%;
+        width:90%;                /* Chiếm 90% chiều rộng màn hình mobile */
     }
 }
 
-
 /* =========================
-        YOUTUBE VIDEO
+YOUTUBE VIDEO
 ========================= */
 
+/* Khung chứa toàn bộ phần video */
 .content-section{
-    width:100%;
-    padding:40px 20px;
+    width:100%;                         /* Chiếm toàn bộ chiều rộng */
+    padding:40px 20px;                  /* Khoảng cách trên/dưới và hai bên */
 }
 
+/* Khung giữ tỷ lệ video */
 .video-container{
-    width:100%;
-    aspect-ratio:16/9;
+    width:100%;                         /* Video chiếm toàn bộ chiều rộng */
+    aspect-ratio:16/9;                  /* Giữ tỷ lệ chuẩn của video YouTube */
 }
 
+/* Video iframe từ YouTube */
 .video-container iframe{
-    width:100%;
-    height:100%;
-    border:none;
-    border-radius:12px;
-    box-shadow:0 8px 25px rgba(0,0,0,.15);
+    width:100%;                         /* Video phủ toàn bộ khung */
+    height:100%;                        /* Chiều cao tự động theo tỷ lệ */
+    border:none;                        /* Bỏ đường viền mặc định của iframe */
+    border-radius:12px;                 /* Bo góc video */
+    box-shadow:0 8px 25px rgba(0,0,0,.15);  /* Tạo hiệu ứng bóng phía dưới video */
+
 }
 
+/* Chú thích bên dưới video */
 .content-section p{
-    max-width:900px;
-    margin:20px auto 0;
-    text-align:center;
-    line-height:1.6;
+    max-width:900px;                    /* Giới hạn chiều rộng dòng chữ */
+    margin:20px auto 0;                 /* Căn giữa và tạo khoảng cách phía trên */
+    text-align:center;                  /* Căn giữa nội dung */
+    line-height:1.6;                    /* Khoảng cách giữa các dòng */
 }
 
 /* =========================
-        IMAGE
+ IMAGE Khu vực hiển thị hình ảnh
 ========================= */
 
+/* Khung chứa hình ảnh */
 .image-section{
-    padding:60px 20px 30px;
-    text-align:center;
+    padding:60px 20px 30px;             /* Khoảng cách trên, hai bên, phía dưới */
+    text-align:center;                  /* Căn giữa hình và chữ */
 }
 
+/* Hình ảnh outreach */
 .outreach-image{
-    display:block;
-    width:100%;
-    max-width:1200px;
-    margin:0 auto;
-    border-radius:12px;
-    box-shadow:0 8px 25px rgba(0,0,0,.15);
+    display:block;                      /* Hiển thị dạng block để căn giữa */
+    width:100%;                         /* Ảnh chiếm toàn bộ vùng chứa */
+    max-width:1200px;                   /* Giới hạn chiều rộng tối đa của ảnh */
+    margin:0 auto;                      /* Căn ảnh ở giữa trang */
+    border-radius:12px;                 /* Bo góc ảnh */
 }
 
+/* Chú thích hình ảnh */
 .image-section p{
-    margin-top:20px;
-    line-height:1.6;
-    font-size:1.1rem;
+    margin-top:20px;                    /* Khoảng cách giữa ảnh và chú thích */
+    line-height:1.6;                    /* Khoảng cách giữa các dòng */
+    font-size:1.1rem;                   /* Kích thước chữ chú thích */
 }
 
 
