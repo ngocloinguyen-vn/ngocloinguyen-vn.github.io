@@ -540,28 +540,19 @@ nav ul{
 ========================= */
 
 .content-section{
-    max-width:1600px;
-    margin:0 auto;
-    padding:0 20px;
+    width:100%;
+    padding:40px 20px;
 }
 
-.content-section h2{
-    margin-bottom:20px;
-    text-align:center;
-}
-
-.content-section p{
-    text-align:center;
-    margin-bottom:30px;
-    line-height:1.6;
-}
-
-.video-container{
-    position:relative;
+.container{
     width:100%;
     max-width:1600px;
     margin:0 auto;
-    aspect-ratio:16 / 9;
+}
+
+.video-container{
+    width:100%;
+    aspect-ratio:16/9;
 }
 
 .video-container iframe{
@@ -572,8 +563,12 @@ nav ul{
     box-shadow:0 8px 25px rgba(0,0,0,.15);
 }
 
-
-
+.content-section p{
+    max-width:900px;
+    margin:20px auto 0;
+    text-align:center;
+    line-height:1.6;
+}
 
 
 
