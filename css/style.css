@@ -7,8 +7,8 @@
     --white:#ffffff;            /* Màu nền trắng */
     --gray:#6b7280;             /* Màu chữ phụ */
     --border:#e5e7eb;           /* Màu đường viền */
-    --max-width:1200px;         /* Chiều rộng tối đa của nội dung chính */
-    --wide-width:1600px;        /* Chiều rộng lớn cho video, gallery, banner */
+    --max-width:1000px;         /* Chiều rộng tối đa của nội dung chính */
+    --wide-width:1400px;        /* Chiều rộng lớn cho video, gallery, banner */
 }
 
 *{
