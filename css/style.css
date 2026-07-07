@@ -658,14 +658,14 @@ YOUTUBE VIDEO
 
 /* Khung tổng chứa mỗi nhóm hình ảnh */
 .image-section{
-    padding:10px 20px;
+    padding:5px 20px;
 }
 
 /* Container chứa hình ảnh
    tạo đường phân cách giống publication-item */
 .image-container{
-    padding-bottom:10px;                 /* Khoảng cách trước đường kẻ */
-    margin-bottom:10px;                  /* Khoảng cách giữa các nhóm */
+    padding-bottom:5px;                 /* Khoảng cách trước đường kẻ */
+    margin-bottom:5px;                  /* Khoảng cách giữa các nhóm */
     border-bottom:1px solid #ddd;         /* Đường phân cách giữa các nhóm hình */
 }
 
@@ -692,13 +692,15 @@ YOUTUBE VIDEO
     margin:0 auto;
     border-radius:12px;
     object-fit:cover;
+    text-align:center;
 }
 
 /* Chú thích hình ảnh */
 .image-section p{
-    margin-top:20px;
+    margin-top:5px;
     line-height:1.6;
     font-size:1.1rem;
+    text-align:center;
 }
 
 /* =========================
