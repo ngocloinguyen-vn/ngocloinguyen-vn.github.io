@@ -356,13 +356,12 @@ RESPONSIVE - Điều chỉnh giao diện cho tablet và mobile
     ========================= */
 
     .menu-toggle{
-        display:block;                  /* Hiện nút hamburger */
+        display:none;              /* Ẩn nút hamburger trên desktop */
         background:none;                /* Không có nền */
         border:none;                    /* Bỏ viền */
         font-size:2rem;                 /* Kích thước biểu tượng */
         cursor:pointer;                 /* Con trỏ dạng click */
         color:var(--primary);           /* Màu nút */
-        display:none;              /* Ẩn nút hamburger trên desktop */
     }
 
     /* Navbar chuyển sang dạng dọc */
