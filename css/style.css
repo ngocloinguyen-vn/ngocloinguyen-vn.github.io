@@ -617,7 +617,7 @@ YOUTUBE VIDEO
 /* Khung chứa toàn bộ phần video */
 .content-section{
     width:100%;                         /* Chiếm toàn bộ chiều rộng */
-    padding:40px 20px;                  /* Khoảng cách trên/dưới và hai bên */
+    padding:10px 20px;                  /* Khoảng cách trên/dưới và hai bên */
 }
 
 /* Khung giữ tỷ lệ video */
@@ -657,7 +657,7 @@ YOUTUBE VIDEO
    tạo đường phân cách giống publication-item */
 .image-section .container{
     padding-bottom:25px;                  /* Khoảng cách phía dưới trước đường kẻ */
-    margin-bottom:30px;                   /* Khoảng cách giữa các nhóm hình */
+    margin-bottom:10px;                   /* Khoảng cách giữa các nhóm hình */
     border-bottom:1px solid #ddd;          /* Đường phân cách giữa các nhóm hình ảnh */
 }
 
