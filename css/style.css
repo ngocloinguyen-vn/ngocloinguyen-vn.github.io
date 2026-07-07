@@ -476,10 +476,11 @@ Project Item Bố cục hiển thị từng dự án
 
 /* Khối chứa một project */
 .project-item{
-    display:flex;                          /* Sử dụng Flexbox để chia bố cục ngang */
-    gap:40px;                              /* Khoảng cách giữa phần chữ và hình */
-    align-items:center;                    /* Căn giữa nội dung theo chiều dọc */
-    margin-bottom:60px;                    /* Khoảng cách giữa các project */
+   display:flex;                          /* Sử dụng Flexbox để chia bố cục ngang */
+   gap:40px;                              /* Khoảng cách giữa phần chữ và hình */
+   align-items:center;                    /* Căn giữa nội dung theo chiều dọc */
+   margin-bottom:60px;                    /* Khoảng cách giữa các project */
+   border-bottom:1px solid #ddd;         /* Đường phân cách giữa các publication */
 }
 
 /* =========================
