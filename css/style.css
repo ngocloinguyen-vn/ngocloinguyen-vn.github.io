@@ -8,8 +8,8 @@
     --white:#ffffff;
     --gray:#6b7280;
     --border:#e5e7eb;
-    --shadow:0 8px 24px rgba(0,0,0,0);
     --max-width:1200px;
+   --wide-width:1600px;
 }
 
 /* Reset */
@@ -544,7 +544,7 @@ nav ul{
 
 .container{
     width:100%;
-    max-width:1600px;
+    max-width:1200px;
     margin:0 auto;
 }
 
