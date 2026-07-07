@@ -568,8 +568,29 @@ nav ul{
     line-height:1.6;
 }
 
+/* =========================
+        IMAGE
+========================= */
 
+.image-section{
+    padding:60px 20px 30px;
+    text-align:center;
+}
 
+.outreach-image{
+    display:block;
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,.15);
+}
+
+.image-section p{
+    margin-top:20px;
+    line-height:1.6;
+    font-size:1.1rem;
+}
 
 
 
