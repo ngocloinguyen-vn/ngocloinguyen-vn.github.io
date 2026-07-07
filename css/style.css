@@ -500,7 +500,7 @@ Project Image - Phần hình ảnh bên phải
 
 /* Hình ảnh trong project */
 .project-image img{
-    width:80%;                            /* Ảnh chiếm toàn bộ chiều rộng vùng chứa */
+    width:70%;                            /* Ảnh chiếm toàn bộ chiều rộng vùng chứa */
     border-radius:12px;                    /* Bo góc ảnh */
     box-shadow:var(--shadow);              /* Tạo hiệu ứng bóng cho ảnh */
     display:block;                         /* Loại bỏ khoảng trắng dư bên dưới ảnh */
@@ -645,32 +645,60 @@ YOUTUBE VIDEO
 }
 
 /* =========================
- IMAGE Khu vực hiển thị hình ảnh
+   IMAGE - Khu vực hiển thị hình ảnh
 ========================= */
 
 /* Khung chứa hình ảnh */
 .image-section{
-    padding:60px 20px 30px;             /* Khoảng cách trên, hai bên, phía dưới */
-    text-align:center;                  /* Căn giữa hình và chữ */
+    padding:60px 20px 30px;
+    text-align:center;
+}
+
+/* Grid chứa nhiều hình ảnh nằm ngang */
+.image-grid{
+    display:flex;
+    gap:30px;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+/* Mỗi hình + chú thích */
+.image-item{
+    flex:1;
+    text-align:center;
 }
 
 /* Hình ảnh outreach */
 .outreach-image{
-    display:block;                      /* Hiển thị dạng block để căn giữa */
-    width:100%;                         /* Ảnh chiếm toàn bộ vùng chứa */
-    max-width:1200px;                   /* Giới hạn chiều rộng tối đa của ảnh */
-    margin:0 auto;                      /* Căn ảnh ở giữa trang */
-    border-radius:12px;                 /* Bo góc ảnh */
+    display:block;
+    width:100%;
+    max-width:1200px;
+    height:auto;
+    margin:0 auto;
+    border-radius:12px;
+    object-fit:cover;
 }
 
 /* Chú thích hình ảnh */
 .image-section p{
-    margin-top:20px;                    /* Khoảng cách giữa ảnh và chú thích */
-    line-height:1.6;                    /* Khoảng cách giữa các dòng */
-    font-size:1.1rem;                   /* Kích thước chữ chú thích */
+    margin-top:20px;
+    line-height:1.6;
+    font-size:1.1rem;
 }
 
+/* =========================
+   Mobile Responsive
+========================= */
 
+@media (max-width:768px){
+    .image-grid{
+        flex-direction:column;
+        gap:20px;
+    }
+    .image-item{
+        width:100%;
+    }
+}
 
 
 
