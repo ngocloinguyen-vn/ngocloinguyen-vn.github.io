@@ -648,44 +648,49 @@ YOUTUBE VIDEO
    IMAGE - Khu vực hiển thị hình ảnh
 ========================= */
 
-/* Khung chứa hình ảnh */
+/* Khung tổng chứa hình ảnh */
 .image-section{
-    padding:60px 20px 30px;
-    text-align:center;
-    border-bottom:1px solid #ddd;         /* Đường phân cách giữa các hình */
+    padding:30px 20px;
 }
 
+/* Container chứa nhóm hình ảnh
+   tạo đường phân cách giống publication-item */
+.image-section .container{
+    padding-bottom:25px;                  /* Khoảng cách phía dưới trước đường kẻ */
+    margin-bottom:30px;                   /* Khoảng cách giữa các nhóm hình */
+    border-bottom:1px solid #ddd;          /* Đường phân cách giữa các nhóm hình ảnh */
+}
 
 /* Grid chứa nhiều hình ảnh nằm ngang */
 .image-grid{
-    display:flex;
-    gap:30px;
-    justify-content:center;
-    align-items:flex-start;
+    display:flex;                         /* Chia bố cục theo hàng ngang */
+    gap:30px;                             /* Khoảng cách giữa các hình */
+    justify-content:center;               /* Căn giữa các hình */
+    align-items:flex-start;               /* Căn nội dung từ phía trên */
 }
 
-/* Mỗi hình + chú thích */
+/* Mỗi hình ảnh + chú thích */
 .image-item{
-    flex:1;
-    text-align:center;
+    flex:1;                               /* Các hình có cùng kích thước */
+    text-align:center;                    /* Căn giữa hình và caption */
 }
 
 /* Hình ảnh outreach */
 .outreach-image{
-    display:block;
-    width:100%;
-    max-width:1200px;
-    height:auto;
-    margin:0 auto;
-    border-radius:12px;
-    object-fit:cover;
+    display:block;                        /* Hiển thị dạng block */
+    width:100%;                           /* Chiếm toàn bộ chiều rộng cột */
+    max-width:1200px;                     /* Giới hạn kích thước tối đa */
+    height:auto;                          /* Giữ đúng tỷ lệ ảnh */
+    margin:0 auto;                        /* Căn giữa hình */
+    border-radius:12px;                   /* Bo góc hình */
+    object-fit:cover;                     /* Cắt ảnh phù hợp khi cần */
 }
 
 /* Chú thích hình ảnh */
 .image-section p{
-    margin-top:20px;
-    line-height:1.6;
-    font-size:1.1rem;
+    margin-top:20px;                      /* Khoảng cách giữa ảnh và caption */
+    line-height:1.6;                      /* Khoảng cách dòng */
+    font-size:1.1rem;                     /* Kích thước chữ */
 }
 
 /* =========================
@@ -693,15 +698,17 @@ YOUTUBE VIDEO
 ========================= */
 
 @media (max-width:768px){
+    /* Chuyển hình ảnh từ ngang sang dọc trên điện thoại */
     .image-grid{
         flex-direction:column;
         gap:20px;
     }
+    /* Hình chiếm toàn bộ chiều rộng màn hình */
     .image-item{
         width:100%;
     }
-}
 
+}
 
 
 
