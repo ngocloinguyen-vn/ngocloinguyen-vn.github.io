@@ -542,12 +542,6 @@ nav ul{
     padding:40px 20px;
 }
 
-.container{
-    width:100%;
-    max-width:1200px;
-    margin:0 auto;
-}
-
 .video-container{
     width:100%;
     aspect-ratio:16/9;
