@@ -54,7 +54,7 @@ img{
 }
 
 /* =========================
-   Thanh điều hướng cố định
+   THANH ĐIỀU HƯỚNG CỐ ĐINH
 ========================= */
 
 header{
@@ -365,17 +365,11 @@ RESPONSIVE - Điều chỉnh giao diện cho tablet và mobile
 ========================= */
 
 @media(max-width:900px){
-    /* =========================
-       MOBILE NAVBAR BUTTON -  Nút hamburger
-    ========================= */
-
+/* =========================
+ MOBILE NAVBAR BUTTON -  Nút hamburger
+========================= */
     .menu-toggle{
-        display:block;              /* Ẩn nút hamburger trên desktop */
-        background:none;                /* Không có nền */
-        border:none;                    /* Bỏ viền */
-        font-size:2rem;                 /* Kích thước biểu tượng */
-        cursor:pointer;                 /* Con trỏ dạng click */
-        color:var(--primary);           /* Màu nút */
+        display:block;                /* Hiện nút hamburger trên mobile */
     }
 
     /* Navbar chuyển sang dạng dọc */
