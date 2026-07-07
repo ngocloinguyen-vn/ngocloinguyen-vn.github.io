@@ -479,7 +479,7 @@ Project Item Bố cục hiển thị từng dự án
    display:flex;                          /* Sử dụng Flexbox để chia bố cục ngang */
    gap:40px;                              /* Khoảng cách giữa phần chữ và hình */
    align-items:center;                    /* Căn giữa nội dung theo chiều dọc */
-   margin-bottom:60px;                    /* Khoảng cách giữa các project */
+   margin-bottom:40px;                    /* Khoảng cách giữa các project */
    border-bottom:1px solid #ddd;         /* Đường phân cách giữa các publication */
 }
 
@@ -495,12 +495,12 @@ Project Item Bố cục hiển thị từng dự án
 Project Image - Phần hình ảnh bên phải
 ========================= */
 .project-image{
-    flex:1;                                /* Chiếm 50% chiều rộng của project */
+    flex:1;                                /* Chiếm 40% chiều rộng của project */
 }
 
 /* Hình ảnh trong project */
 .project-image img{
-    width:100%;                            /* Ảnh chiếm toàn bộ chiều rộng vùng chứa */
+    width:80%;                            /* Ảnh chiếm toàn bộ chiều rộng vùng chứa */
     border-radius:12px;                    /* Bo góc ảnh */
     box-shadow:var(--shadow);              /* Tạo hiệu ứng bóng cho ảnh */
     display:block;                         /* Loại bỏ khoảng trắng dư bên dưới ảnh */
