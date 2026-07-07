@@ -521,8 +521,6 @@ nav ul{
     width: 260px;          /* kích thước widget */
     margin: 40px auto;     /* căn giữa */
     padding: 10px;
-    border: 1px solid #eee;
-    border-radius: 10px;
     background: #fff;
     text-align: center;
 }
