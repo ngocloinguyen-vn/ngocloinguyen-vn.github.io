@@ -144,246 +144,290 @@ HERO - Phần banner lớn ở trang chủ
 }
 
 /* =========================
-      BUTTON
+BUTTON -  Nút bấm dùng trong website
 ========================= */
 
 .button{
-
-    display:inline-block;
-    background:var(--primary);
-    color:white;
-    padding:14px 32px;
-    border-radius:40px;
-    transition:.3s;
-    font-weight:600;
+    display:inline-block;             /* Cho phép padding nhưng vẫn nằm cùng dòng */
+    background:var(--primary);         /* Màu nền nút */
+    color:var(--white);                /* Màu chữ nút */
+    padding:14px 32px;                 /* Kích thước vùng bên trong nút */
+    border-radius:40px;                /* Bo tròn tạo dạng nút pill */
+    transition:all .3s ease;            /* Hiệu ứng khi hover */
+    font-weight:600;                   /* Chữ đậm */
 }
-
 .button:hover{
-    background:#08345d;
-    transform:translateY(-2px);
+    background:#08345d;                /* Màu nền tối hơn khi hover */
+    transform:translateY(-2px);        /* Nút nhấc nhẹ lên khi hover */
 }
 
 /* =========================
-     PAGE HEADER
+ Tiêu đề của các trang con
 ========================= */
 
+
+/* Khung tiêu đề trang */
 .page-header{
-    margin-top:85px;
-    background:var(--white);
-    color:var(--secondary);
-    padding:90px 20px;
-    text-align:center;
+    margin-top:85px;                   /* Khoảng cách phía trên */
+    background:var(--white);           /* Nền trắng */
+    color:var(--secondary);             /* Màu chữ */
+    padding:90px 20px;                 /* Khoảng cách trên/dưới và trái/phải */
+    text-align:center;                 /* Căn giữa nội dung */
 }
 
 .page-header h1{
-    font-size:3rem;
+    font-size:3rem;                    /* Kích thước tiêu đề lớn */
 }
 
 /* =========================
-      CONTAINER
+CONTAINER - Khung chứa nội dung chính
 ========================= */
-
 .container{
-    max-width:60%;
-    margin:auto;
-    padding:80px 25px;
+    width:100%;                         /* Chiếm toàn bộ chiều rộng có thể */
+    max-width:var(--max-width);         /* Giới hạn chiều rộng nội dung */
+    margin:0 auto;                      /* Căn giữa container */
+    padding:80px 25px;                  /* Khoảng cách trên/dưới và trái/phải */
+    background:var(--white);             /* Nền trắng */
 }
 
+/* Tiêu đề cấp 2 trong container */
 .container h2{
-    color:var(--primary);
-    margin-bottom:25px;
-    font-size:2rem;
+    color:var(--secondary);              /* Màu tiêu đề */
+    margin-bottom:25px;                 /* Khoảng cách dưới tiêu đề */
+    font-size:2rem;                     /* Kích thước chữ */
 }
 
+/* Đoạn văn trong container */
 .container p{
-    margin-bottom:20px;
-}
-
-.container{
-    background:var(--white);
-}
-/* =========================
-      PROFILE
-========================= */
-
-.profile{
-    width:240px;
-    border-radius:50%;
-    margin:0 auto 40px;
-    box-shadow:var(--shadow);
+    margin-bottom:20px;                 /* Khoảng cách giữa các đoạn văn */
 }
 
 /* =========================
-      CARDS
+CARDS - Các khối nội dung dạng thẻ
 ========================= */
 
+/* Khung chứa nhiều card */
 .cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-    margin-top:30px;
+    display:grid;                              /* Sử dụng CSS Grid để bố trí */
+    grid-template-columns:repeat(
+        auto-fit,
+        minmax(280px,1fr)
+    );                                         /* Tự động chia cột theo kích thước màn hình */
+    gap:30px;                                  /* Khoảng cách giữa các card */
+    margin-top:30px;                           /* Khoảng cách phía trên nhóm card */
 }
 
+/* Thiết kế từng card */
 .card{
-    background:#f3f4f6;
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:30px;
-    box-shadow:none;
-    transition:.3s;
+    background:#f3f4f6;                        /* Màu nền card */
+    border:1px solid var(--border);            /* Đường viền nhẹ */
+    border-radius:12px;                        /* Bo góc card */
+    padding:30px;                              /* Khoảng cách nội dung bên trong */
+    box-shadow:none;                           /* Không sử dụng bóng */
+    transition:all .3s ease;                   /* Hiệu ứng khi hover */
 }
 
+/* Hiệu ứng khi di chuột vào card */
 .card:hover{
-    background:#eceff1;
-    transform:translateY(-4px);
+    background:#eceff1;                        /* Đổi màu nền nhẹ */
+    transform:translateY(-4px);                /* Nâng card lên */
 }
+
+/* Tiêu đề trong card */
 .card h3{
-    color:var(--primary);
-    margin-bottom:15px;
+    color:var(--primary);                      /* Màu tiêu đề */
+    margin-bottom:15px;                        /* Khoảng cách dưới tiêu đề */
 }
 
 /* =========================
-      LIST
+LIST - Thiết lập danh sách
 ========================= */
-
-ul{
-    padding-left:22px;
+/* Danh sách nội dung trong trang */
+.container ul{
+    padding-left:22px;              /* Tạo khoảng thụt đầu dòng cho danh sách */
 }
-li{
-    margin-bottom:10px;
+
+/* Khoảng cách giữa các mục */
+.container li{
+    margin-bottom:10px;              /* Tạo khoảng cách dọc giữa các dòng */
 }
 
 /* =========================
-      TABLE
+TABLE - Thiết lập bảng dữ liệu
 ========================= */
+
+/* Bảng chính */
 table{
-    background:var(--white);
+    width:100%;                      /* Bảng chiếm toàn bộ chiều rộng container */
+    background:var(--white);         /* Nền trắng */
+    border-collapse:collapse;        /* Gộp các đường viền */
+    margin-top:30px;                 /* Khoảng cách phía trên bảng */
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:30px;
-}
+/* Tiêu đề bảng */
 th{
-    background:var(--primary);
-    color:white;
+    background:var(--secondary);       /* Màu nền tiêu đề */
+    color:var(--white);              /* Màu chữ trắng */
 }
-
-th,td{
-    padding:15px;
-    border:1px solid var(--border);
-    text-align:left;
+/* Ô tiêu đề và ô dữ liệu */
+th,
+td{
+    padding:15px;                    /* Khoảng cách bên trong ô */
+    border:1px solid var(--border);  /* Đường viền */
+    text-align:left;                 /* Căn chữ sang trái */
 }
 
 /* =========================
-      GALLERY
+GALLERY -    Hiển thị bộ sưu tập hình ảnh
 ========================= */
 
+/* Khung chứa các ảnh */
 .gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
+    display:grid;                           /* Sử dụng CSS Grid */
+    grid-template-columns:repeat(
+        auto-fit,
+        minmax(280px,1fr)
+    );                                      /* Tự động chia cột theo kích thước màn hình */
+    gap:20px;                               /* Khoảng cách giữa các ảnh */
 }
 
+/* Hình ảnh trong gallery */
 .gallery img{
-    border-radius:12px;
-    border:1px solid var(--border);
-    box-shadow:none;
-    transition:.3s;
+    width:100%;                             /* Ảnh chiếm toàn bộ chiều rộng ô */
+    border-radius:12px;                     /* Bo góc ảnh */
+    border:1px solid var(--border);          /* Viền nhẹ */
+    box-shadow:none;                        /* Không dùng bóng */
+    transition:transform .3s ease;           /* Hiệu ứng phóng to khi hover */
 }
 
+/* Hiệu ứng khi rê chuột vào ảnh */
 .gallery img:hover{
-    transform:scale(1.03);
+    transform:scale(1.03);                  /* Phóng to nhẹ ảnh */
 }
+
 
 /* =========================
-      FOOTER
+FOOTER -   Chân trang website
 ========================= */
 
 footer{
-    background:var(--white);
-    color:var(--gray);
-    border-top:1px solid var(--border);
-    text-align:center;
-    padding:40px 20px;
-    margin-top:60px;
+    background:var(--white);                /* Nền footer */
+    color:var(--gray);                      /* Màu chữ phụ */
+    border-top:1px solid var(--border);      /* Đường kẻ phân cách */
+    text-align:center;                       /* Căn giữa nội dung */
+    padding:40px 20px;                       /* Khoảng cách bên trong */
+    margin-top:60px;                         /* Khoảng cách với phần nội dung phía trên */
 }
 
 /* =========================
-      UTILITIES
+UTILITIES - Các class hỗ trợ dùng nhanh
+========================= */
+/* Căn giữa nội dung */
+.text-center{
+    text-align:center;          /* Căn chữ hoặc nội dung theo chiều ngang */
+}
+
+/* Khoảng cách phía trên 20px */
+.mt-2{
+    margin-top:20px;            /* Tạo khoảng cách phía trên */
+}
+
+/* Khoảng cách phía trên 30px */
+.mt-3{
+    margin-top:30px;            /* Tạo khoảng cách phía trên lớn hơn */
+}
+
+/* Khoảng cách phía trên 50px */
+.mt-5{
+    margin-top:50px;            /* Tạo khoảng cách phía trên lớn */
+}
+
+/* =========================
+RESPONSIVE - Điều chỉnh giao diện cho tablet và mobile
 ========================= */
 
-.text-center{
-    text-align:center;
-}
-.mt-2{
-    margin-top:20px;
-}
-
-.mt-3{
-    margin-top:30px;
-}
-
-.mt-5{
-    margin-top:50px;
-}
-
 /* =========================
-      RESPONSIVE
+   TABLET + MOBILE   Màn hình nhỏ hơn 900px
 ========================= */
 
 @media(max-width:900px){
+    /* =========================
+       MOBILE NAVBAR BUTTON -  Nút hamburger
+    ========================= */
 
-nav{
-    flex-direction:column;
-    gap:20px;
+    .menu-toggle{
+        display:block;                  /* Hiện nút hamburger */
+        background:none;                /* Không có nền */
+        border:none;                    /* Bỏ viền */
+        font-size:2rem;                 /* Kích thước biểu tượng */
+        cursor:pointer;                 /* Con trỏ dạng click */
+        color:var(--primary);           /* Màu nút */
+    }
+
+    /* Navbar chuyển sang dạng dọc */
+    nav{
+        flex-direction:column;          /* Nút + menu xếp dọc */
+        align-items:center;              /* Căn giữa */
+        gap:20px;                       /* Khoảng cách giữa nút và menu */
+    }
+
+    /* Danh sách menu mobile */
+    nav ul{
+        display:none;                   /* Ẩn menu ban đầu */
+        flex-direction:column;           /* Menu xổ xuống theo chiều dọc */
+        width:100%;                      /* Chiếm toàn bộ chiều rộng */
+        justify-content:center;          /* Căn giữa */
+        align-items:center;              /* Căn giữa */
+        gap:15px;                        /* Khoảng cách giữa các mục */
+        padding:20px 0;                  /* Khoảng cách trên dưới */
+    }
+
+    /* Khi click nút hamburger */
+    nav ul.show{
+        display:flex;                   /* Hiện menu */
+    }
+    /* Tiêu đề chính Hero */
+    .hero-text h1{
+        font-size:2rem;                 /* Giảm kích thước */
+    }
+    /* Tiêu đề phụ Hero */
+    .hero-text h2{
+        font-size:1.4rem;               /* Giảm kích thước */
+    }
+    /* Tiêu đề trang con */
+    .page-header h1{
+        font-size:2.2rem;               /* Điều chỉnh kích thước */
+    }
 }
 
-nav ul{
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:15px;
-}
-
-.hero-text h1{
-    font-size:2rem;
-}
-
-.hero-text h2{
-    font-size:1.4rem;
-}
-
-.page-header h1{
-    font-size:2.2rem;
-}
-}
+/* =========================
+SMALL MOBILE -    Màn hình nhỏ hơn 600px
+========================= */
 @media(max-width:600px){
-.container{
-    padding:60px 20px;
-}
-.hero-text h1{
-    font-size:2.2rem;
-}
+    /* Nội dung chính */
+    .container{
+        width:100%;                     /* Dùng toàn bộ chiều rộng */
+        padding:60px 20px;              /* Giảm padding */
+    }
 
-.hero-text p{
-    font-size:1rem;
-}
+    /* Tiêu đề Hero */
+    .hero-text h1{
+        font-size:1.8rem;               /* Nhỏ hơn tablet */
+    }
+    /* Nội dung mô tả */
+    .hero-text p{
+        font-size:1rem;                 /* Dễ đọc trên điện thoại */
+    }
+    
+    /* Card một cột */
+    .cards{
+        grid-template-columns:1fr;
+    }
 
-.profile{
-
-    width:180px;
-
-}
-
-.cards{
-    grid-template-columns:1fr;
-}
-
-.gallery{
-    grid-template-columns:1fr;
-}
-
+    /* Gallery một cột */
+    .gallery{
+        grid-template-columns:1fr;
+    }
 }
 
 /* =========================
