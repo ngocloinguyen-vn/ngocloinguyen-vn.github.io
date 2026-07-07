@@ -19,3 +19,21 @@ menuToggle.addEventListener("click", () => {
     navMenu.classList.toggle("show");
 });
 
+// =========================
+// MOBILE NAVBAR TOGGLE
+// Mở / đóng menu trên mobile
+// =========================
+
+const menuToggle = document.querySelector(".menu-toggle");
+const navMenu = document.querySelector("nav ul");
+
+
+if(menuToggle){
+
+    menuToggle.addEventListener("click", function(){
+
+        navMenu.classList.toggle("show");
+
+    });
+
+}
