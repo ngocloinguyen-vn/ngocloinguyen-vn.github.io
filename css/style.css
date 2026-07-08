@@ -399,8 +399,8 @@ RESPONSIVE - Điều chỉnh giao diện cho tablet và mobile
     }
 
     /* Khi click nút hamburger */
-    nav ul.show{
-        display:flex;                   /* Hiện menu */
+   .navbar ul.show{
+       display:flex;
     }
     /* Tiêu đề chính Hero */
     .hero-text h1{
