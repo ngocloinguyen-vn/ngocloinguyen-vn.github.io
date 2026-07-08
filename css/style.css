@@ -201,13 +201,13 @@ CONTAINER - Khung chứa nội dung chính
 /* Tiêu đề cấp 2 trong container */
 .container h2{
     color:var(--secondary);              /* Màu tiêu đề */
-    margin-bottom:25px;                 /* Khoảng cách dưới tiêu đề */
-    font-size:2rem;                     /* Kích thước chữ */
+    margin-bottom:20px;                 /* Khoảng cách dưới tiêu đề */
+    font-size:1.8rem;                     /* Kích thước chữ */
 }
 
 /* Đoạn văn trong container */
 .container p{
-    margin-bottom:20px;                 /* Khoảng cách giữa các đoạn văn */
+    margin-bottom:10px;                 /* Khoảng cách giữa các đoạn văn */
 }
 
 /* =========================
