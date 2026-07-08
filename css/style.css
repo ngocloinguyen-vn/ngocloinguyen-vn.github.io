@@ -133,14 +133,14 @@ HERO - Phần banner lớn ở trang chủ
 }
 
 .hero-text h1{
-    font-size:3rem;                    /* Kích thước tiêu đề lớn */
-    margin-bottom:20px;                /* Khoảng cách dưới tiêu đề */
+    font-size:1.8rem;                    /* Kích thước tiêu đề lớn */
+    margin-bottom:10px;                /* Khoảng cách dưới tiêu đề */
     letter-spacing:3px;                /* Tăng khoảng cách giữa các ký tự */
 }
 
 .hero-text p{
     font-size:1.5rem;                  /* Kích thước chữ mô tả */
-    margin-bottom:40px;                /* Khoảng cách trước phần tiếp theo */
+    margin-bottom:10px;                /* Khoảng cách trước phần tiếp theo */
 }
 
 .header-caption{
@@ -619,7 +619,7 @@ RESPONSIVE PROJECT - Chuyển sang dạng dọc trên mobile
 }
 
 /* =========================
-YOUTUBE VIDEO
+      YOUTUBE VIDEO
 ========================= */
 
 /* Khung chứa toàn bộ phần video */
