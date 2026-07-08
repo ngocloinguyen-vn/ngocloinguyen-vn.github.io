@@ -17,6 +17,12 @@
 <body>
     <header>
         <nav class="navbar">
+            
+            <!-- Nút hamburger chỉ hiện trên mobile -->
+        <button class="menu-toggle" aria-label="Open menu">
+            ☰
+        </button>
+            
             <ul>
                 <li><a href="../">HOME</a></li>
                 <li><a class="active" href="../aboutme/">ABOUT</a></li>
@@ -30,16 +36,17 @@
             </ul>
         </nav>
     </header>
-  
-<section class="page-hero">
+
+<div class="page-hero" style="--hero-bg:url('../aboutme/aboutme1.jpg')">
     <div class="page-hero-text">
-   <h1>curriculum vitae</h1>     
+        <h1>curriculum vitae</h1>
     </div>
-    </section>
+</div>
+    
     
 <section class="container">
 
- <h2>Position</h2>
+ <h2>position</h2>
     
     <div class="timeline">
 
@@ -65,7 +72,7 @@
 
     </div>
 
-    <h2>Education</h2>
+    <h2>education</h2>
 
     <div class="timeline">
 
@@ -89,45 +96,30 @@
             </p>
         </div>
 
-        <!-- BSc -->
-        <div class="timeline-item">
-            <h3>B.Sc. Biotechnology and Pharmacology | 2012 - 2015</h3>
-            <p>
-                Department of Biotechnology and Pharmacology,<br>
-                University of Science and Technology of Hanoi.
-            </p>
-        </div>
+       <div class="timeline-item">
 
-    </div>
+     <h3>B.Sc. Biotechnology and Pharmacology | 2012 - 2015</h3>
+    <p>
+        Department of Biotechnology and Pharmacology,<br>
+        University of Science and Technology of Hanoi.
+    </p>
 
+    <p>Intern Student | 2015</p>
+    <p>
+        Department of Physiology, Faculty of Science,<br>
+        Mahidol University, Bangkok, Thailand.
+    </p>
 
-    <h2>Internships</h2>
+    <p>Intern Student | 2013</p>
+    <p>
+        Plant Cell Genetics Laboratory,<br>
+        Institute of Biotechnology, VAST, Hanoi, Vietnam.
+    </p>
 
+</div>
+
+    <h2>memberships</h2>
     <div class="timeline">
-
-        <div class="timeline-item">
-            <h3>Intern Student | 2015</h3>
-            <p>
-                Department of Physiology, Faculty of Science,<br>
-                Mahidol University, Bangkok.
-            </p>
-        </div>
-
-        <div class="timeline-item">
-            <h3>Intern Student | 2013</h3>
-            <p>
-                Plant Cell Genetics Laboratory,<br>
-                Institute of Biotechnology, VAST, Hanoi.
-            </p>
-        </div>
-
-    </div>
-
-
-    <h2>Membership</h2>
-
-    <div class="timeline">
-
         <div class="timeline-item">
             <p>
                 sedaDNA Scientific Society<br>
@@ -136,15 +128,12 @@
                 </a>
             </p>
         </div>
-
     </div>
 
 </section>
-
+    
     <footer>
-
-        <p>© 2026 Ngoc-Loi Nguyen</p>
-
+        <p>© 2020 Ngoc-Loi Nguyen</p>
     </footer>
 
     <script src="../js/script.js"></script>
