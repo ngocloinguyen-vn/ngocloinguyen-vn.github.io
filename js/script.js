@@ -1,36 +1,38 @@
+// =========================
 // Highlight navbar after scrolling
+// Thêm hiệu ứng cho header khi cuộn trang
+// =========================
 
 window.addEventListener("scroll", () => {
 
     const header = document.querySelector("header");
 
-    if (window.scrollY > 50) {
-        header.classList.add("scrolled");
-    } else {
-        header.classList.remove("scrolled");
+    if(header){
+
+        if(window.scrollY > 50){
+            header.classList.add("scrolled");
+        } 
+        else {
+            header.classList.remove("scrolled");
+        }
+
     }
 
 });
 
-const menuToggle = document.querySelector(".menu-toggle");
-const navMenu = document.querySelector(".navbar ul");
-
-menuToggle.addEventListener("click", () => {
-    navMenu.classList.toggle("show");
-});
 
 // =========================
 // MOBILE NAVBAR TOGGLE
-// Mở / đóng menu trên mobile
+// Mở / đóng menu hamburger trên điện thoại
 // =========================
 
 const menuToggle = document.querySelector(".menu-toggle");
-const navMenu = document.querySelector("nav ul");
+const navMenu = document.querySelector(".navbar ul");
 
 
-if(menuToggle){
+if(menuToggle && navMenu){
 
-    menuToggle.addEventListener("click", function(){
+    menuToggle.addEventListener("click", () => {
 
         navMenu.classList.toggle("show");
 
