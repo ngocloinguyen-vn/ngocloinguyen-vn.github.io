@@ -532,7 +532,7 @@ RESPONSIVE PROJECT - Chuyển sang dạng dọc trên mobile
 .social-links{
     list-style:none;                 /* Bỏ dấu chấm đầu dòng của danh sách */
     display:flex;                    /* Hiển thị các icon theo hàng ngang */
-    gap:15px;                        /* Khoảng cách giữa các biểu tượng */
+    gap:20px;                        /* Khoảng cách giữa các biểu tượng */
     padding:0;                       /* Bỏ khoảng đệm mặc định của ul */
     margin-top:20px;                 /* Tạo khoảng cách với nội dung phía trên */
     align-items:center;              /* Căn giữa các icon theo chiều dọc */
@@ -552,7 +552,7 @@ RESPONSIVE PROJECT - Chuyển sang dạng dọc trên mobile
 }
 
 /* =========================
-  Publication-item
+    PUBlICATION ITEMS
  ========================= */
 
 /* Khối chứa một publication */
@@ -598,7 +598,7 @@ RESPONSIVE PROJECT - Chuyển sang dạng dọc trên mobile
     }
 }
 /* =========================
-Visitor Widget
+   VISITOR WIDGET
 ========================= */
 
 /* Khung chứa visitor widget */
