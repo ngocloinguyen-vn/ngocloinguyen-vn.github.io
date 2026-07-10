@@ -40,50 +40,79 @@ if(menuToggle && navMenu){
 
 }
 
+
+
 // =========================
 // GALLERY IMAGE ZOOM
+// Click ảnh để phóng to
+// Click lại hoặc nền tối để trở về grid
+// Chỉ áp dụng cho gallery.multi
 // =========================
 
-document.querySelectorAll(".gallery.multi img").forEach(img => {
+const galleryImages = document.querySelectorAll(".gallery.multi img");
+
+
+galleryImages.forEach(img => {
 
     img.addEventListener("click", function(){
 
+        const currentOverlay = document.querySelector(".gallery-overlay");
+
+
+        // Nếu ảnh đang zoom -> trở lại bình thường
         if(this.classList.contains("zoom")){
 
             this.classList.remove("zoom");
 
-            document.querySelector(".gallery-overlay")?.remove();
+            if(currentOverlay){
+                currentOverlay.remove();
+            }
 
             return;
 
         }
 
-        // đóng ảnh khác nếu đang mở
-        document.querySelectorAll(".gallery.multi img.zoom").forEach(i=>{
-            i.classList.remove("zoom");
-        });
 
-        document.querySelector(".gallery-overlay")?.remove();
+        // Đóng các ảnh đang zoom khác
+        document.querySelectorAll(".gallery.multi img.zoom")
+            .forEach(image => {
 
-        // tạo nền tối
-        const overlay=document.createElement("div");
-        overlay.className="gallery-overlay";
+                image.classList.remove("zoom");
+
+            });
+
+
+        // Xóa overlay cũ nếu có
+        if(currentOverlay){
+            currentOverlay.remove();
+        }
+
+
+        // Tạo nền tối
+        const overlay = document.createElement("div");
+
+        overlay.className = "gallery-overlay";
 
         document.body.appendChild(overlay);
 
+
+        // Zoom ảnh được chọn
         this.classList.add("zoom");
 
-        overlay.onclick=()=>{
+
+        // Click nền tối để đóng
+        overlay.addEventListener("click", () => {
 
             this.classList.remove("zoom");
+
             overlay.remove();
 
-        };
+        });
+
 
     });
 
 });
-
 
 
 
