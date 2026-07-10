@@ -471,7 +471,7 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
 }
 
 .gallery.multi{
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(3,1fr);   /* Luôn 3 cột */
 }
 
 /* =========================
@@ -482,11 +482,11 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
     text-align:center;
 }
 
-/* Thumbnail */
 .gallery-item img{
     width:100%;
-    aspect-ratio:1 / 1;          /* Luôn là hình vuông */
-    object-fit:cover;            /* Cắt vừa khung */
+    aspect-ratio:1/1;
+    object-fit:cover;
+
     display:block;
 
     border-radius:12px;
@@ -494,74 +494,67 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
 
     cursor:pointer;
 
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease;
+    transition:.3s ease;
+}
+
+.gallery.single img{
+    aspect-ratio:auto;
+    cursor:default;
 }
 
 .gallery-item img:hover{
     transform:scale(1.03);
-    box-shadow:0 8px 20px rgba(0,0,0,.18);
-}
-
-/* Caption */
-
-.gallery-item p{
-    margin-top:12px;
-    font-size:1rem;
-    color:#555;
 }
 
 /* =========================
-   Lightbox
+   Image Zoom
 ========================= */
 
-.lightbox{
-    display:none;
+.gallery-item img.zoom{
 
     position:fixed;
-    inset:0;
 
-    background:rgba(0,0,0,.9);
+    top:50%;
+    left:50%;
 
-    justify-content:center;
-    align-items:center;
+    transform:translate(-50%,-50%);
+
+    width:auto;
+    max-width:90vw;
+
+    height:auto;
+    max-height:90vh;
+
+    aspect-ratio:auto;
+    object-fit:contain;
 
     z-index:9999;
 
-    padding:40px;
+    cursor:zoom-out;
+
+    box-shadow:0 0 30px rgba(0,0,0,.45);
+
+    background:white;
 }
 
-.lightbox.show{
-    display:flex;
-}
+/* nền tối */
 
-.lightbox img{
-    max-width:95%;
-    max-height:95%;
-    border-radius:8px;
-}
+.gallery-overlay{
 
-.lightbox-close{
+    position:fixed;
 
-    position:absolute;
+    inset:0;
 
-    top:20px;
-    right:35px;
+    background:rgba(0,0,0,.8);
 
-    font-size:42px;
-    color:white;
-
-    cursor:pointer;
-
-    user-select:none;
+    z-index:9998;
 }
 
 /* =========================
    Mobile
 ========================= */
 
-@media (max-width:768px){
+@media(max-width:900px){
 
     .gallery.multi{
         grid-template-columns:repeat(2,1fr);
@@ -569,14 +562,13 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
 
 }
 
-@media (max-width:500px){
+@media(max-width:600px){
 
     .gallery.multi{
         grid-template-columns:1fr;
     }
 
 }
-
 
   
 /* =========================
