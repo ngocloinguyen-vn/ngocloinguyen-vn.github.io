@@ -39,3 +39,51 @@ if(menuToggle && navMenu){
     });
 
 }
+
+// =========================
+// GALLERY IMAGE ZOOM
+// =========================
+
+document.querySelectorAll(".gallery.multi img").forEach(img => {
+
+    img.addEventListener("click", function(){
+
+        if(this.classList.contains("zoom")){
+
+            this.classList.remove("zoom");
+
+            document.querySelector(".gallery-overlay")?.remove();
+
+            return;
+
+        }
+
+        // đóng ảnh khác nếu đang mở
+        document.querySelectorAll(".gallery.multi img.zoom").forEach(i=>{
+            i.classList.remove("zoom");
+        });
+
+        document.querySelector(".gallery-overlay")?.remove();
+
+        // tạo nền tối
+        const overlay=document.createElement("div");
+        overlay.className="gallery-overlay";
+
+        document.body.appendChild(overlay);
+
+        this.classList.add("zoom");
+
+        overlay.onclick=()=>{
+
+            this.classList.remove("zoom");
+            overlay.remove();
+
+        };
+
+    });
+
+});
+
+
+
+
