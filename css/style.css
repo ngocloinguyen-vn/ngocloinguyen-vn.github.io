@@ -286,31 +286,41 @@ td{
 }
 
 /* =========================
-GALLERY -    Hiển thị bộ sưu tập hình ảnh
+   GALLERY - Image Gallery
 ========================= */
 
-/* Khung chứa các ảnh */
+/* Khung chứa gallery */
 .gallery{
-    display:grid;                           /* Sử dụng CSS Grid */
-    grid-template-columns:repeat(
-        auto-fit,
-        minmax(280px,1fr)
-    );                                      /* Tự động chia cột theo kích thước màn hình */
-    gap:20px;                               /* Khoảng cách giữa các ảnh */
+    display:grid;
+    gap:20px;
 }
 
-/* Hình ảnh trong gallery */
+/* Chỉ có 1 ảnh */
+.gallery:has(img:only-child){
+    grid-template-columns:1fr;
+    justify-items:center;
+}
+
+/* Có từ 2 ảnh trở lên */
+.gallery:has(img:nth-child(2)){
+    grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+}
+
+/* Hình ảnh */
 .gallery img{
-    width:100%;                             /* Ảnh chiếm toàn bộ chiều rộng ô */
-    border-radius:12px;                     /* Bo góc ảnh */
-    border:1px solid var(--border);          /* Viền nhẹ */
-    box-shadow:none;                        /* Không dùng bóng */
-    transition:transform .3s ease;           /* Hiệu ứng phóng to khi hover */
+    display:block;
+    width:100%;
+    max-width:1200px;              /* Chỉ có tác dụng khi 1 ảnh */
+    height:auto;
+    margin:0 auto;
+    border-radius:12px;
+    border:1px solid var(--border);
+    transition:transform .3s ease;
 }
 
-/* Hiệu ứng khi rê chuột vào ảnh */
+/* Hover */
 .gallery img:hover{
-    transform:scale(1.03);                  /* Phóng to nhẹ ảnh */
+    transform:scale(1.03);
 }
 
 
