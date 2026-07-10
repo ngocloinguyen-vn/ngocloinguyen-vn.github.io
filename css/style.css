@@ -411,10 +411,39 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
     .cards{
         grid-template-columns:1fr;
     }
+  
+  .gallery{
+    grid-template-columns:1fr;
+}
 
+}
+
+
+/* =========================
+      GALLERY
+========================= */
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+.gallery img{
+    border-radius:12px;
+    border:1px solid var(--border);
+    box-shadow:none;
+    transition:.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.03);
+}
+  
 /* =========================
    GALLERY - Image Gallery
 ========================= */
+  
 
 /* Mỗi nhóm gallery (1 section) */
 .gallery-section{
