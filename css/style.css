@@ -285,44 +285,6 @@ td{
     text-align:left;                 /* Căn chữ sang trái */
 }
 
-/* =========================
-   GALLERY - Image Gallery
-========================= */
-
-/* Khung chứa gallery */
-.gallery{
-    display:grid;
-    gap:20px;
-}
-
-/* Chỉ có 1 ảnh */
-.gallery:has(img:only-child){
-    grid-template-columns:1fr;
-    justify-items:center;
-}
-
-/* Có từ 2 ảnh trở lên */
-.gallery:has(img:nth-child(2)){
-    grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
-}
-
-/* Hình ảnh */
-.gallery img{
-    display:block;
-    width:100%;
-    max-width:1200px;              /* Chỉ có tác dụng khi 1 ảnh */
-    height:auto;
-    margin:0 auto;
-    border-radius:12px;
-    border:1px solid var(--border);
-    transition:transform .3s ease;
-}
-
-/* Hover */
-.gallery img:hover{
-    transform:scale(1.03);
-}
-
 
 /* =========================
 FOOTER -   Chân trang website
@@ -450,12 +412,90 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
         grid-template-columns:1fr;
     }
 
-    /* Gallery một cột */
-    .gallery{
-        grid-template-columns:1fr;
-    }
+/* =========================
+   GALLERY - Image Gallery
+========================= */
+
+/* Mỗi nhóm gallery (1 section) */
+.gallery-section{
+    padding:30px 20px;
 }
 
+/* Container của gallery
+   Có đường phân cách giống publication */
+.gallery-container{
+    padding-bottom:25px;
+    margin-bottom:30px;
+    border-bottom:1px solid #ddd;
+}
+
+/* =========================
+   Gallery Layout
+========================= */
+
+/* Khung gallery */
+.gallery{
+    display:grid;
+    gap:25px;
+}
+
+/* Gallery chỉ có 1 hình */
+.gallery.single{
+    grid-template-columns:1fr;
+    justify-items:center;
+}
+
+/* Gallery nhiều hình */
+.gallery.multi{
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
+
+/* =========================
+   Gallery Item
+========================= */
+
+.gallery-item{
+    text-align:center;
+}
+
+/* Hình ảnh */
+.gallery-item img{
+    display:block;
+    width:100%;
+    max-width:1200px;
+    height:auto;
+    margin:0 auto;
+    border-radius:12px;
+    border:1px solid var(--border);
+    transition:transform .3s ease;
+    object-fit:cover;
+}
+
+/* Hover */
+.gallery-item img:hover{
+    transform:scale(1.03);
+}
+
+/* Chú thích */
+.gallery-item p{
+    margin-top:15px;
+    font-size:1rem;
+    line-height:1.6;
+    color:#555;
+    text-align:center;
+}
+
+/* =========================
+   Mobile
+========================= */
+@media (max-width:768px){
+
+    .gallery.multi{
+        grid-template-columns:1fr;
+    }
+
+}
+  
 /* =========================
 PAGE HERO  Ảnh nền lớn cho các trang con
 ========================= */
