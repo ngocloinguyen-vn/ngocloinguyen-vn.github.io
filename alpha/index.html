@@ -42,38 +42,23 @@
 
 </header>
 
-
-<div class="page-hero" style="--hero-bg:url('../tutorials/tutorials1.jpg')">
-    <div class="page-hero-text">
-        <h1>Alpha Diversity in R</h1>
-    </div>
-</div>
-
-
 <section class="container">
-
 <div class="timeline">
-
 <div class="timeline-item">
 
 <h2>Alpha Diversity in R: Getting Started</h2>
-
 <p><strong>Date:</strong> July 01, 2025</p>
-
 <p>
 This tutorial introduces the basic concepts of alpha diversity analysis using R,
 with examples commonly applied to microbial amplicon sequencing data
 (ASVs or OTUs). The same workflow can easily be adapted to any ecological
 community dataset where rows represent samples and columns represent taxa.
 </p>
-
 </div>
-
 
 <div class="timeline-item">
 
-<h2>1. What is Alpha Diversity?</h2>
-
+<h3>1. What is Alpha Diversity?</h3>
 <p>
 Alpha diversity describes the diversity within a single sample or site.
 It is commonly used to evaluate both:
@@ -83,18 +68,15 @@ It is commonly used to evaluate both:
 <li><strong>Richness</strong> – the number of observed taxa (species, OTUs, or ASVs).</li>
 <li><strong>Evenness</strong> – how evenly individuals are distributed among taxa.</li>
 </ul>
-
+    
 <p>
 Together, these metrics provide an overview of community complexity within each sample.
 </p>
-
 </div>
 
-
 <div class="timeline-item">
-
-<h2>2. Species Accumulation and Rarefaction Curves</h2>
-
+<h3>2. Species Accumulation and Rarefaction Curves</h3>
+    
 <h3>Species Accumulation Curve</h3>
 
 <p>
@@ -116,20 +98,18 @@ numbers of sequencing reads.
 
 <div class="timeline-item">
 
-<h2>3. Common Alpha Diversity Indices</h2>
+<h3>3. Common Alpha Diversity Indices</h3>
 
 <ul>
 <li><strong>Observed Richness</strong> – Number of observed taxa.</li>
 <li><strong>Shannon Diversity</strong> – Considers both richness and evenness.</li>
 <li><strong>Simpson Diversity</strong> – Gives greater weight to dominant taxa.</li>
 </ul>
-
 </div>
-
 
 <div class="timeline-item">
 
-<h2>4. Should You Normalize the Data?</h2>
+<h3>4. Should You Normalize the Data?</h3>
 
 <p>
 The answer depends on the diversity metric and the biological question.
@@ -161,7 +141,7 @@ recommended for unbiased comparisons.
 
 <div class="timeline-item">
 
-<h2>5. Common Normalization Methods</h2>
+<h3>5. Common Normalization Methods</h3>
 
 <ul>
 <li><strong>Rarefaction</strong> – Random subsampling to equal sequencing depth. The most common approach for alpha diversity.</li>
@@ -180,7 +160,7 @@ and Shannon Diversity to minimize biases caused by unequal sequencing depth.
 
 <div class="timeline-item">
 
-<h2>6. Alpha Diversity Workflow in R</h2>
+<h3>6. Alpha Diversity Workflow in R</h3>
 
 <p>
 A typical alpha diversity analysis using the <strong>vegan</strong> package follows these steps:
@@ -217,23 +197,6 @@ Perform statistical tests (t-test, Wilcoxon, ANOVA, Kruskal-Wallis, etc.).
 </li>
 
 </ol>
-
-</div>
-
-
-<div class="timeline-item">
-
-<h2>Next Tutorial</h2>
-
-<p>
-The following sections will demonstrate the complete R workflow,
-including importing ASV tables, rarefaction, calculating alpha diversity,
-creating publication-quality figures, and performing statistical analyses.
-</p>
-
-<p>
-Each step includes annotated R code so you can adapt the workflow to your own datasets.
-</p>
 
 </div>
 
