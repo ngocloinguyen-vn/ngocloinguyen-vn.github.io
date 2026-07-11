@@ -159,8 +159,8 @@ BUTTON -  Nút bấm dùng trong website
     display:inline-block;             /* Cho phép padding nhưng vẫn nằm cùng dòng */
     background:var(--primary);         /* Màu nền nút */
     color:var(--white);                /* Màu chữ nút */
-    padding:14px 32px;                 /* Kích thước vùng bên trong nút */
-    border-radius:40px;                /* Bo tròn tạo dạng nút pill */
+    padding:8px 25px;                 /* Kích thước vùng bên trong nút */
+    border-radius:30px;                /* Bo tròn tạo dạng nút pill */
     transition:all .3s ease;            /* Hiệu ứng khi hover */
     font-weight:600;                   /* Chữ đậm */
 }
