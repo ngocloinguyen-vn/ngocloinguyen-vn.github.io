@@ -252,7 +252,7 @@ LIST - Thiết lập danh sách
 ========================= */
 /* Danh sách nội dung trong trang */
 .container ul{
-    padding-left:22px;              /* Tạo khoảng thụt đầu dòng cho danh sách */
+    padding-left:30px;              /* Tạo khoảng thụt đầu dòng cho danh sách */
 }
 
 /* Khoảng cách giữa các mục */
@@ -865,7 +865,14 @@ pre code {
     white-space: pre;
 }
 
+/* =========================
+  Tutorials
+========================= */
 
+
+.timeline-item {
+    margin-bottom: 40px;
+}
 
 
 
