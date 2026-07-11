@@ -190,7 +190,6 @@ OCE22_BL2_02 73508  18791     44       0      16       1       2       0       0
 </code></pre>
 
 <ul>
-
 <li>
 <strong>Species Accumulation Curve</strong>
 <ul>
@@ -215,10 +214,96 @@ specaccum_result <- specaccum(com, method = "random")
 plot(specaccum_result, xlab = "Number of Samples", ylab = "Number of ASVS")
 </code></pre>
     
+<img src="../alpha/species_accumulation_curve.png" 
+     alt="Species accumulation curve"
+     class="tutorial-image">
+    
+<p>Plot the rarefaction curve combined with metadata</p>
+
+<pre><code class="language-r">
+# Load sample metadata (assumed to match row order of 'com')
+metadata <- read.csv("meta_env.csv", row.names = 1, header = TRUE)
+
+head(metadata) 
+             station  year  year_layer layer 
+OCE22_BL1_01    BL01 OCE22 OCE22_water   SUR  
+OCE22_BL1_02    BL01 OCE22 OCE22_water   MID  
+OCE22_BL1_03    BL01 OCE22 OCE22_water   BOT    
+OCE22_BL2_01    BL02 OCE22 OCE22_water   SUR   
+OCE22_BL2_02    BL02 OCE22 OCE22_water   MID    
+OCE22_BL2_03    BL02 OCE22 OCE22_water   BOT 
+
+# Define line types for each sampling year
+lty_levels <- c("OCE22" = "solid", "OCE23" = "dotted")
+
+# Define colors for each layer type
+layer_colors <- c("SUR" = "#1f77b4", "MID" = "#2ca02c", "BOT" = "#ff7f0e", "SED" = "#d62728")
+
+# Map line types based on the year variable
+lty_map <- c("OCE22" = "solid", "OCE23" = "dashed")
+
+# Plot rarefaction curves
+rarecurve(
+  com, step = 20,  # sampling increment
+  label = FALSE,  # do not label sample names
+  col = layer_colors[as.character(metadata$layer)],  # color by layer
+  lty = lty_map[as.character(metadata$year)],  # line type by year
+  lwd = 2,  # line width
+  cex = 0.6,  # point size
+  ylim = c(0, 2000),  # y-axis limit for species richness
+  xlim = c(0, 160000),  # x-axis limit for sequencing depth
+  xlab = "Sequence depth",
+  ylab = "Number of ASVS")
+
+legend("bottomright",
+       legend = c("SUR", "MID", "BOT", "SED"), 
+       col = layer_colors, lty = 1, 
+       title = "Layer", cex = 0.8, 
+       bty = "n",  xjust = 0.5)  
+
+legend( "bottom",
+       legend = c("OCE22", "OCE23"), 
+       col = "black", lty = lty_levels, 
+       title = "Year", cex = 0.8, bty = "n")
+</code></pre>
+    
+<img src="../alpha/species_accumulation_curve2.png" 
+     alt="Species accumulation curve"
+     class="tutorial-image">
+
+<ul>
+<li>
+<strong>Normalization and Diversity Calculation</strong>
+</li>
+</ul> 
+<pre><code class="language-r">
+# Calculate total number of sequences (reads) per sample
+total_read <- rowSums(com)  
+# Calculate observed species richness per sample (number of unique species)
+observed_richness <- specnumber(com)
+ 
+# Find the minimum sequencing depth across all samples
+min_seq <- min(total_read)  
+min_seq  # Show the minimum sequencing depth
+
+# Normalize (rarefy) the community matrix to the minimum sequencing depth
+# This ensures fair comparison of richness across samples
+m_com <- rrarefy(com, min_seq)  
+
+# Calculate species richness again, now on the rarefied data
+richness <- rarefy((com, min_seq) # Expected richness (mean) for quick estimation only
+
+# or
+richness <- specnumber(m_com) # Observed richness after rarefied (Noralized richness)
 
 
-
-
+# Calculate the Shannon diversity index (accounts for both richness and evenness)
+shannon <- diversity(m_com, index = "shannon")
+</code></pre>
+    
+<img src="../alpha/species_accumulation_curve.png" 
+     alt="Species accumulation curve"
+     class="tutorial-image">
 
     
     
