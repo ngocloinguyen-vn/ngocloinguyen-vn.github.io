@@ -215,8 +215,35 @@ plot(specaccum_result, xlab = "Number of Samples", ylab = "Number of ASVS")
 </code></pre>
     
 <img src="../alpha/species_accumulation_curve.png" 
-     alt="Species accumulation curve"
-     class="tutorial-image">
+      class="tutorial-image">
+
+<ul>
+<li>
+<strong>Rarefaction Curve</strong>
+<ul>
+<li>
+<strong>A rarefaction curve</strong> plots the expected number of species against sequencing depth for each sample,
+    allowing comparison of species richness at a standardized read count.
+</li>
+
+<li>
+<strong> A steeper initial slope</strong> indicates high richness; if curves reach <strong>plateau</strong>,
+    it suggests sequencing captured most of the diversity, whereas non-plateaued curves imply under-sampling.
+</li>
+</ul>
+</li>
+</ul> 
+<pre><code class="language-r">
+# Set seed for reproducibility
+set.seed(123)
+
+rarecurve(com, step = 100, col = "blue", label = FALSE,
+          xlab = "Sequence depth",
+          ylab = "Number of ASVS")
+</code></pre>
+    
+<img src="../alpha/rarefaction_curve.png" 
+      class="tutorial-image">
     
 <p>Plot the rarefaction curve combined with metadata</p>
 
@@ -267,8 +294,7 @@ legend( "bottom",
        title = "Year", cex = 0.8, bty = "n")
 </code></pre>
     
-<img src="../alpha/species_accumulation_curve2.png" 
-     alt="Species accumulation curve"
+<img src="../alpha/rarefaction_curve2.png" 
      class="tutorial-image">
 
 <ul>
@@ -300,12 +326,143 @@ richness <- specnumber(m_com) # Observed richness after rarefied (Noralized rich
 # Calculate the Shannon diversity index (accounts for both richness and evenness)
 shannon <- diversity(m_com, index = "shannon")
 </code></pre>
-    
-<img src="../alpha/species_accumulation_curve.png" 
-     alt="Species accumulation curve"
-     class="tutorial-image">
 
+<ul>
+<li>
+<strong>Statistical Testing</strong>
+<ul>
+<li>
+  ​The <strong>Wilcoxon rank-sum test</strong>  is used because alpha diversity metrics often do not follow a normal distribution.
+</li>
+<li>
+  The <strong>Bonferroni correction adjusts p-values</strong> for multiple comparisons, reducing the chance of false positives.
+</li>
+<li>
+  <strong>Result interpretation:</strong> These tests tell you whether richness or Shannon diversity significantly differs
+    between any pairs of layers (e.g., SUR vs. BOT). Look for adjusted <strong>p-values < 0.05 (or < 0.1) for significance.</strong>
+</li>
+   
+</ul>
+</li>
+</ul> 
     
+<pre><code class="language-r">
+# Load metadata with sample information (e.g., layer, year, etc.)
+metadata <- read.csv("meta_env.csv", row.names = 1, header = TRUE)
+
+# Ensure 'layer' is treated as an ordered factor with a defined level order
+metadata$layer <- factor(metadata$layer, levels = c("SUR", "MID", "BOT", "SED"))
+
+# Add calculated diversity metrics (from previous analysis) into the metadata
+metadata$shannon <- shannon         # Shannon diversity index
+metadata$richness <- richness       # Species richness (from rarefied data)
+
+# Perform pairwise Wilcoxon tests (non-parametric) for richness between layers
+pairwise.wilcox.test(metadata$richness, metadata$layer,
+                     p.adjust.method = "bonferroni")
+
+        Pairwise comparisons using Wilcoxon rank sum exact test 
+
+data:  metadata$richness and metadata$layer 
+
+    SUR   MID   BOT  
+MID 1.000 -     -    
+BOT 1.000 1.000 -    
+SED 0.013 0.013 0.091
+
+P value adjustment method: bonferroni 
+
+# Perform pairwise Wilcoxon tests for Shannon diversity between layers
+pairwise.wilcox.test(metadata$shannon, metadata$layer,
+                     p.adjust.method = "bonferroni")
+
+	Pairwise comparisons using Wilcoxon rank sum exact test 
+
+data:  metadata$shannon and metadata$layer 
+
+    SUR   MID   BOT  
+MID 1.000 -     -    
+BOT 1.000 1.000 -    
+SED 0.091 0.390 1.000
+
+P value adjustment method: bonferroni 
+</code></pre>
+
+<ul>
+<li>
+<strong>Plot alpha indices using ggplot2</strong>
+</li>
+</ul> 
+<pre><code class="language-r">
+# Load required library for plotting
+library(ggplot2)
+
+# Define custom fill colors for different years
+sample_color = c("#0081a7", "#fb8500") 
+
+# Normalized Richness across layers
+# Create a boxplot showing normalized species richness per sample layer,
+# grouped and filled by sampling year
+p1 <- ggplot(metadata, aes(x = layer, y = richness, fill = year)) + 
+  geom_boxplot() +  # Draw boxplots
+  scale_fill_manual(values = sample_color) +  # Apply custom year colors
+  labs(x = "Sample Layer", y = "Richness") +  # Axis labels
+  theme_classic() +  # Clean theme
+  theme(
+    axis.text.y = element_text(colour = "black", size = 10, face = "bold"),
+    axis.text.x = element_text(colour = "black", size = 10, face = "bold"),
+    axis.title.x = element_text(face = "bold", size = 10, colour = "black"),
+    axis.title.y = element_text(face = "bold", size = 10, colour = "black")
+  ) +
+  stat_compare_means(
+    method = "wilcox.test",  # Non-parametric pairwise test
+    comparisons = list(
+      c("SUR", "BOT"), 
+      c("SUR", "SED"),
+      c("MID", "SED"), 
+      c("BOT", "SED")
+    ),  # Specific group comparisons
+    label = "p.signif",  # Show significance stars
+    hide.ns = TRUE  # Hide non-significant labels
+  )
+p1 
+
+
+# Shannon Diversity across layers
+
+# Create a similar boxplot showing Shannon diversity per sample layer,
+# again grouped by sampling year
+p2 <- ggplot(metadata, aes(x = layer, y = shannon, fill = year)) + 
+  geom_boxplot() +
+  scale_fill_manual(values = sample_color) +
+  labs(x = "Sample Layer", y = "Shannon Diversity") +
+  theme_classic() + 
+  theme(
+    axis.text.y = element_text(colour = "black", size = 10, face = "bold"),
+    axis.text.x = element_text(colour = "black", size = 10, face = "bold"),
+    axis.title.x = element_text(face = "bold", size = 10, colour = "black"),
+    axis.title.y = element_text(face = "bold", size = 10, colour = "black")
+  ) +
+  stat_compare_means(
+    method = "wilcox.test", 
+    comparisons = list(c("SUR", "SED")),  # Only compare SUR and SED layers based statictis tests
+    label = "p.signif", 
+    hide.ns = TRUE
+  )
+p2 
+
+library(patchwork)
+
+p1 + p2
+</code></pre>
+    
+<img src="../alpha/alpha_diversity.png" 
+      class="tutorial-image">
+
+<p>After analyzing alpha diversity,
+    the next step is to assess beta diversity to understand differences in species composition between samples, typically using ordination methods like NMDS or PCoA.
+</p>
+ 
     
   </div>  
 </section>
