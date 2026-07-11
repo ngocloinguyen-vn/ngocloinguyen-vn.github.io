@@ -842,8 +842,28 @@ RESPONSIVE PROJECT - Chuyển sang dạng dọc trên mobile
 
 }
 
+/* =========================
+   R code
+========================= */
 
+pre {
+    background: #f5f5f5;
+    border-left: 4px solid #2c7fb8;
+    padding: 15px;
+    overflow-x: auto;
+    border-radius: 5px;
+    line-height: 1.5;
+    margin: 20px 0;
+}
 
+code {
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+}
+
+pre code {
+    white-space: pre;
+}
 
 
 
