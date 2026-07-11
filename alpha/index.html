@@ -188,11 +188,41 @@ OCE22_BL1_03 10686  23020  19225       0      88       0       2       0      39
 OCE22_BL2_01  3195    346      0       0       0       0      69       0       0       7
 OCE22_BL2_02 73508  18791     44       0      16       1       2       0       0      50
 </code></pre>
-</div>
+
+<ul>
+
+<li>
+<strong>Species Accumulation Curve</strong>
+<ul>
+<li>
+<strong>Species Accumulation Curve</strong> shows how the number of observed ASVs/OTUs increases with additional sampling effort (e.g., number of samples).
+</li>
+
+<li>
+A <strong>plateau</strong> in the curve suggests that most species have been detected, while a rising curve indicates that more sampling may reveal additional species.
+</li>
+</ul>
+</li>
+</ul> 
+<pre><code class="language-r">
+# Set seed for reproducibility
+set.seed(123)
+
+# Generate species accumulation curve
+specaccum_result <- specaccum(com, method = "random")
+
+# Plot the accumulation curve
+plot(specaccum_result, xlab = "Number of Samples", ylab = "Number of ASVS")
+</code></pre>
+    
+
+
+
 
 
     
     
+  </div>  
 </section>
     
 
@@ -201,6 +231,10 @@ OCE22_BL2_02 73508  18791     44       0      16       1       2       0       0
 <p>© 2020 Ngoc-Loi Nguyen</p>
 
 </footer>
+    
+<script>
+Prism.highlightAll();
+</script>
 
 <script src="../js/script.js"></script>
 
