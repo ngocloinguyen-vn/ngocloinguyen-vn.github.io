@@ -856,7 +856,7 @@ CARDS - Các khối nội dung dạng thẻ
 /* Khung chứa nhiều card */
 .cards{
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1fr;
     gap:25px;
     margin-top:0px;
     width:100%;
