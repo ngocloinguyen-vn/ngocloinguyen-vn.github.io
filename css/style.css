@@ -874,7 +874,10 @@ pre code {
     margin-bottom: 40px;
 }
 
-
+code {
+    font-family: inherit;
+    font-size: inherit;
+}
 
 
 
