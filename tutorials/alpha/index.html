@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Alpha Diversity in R | Tutorials</title>
-    <meta name="description" content="Alpha Diversity in R tutorial">
+    <title>Alpha Diversity in R</title>
+    <meta name="description" content="Alpha diversity analysis in R using vegan package">
     <link rel="stylesheet" href="../css/style.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -17,8 +18,10 @@
 <body>
 
 <header>
+
     <nav class="navbar">
 
+        <!-- Mobile menu -->
         <button class="menu-toggle" aria-label="Open menu">
             ☰
         </button>
@@ -36,219 +39,239 @@
         </ul>
 
     </nav>
+
 </header>
 
-<main>
 
-<section class="page-header">
-    <h1>Alpha Diversity in R: Getting Started</h1>
-    <p><strong>Date:</strong> July 01, 2025</p>
-</section>
+<div class="page-hero" style="--hero-bg:url('../tutorials/tutorials1.jpg')">
+    <div class="page-hero-text">
+        <h1>Alpha Diversity in R</h1>
+    </div>
+</div>
 
-<section class="content">
+
+<section class="container">
+
+<div class="timeline">
+
+<div class="timeline-item">
+
+<h2>Alpha Diversity in R: Getting Started</h2>
+
+<p><strong>Date:</strong> July 01, 2025</p>
+
+<p>
+This tutorial introduces the basic concepts of alpha diversity analysis using R,
+with examples commonly applied to microbial amplicon sequencing data
+(ASVs or OTUs). The same workflow can easily be adapted to any ecological
+community dataset where rows represent samples and columns represent taxa.
+</p>
+
+</div>
+
+
+<div class="timeline-item">
 
 <h2>1. What is Alpha Diversity?</h2>
 
 <p>
-Alpha diversity describes the biodiversity <strong>within a single sample</strong>.
-It is one of the most commonly used ecological metrics for characterizing microbial,
-plant, and animal communities.
-</p>
-
-<p>
-Alpha diversity usually considers two major components:
+Alpha diversity describes the diversity within a single sample or site.
+It is commonly used to evaluate both:
 </p>
 
 <ul>
-    <li><strong>Richness</strong> – the number of observed species (or ASVs/OTUs).</li>
-    <li><strong>Evenness</strong> – how evenly individuals are distributed among species.</li>
+<li><strong>Richness</strong> – the number of observed taxa (species, OTUs, or ASVs).</li>
+<li><strong>Evenness</strong> – how evenly individuals are distributed among taxa.</li>
 </ul>
 
-<hr>
+<p>
+Together, these metrics provide an overview of community complexity within each sample.
+</p>
+
+</div>
+
+
+<div class="timeline-item">
 
 <h2>2. Species Accumulation and Rarefaction Curves</h2>
 
 <h3>Species Accumulation Curve</h3>
 
 <p>
-A species accumulation curve displays the cumulative number of species detected as
-additional samples are collected. It helps evaluate whether the sampling effort is
-sufficient to capture community diversity.
+A species accumulation curve shows the cumulative number of taxa detected
+as additional samples are included. It is useful for evaluating sampling effort
+and determining whether most diversity has been captured.
 </p>
 
 <h3>Rarefaction Curve</h3>
 
 <p>
-Rarefaction curves estimate species richness after standardizing sequencing depth.
-This allows fair comparison among samples with different numbers of sequencing reads.
+Rarefaction estimates expected richness after subsampling reads to a common
+sequencing depth. This allows fair comparisons among samples with different
+numbers of sequencing reads.
 </p>
 
-<hr>
+</div>
+
+
+<div class="timeline-item">
 
 <h2>3. Common Alpha Diversity Indices</h2>
 
-<table>
-    <tr>
-        <th>Index</th>
-        <th>Description</th>
-    </tr>
+<ul>
+<li><strong>Observed Richness</strong> – Number of observed taxa.</li>
+<li><strong>Shannon Diversity</strong> – Considers both richness and evenness.</li>
+<li><strong>Simpson Diversity</strong> – Gives greater weight to dominant taxa.</li>
+</ul>
 
-    <tr>
-        <td>Richness</td>
-        <td>Counts the number of observed ASVs, OTUs, or species.</td>
-    </tr>
+</div>
 
-    <tr>
-        <td>Shannon</td>
-        <td>Considers both richness and evenness.</td>
-    </tr>
 
-    <tr>
-        <td>Simpson</td>
-        <td>Gives greater weight to dominant species.</td>
-    </tr>
-
-</table>
-
-<hr>
+<div class="timeline-item">
 
 <h2>4. Should You Normalize the Data?</h2>
 
-<h3>Richness</h3>
-
 <p>
-Presence/absence richness calculated using functions such as
-<code>specnumber()</code> does not technically require normalization because it only
-counts the number of taxa present.
+The answer depends on the diversity metric and the biological question.
 </p>
 
-<h3>When Normalization is Recommended</h3>
-
-<p>
-Normalization becomes important when:
-</p>
+<h3>No normalization is generally required</h3>
 
 <ul>
-    <li>Sequencing depth differs substantially among samples.</li>
-    <li>Comparing abundance-based diversity indices.</li>
-    <li>Performing statistical comparisons between groups.</li>
+<li>Presence/absence richness using functions such as <code>specnumber()</code>.</li>
+</ul>
+
+<h3>Normalization is recommended when</h3>
+
+<ul>
+<li>Sequencing depth varies substantially among samples.</li>
+<li>Comparing abundance-sensitive diversity indices.</li>
+<li>Calculating Richness, Shannon, Simpson, or Evenness.</li>
 </ul>
 
 <p>
-Richness is generally more sensitive to sequencing depth than Shannon or Simpson
-indices because deeper sequencing detects more rare taxa.
+Richness is particularly sensitive to sequencing depth because deeper sequencing
+detects more rare taxa. Shannon and Simpson indices are generally less affected
+because they incorporate relative abundances, but normalization is still
+recommended for unbiased comparisons.
 </p>
 
-<hr>
+</div>
+
+
+<div class="timeline-item">
 
 <h2>5. Common Normalization Methods</h2>
 
-<table>
-
-<tr>
-    <th>Method</th>
-    <th>Recommended Use</th>
-</tr>
-
-<tr>
-    <td>Rarefaction</td>
-    <td>Standard approach for alpha diversity.</td>
-</tr>
-
-<tr>
-    <td>CSS</td>
-    <td>Useful for compositional microbiome data.</td>
-</tr>
-
-<tr>
-    <td>TSS</td>
-    <td>Simple total-sum scaling.</td>
-</tr>
-
-<tr>
-    <td>DESeq2</td>
-    <td>Mainly for differential abundance analysis.</td>
-</tr>
-
-</table>
+<ul>
+<li><strong>Rarefaction</strong> – Random subsampling to equal sequencing depth. The most common approach for alpha diversity.</li>
+<li><strong>CSS normalization</strong> – Suitable for compositional microbiome data.</li>
+<li><strong>TSS normalization</strong> – Converts counts to relative abundances.</li>
+<li><strong>DESeq2 normalization</strong> – Primarily used for differential abundance analysis.</li>
+</ul>
 
 <p>
-In this tutorial, we use <strong>rarefaction</strong> before calculating
-<strong>Normalized Richness</strong> and <strong>Shannon Diversity</strong> to reduce
-bias caused by unequal sequencing depth.
+In this tutorial, rarefaction is used prior to calculating Normalized Richness
+and Shannon Diversity to minimize biases caused by unequal sequencing depth.
 </p>
 
-<hr>
+</div>
 
-<h2>6. Workflow for Alpha Diversity Analysis</h2>
+
+<div class="timeline-item">
+
+<h2>6. Alpha Diversity Workflow in R</h2>
 
 <p>
-A typical alpha diversity workflow consists of the following steps:
+A typical alpha diversity analysis using the <strong>vegan</strong> package follows these steps:
 </p>
 
 <ol>
 
-<li>Prepare the ASV abundance table.</li>
+<li>
+Prepare the community matrix (samples in rows and taxa in columns).
+</li>
 
-<li>Filter low-quality samples or extremely rare taxa.</li>
+<li>
+Import sample metadata.
+</li>
 
-<li>Normalize sequencing depth (optional but recommended).</li>
+<li>
+Filter rare taxa and low-quality samples if necessary.
+</li>
 
-<li>Calculate diversity indices.</li>
+<li>
+Rarefy or normalize the sequencing data.
+</li>
 
-<li>Visualize results.</li>
+<li>
+Calculate alpha diversity indices (Richness, Shannon, Simpson).
+</li>
 
-<li>Perform statistical comparisons among groups.</li>
+<li>
+Visualize results using boxplots, violin plots, or scatter plots.
+</li>
+
+<li>
+Perform statistical tests (t-test, Wilcoxon, ANOVA, Kruskal-Wallis, etc.).
+</li>
 
 </ol>
 
-<hr>
+</div>
 
-<h2>7. Preparing Your Data</h2>
 
-<p>
-The input community matrix should contain:
-</p>
+<div class="timeline-item">
 
-<ul>
-
-<li>Rows = samples</li>
-
-<li>Columns = ASVs or OTUs</li>
-
-<li>Cell values = read counts</li>
-
-</ul>
-
-<p>Example:</p>
-
-<pre><code>
-           ASV1 ASV2 ASV3 ASV4
-Sample1      15    0   24    8
-Sample2       2   35    1    0
-Sample3      20    5    9   14
-</code></pre>
+<h2>Next Tutorial</h2>
 
 <p>
-Metadata should be stored separately and contain information such as treatment,
-sampling site, depth, season, or environmental variables.
+The following sections will demonstrate the complete R workflow,
+including importing ASV tables, rarefaction, calculating alpha diversity,
+creating publication-quality figures, and performing statistical analyses.
 </p>
 
-<hr>
+<p>
+Each step includes annotated R code so you can adapt the workflow to your own datasets.
+</p>
+
+</div>
+
+</div>
+
+</section>
 
 
+<section class="container">
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Next Step</h3>
+
+<p>
+Import ASV tables, perform rarefaction, calculate alpha diversity indices,
+and generate publication-quality figures using <strong>vegan</strong> and
+<strong>ggplot2</strong>.
+</p>
+
+<a class="button" href="01_prepare_data.html">Start Tutorial →</a>
+
+</div>
+
+</div>
+
+</section>
 
 
+<footer>
 
-    
+<p>© 2020 Ngoc-Loi Nguyen</p>
 
-    
-<footer>  
-    <footer>
-        <p>© 2020 Ngoc-Loi Nguyen</p>
-    </footer>
+</footer>
 
-    <script src="../js/script.js"></script>
+<script src="../js/script.js"></script>
 
 </body>
 
