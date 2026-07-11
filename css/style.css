@@ -858,7 +858,7 @@ pre {
 
 pre code {
     font-family: "Courier New", monospace;
-    font-size: 10px;          /* giảm kích thước chữ code */
+    font-size: 10px !important;         /* giảm kích thước chữ code */
 }
 
 
