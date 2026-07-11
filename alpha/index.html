@@ -113,7 +113,7 @@ they incorporate the relative abundance of species. Overall, normalization is
 still recommended to ensure fair comparisons across samples with different
 sequencing depths.
 </p>
-<h3>And how to normalize:</h3>
+<strong>And how to normalize:</strong>
 <ul>
 <li>
 <strong>Rarefaction (subsampling):</strong>
@@ -155,7 +155,31 @@ Your input should be a community matrix (samples as rows, ASV as columns).
 Consider filtering rare taxa or low-read samples beforehand.
 </p>
 </div>
-</div>    
+</div>   
+
+<div class="timeline-item">
+<pre><code>
+# Load Required Packages
+install.packages("vegan")  # if not already installed
+library(vegan)
+
+#input dataset and turn abundance data frame into a matrix
+com = read.csv("ASV_table.csv",row.names = 1, header= TRUE)
+com <- as.matrix(t(com))
+
+# Show first 5 rows and first 10 columns 
+com[1:5, 1:10]
+
+> com[1:5, 1:10]
+              ASV1  ASV10 ASV100 ASV1000 ASV1001 ASV1002 ASV1003 ASV1004 ASV1005 ASV1006
+OCE22_BL1_01     0 143055      7       0       1       0       2       0       0       3
+OCE22_BL1_02 38639  18080   1481     518     103       0       7       0       4     251
+OCE22_BL1_03 10686  23020  19225       0      88       0       2       0      39      44
+OCE22_BL2_01  3195    346      0       0       0       0      69       0       0       7
+OCE22_BL2_02 73508  18791     44       0      16       1       2       0       0      50
+</code></pre>
+</div>
+    
 </section>
     
 
