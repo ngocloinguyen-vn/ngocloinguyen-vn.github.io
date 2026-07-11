@@ -257,7 +257,7 @@ LIST - Thiết lập danh sách
 
 /* Khoảng cách giữa các mục */
 .container li{
-    margin-bottom:10px;              /* Tạo khoảng cách dọc giữa các dòng */
+    margin-bottom:0px;              /* Tạo khoảng cách dọc giữa các dòng */
 }
 
 /* =========================
