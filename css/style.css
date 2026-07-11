@@ -360,7 +360,7 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
     /* Nội dung chính */
     .container{
         width:100%;                     /* Dùng toàn bộ chiều rộng */
-        padding:60px 20px;              /* Giảm padding */
+        padding:5px 5px;              /* Giảm padding */
     }
 
     /* Tiêu đề Hero */
