@@ -216,35 +216,44 @@ CARDS - Các khối nội dung dạng thẻ
 
 /* Khung chứa nhiều card */
 .cards{
-    display:grid;                              /* Sử dụng CSS Grid để bố trí */
-    grid-template-columns:repeat(
-        auto-fit,
-        minmax(280px,1fr)
-    );                                         /* Tự động chia cột theo kích thước màn hình */
-    gap:30px;                                  /* Khoảng cách giữa các card */
-    margin-top:30px;                           /* Khoảng cách phía trên nhóm card */
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:25px;
+    margin-top:30px;
+    width:100%;
 }
+
 
 /* Thiết kế từng card */
 .card{
-    background:#f3f4f6;                        /* Màu nền card */
-    border:1px solid var(--border);            /* Đường viền nhẹ */
-    border-radius:12px;                        /* Bo góc card */
-    padding:30px;                              /* Khoảng cách nội dung bên trong */
-    box-shadow:none;                           /* Không sử dụng bóng */
-    transition:all .3s ease;                   /* Hiệu ứng khi hover */
+    background:#f3f4f6;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:25px;
+    box-sizing:border-box;
+    min-width:0;
+    overflow:hidden;
 }
 
-/* Hiệu ứng khi di chuột vào card */
-.card:hover{
-    background:#eceff1;                        /* Đổi màu nền nhẹ */
-    transform:translateY(-4px);                /* Nâng card lên */
+
+/* Nội dung trong card */
+.card p{
+    line-height:1.6;
+    overflow-wrap:break-word;
 }
+
 
 /* Tiêu đề trong card */
 .card h3{
-    color:var(--primary);                      /* Màu tiêu đề */
-    margin-bottom:15px;                        /* Khoảng cách dưới tiêu đề */
+    color:var(--primary);
+    margin-bottom:15px;
+}
+
+
+/* Hover */
+.card:hover{
+    background:#eceff1;
+    transform:translateY(-4px);
 }
 
 /* =========================
