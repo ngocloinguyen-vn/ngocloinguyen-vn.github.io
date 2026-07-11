@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Alpha Diversity in R | Tutorials</title>
+    <meta name="description" content="Alpha Diversity in R tutorial">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+
+        <button class="menu-toggle" aria-label="Open menu">
+            ☰
+        </button>
+
+        <ul>
+            <li><a href="../">HOME</a></li>
+            <li><a href="../aboutme/">ABOUT</a></li>
+            <li><a href="../project/">PROJECTs</a></li>
+            <li><a href="../publications/">PUBLICATIONs</a></li>
+            <li><a href="../outreach/">OUTREACH</a></li>
+            <li><a href="../workshops/">WORKSHOPs</a></li>
+            <li><a class="active" href="../tutorials/">TUTORIALs</a></li>
+            <li><a href="../gallery/">GALLERY</a></li>
+            <li><a href="../contact/">CONTACT</a></li>
+        </ul>
+
+    </nav>
+</header>
+
+<main>
+
+<section class="page-header">
+    <h1>Alpha Diversity in R: Getting Started</h1>
+    <p><strong>Date:</strong> July 01, 2025</p>
+</section>
+
+<section class="content">
+
+<h2>1. What is Alpha Diversity?</h2>
+
+<p>
+Alpha diversity describes the biodiversity <strong>within a single sample</strong>.
+It is one of the most commonly used ecological metrics for characterizing microbial,
+plant, and animal communities.
+</p>
+
+<p>
+Alpha diversity usually considers two major components:
+</p>
+
+<ul>
+    <li><strong>Richness</strong> – the number of observed species (or ASVs/OTUs).</li>
+    <li><strong>Evenness</strong> – how evenly individuals are distributed among species.</li>
+</ul>
+
+<hr>
+
+<h2>2. Species Accumulation and Rarefaction Curves</h2>
+
+<h3>Species Accumulation Curve</h3>
+
+<p>
+A species accumulation curve displays the cumulative number of species detected as
+additional samples are collected. It helps evaluate whether the sampling effort is
+sufficient to capture community diversity.
+</p>
+
+<h3>Rarefaction Curve</h3>
+
+<p>
+Rarefaction curves estimate species richness after standardizing sequencing depth.
+This allows fair comparison among samples with different numbers of sequencing reads.
+</p>
+
+<hr>
+
+<h2>3. Common Alpha Diversity Indices</h2>
+
+<table>
+    <tr>
+        <th>Index</th>
+        <th>Description</th>
+    </tr>
+
+    <tr>
+        <td>Richness</td>
+        <td>Counts the number of observed ASVs, OTUs, or species.</td>
+    </tr>
+
+    <tr>
+        <td>Shannon</td>
+        <td>Considers both richness and evenness.</td>
+    </tr>
+
+    <tr>
+        <td>Simpson</td>
+        <td>Gives greater weight to dominant species.</td>
+    </tr>
+
+</table>
+
+<hr>
+
+<h2>4. Should You Normalize the Data?</h2>
+
+<h3>Richness</h3>
+
+<p>
+Presence/absence richness calculated using functions such as
+<code>specnumber()</code> does not technically require normalization because it only
+counts the number of taxa present.
+</p>
+
+<h3>When Normalization is Recommended</h3>
+
+<p>
+Normalization becomes important when:
+</p>
+
+<ul>
+    <li>Sequencing depth differs substantially among samples.</li>
+    <li>Comparing abundance-based diversity indices.</li>
+    <li>Performing statistical comparisons between groups.</li>
+</ul>
+
+<p>
+Richness is generally more sensitive to sequencing depth than Shannon or Simpson
+indices because deeper sequencing detects more rare taxa.
+</p>
+
+<hr>
+
+<h2>5. Common Normalization Methods</h2>
+
+<table>
+
+<tr>
+    <th>Method</th>
+    <th>Recommended Use</th>
+</tr>
+
+<tr>
+    <td>Rarefaction</td>
+    <td>Standard approach for alpha diversity.</td>
+</tr>
+
+<tr>
+    <td>CSS</td>
+    <td>Useful for compositional microbiome data.</td>
+</tr>
+
+<tr>
+    <td>TSS</td>
+    <td>Simple total-sum scaling.</td>
+</tr>
+
+<tr>
+    <td>DESeq2</td>
+    <td>Mainly for differential abundance analysis.</td>
+</tr>
+
+</table>
+
+<p>
+In this tutorial, we use <strong>rarefaction</strong> before calculating
+<strong>Normalized Richness</strong> and <strong>Shannon Diversity</strong> to reduce
+bias caused by unequal sequencing depth.
+</p>
+
+<hr>
+
+<h2>6. Workflow for Alpha Diversity Analysis</h2>
+
+<p>
+A typical alpha diversity workflow consists of the following steps:
+</p>
+
+<ol>
+
+<li>Prepare the ASV abundance table.</li>
+
+<li>Filter low-quality samples or extremely rare taxa.</li>
+
+<li>Normalize sequencing depth (optional but recommended).</li>
+
+<li>Calculate diversity indices.</li>
+
+<li>Visualize results.</li>
+
+<li>Perform statistical comparisons among groups.</li>
+
+</ol>
+
+<hr>
+
+<h2>7. Preparing Your Data</h2>
+
+<p>
+The input community matrix should contain:
+</p>
+
+<ul>
+
+<li>Rows = samples</li>
+
+<li>Columns = ASVs or OTUs</li>
+
+<li>Cell values = read counts</li>
+
+</ul>
+
+<p>Example:</p>
+
+<pre><code>
+           ASV1 ASV2 ASV3 ASV4
+Sample1      15    0   24    8
+Sample2       2   35    1    0
+Sample3      20    5    9   14
+</code></pre>
+
+<p>
+Metadata should be stored separately and contain information such as treatment,
+sampling site, depth, season, or environmental variables.
+</p>
+
+<hr>
+
+<h2>Next Steps</h2>
+
+<p>
+The next tutorial demonstrates how to calculate:
+</p>
+
+<ul>
+    <li>Observed Richness</li>
+    <li>Rarefied Richness</li>
+    <li>Shannon Diversity</li>
+    <li>Simpson Diversity</li>
+    <li>Hill Numbers</li>
+    <li>Statistical comparisons using Kruskal–Wallis and Wilcoxon tests</li>
+    <li>Publication-quality figures using <strong>ggplot2</strong></li>
+</ul>
+
+</section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Ngoc-Loi Nguyen</p>
+</footer>
+
+<script>
+const toggle = document.querySelector(".menu-toggle");
+const nav = document.querySelector(".navbar ul");
+
+toggle.addEventListener("click", () => {
+    nav.classList.toggle("show");
+});
+</script>
+
+</body>
+</html>
