@@ -162,6 +162,7 @@ BUTTON -  Nút bấm dùng trong website
     padding:8px 25px;                 /* Kích thước vùng bên trong nút */
     border-radius:30px;                /* Bo tròn tạo dạng nút pill */
     transition:all .3s ease;            /* Hiệu ứng khi hover */
+    line-height:1.5;                /* hoặc 1.5 */
     font-weight:600;                   /* Chữ đậm */
 }
 .button:hover{
