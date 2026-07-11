@@ -853,12 +853,12 @@ pre {
     overflow-x: auto;
     border-radius: 5px;
     line-height: 1.5;
-    margin: 20px 0;
+    margin: 20px 0 35px 0;   /* tăng khoảng cách phía dưới */
 }
 
 pre code {
     font-family: "Courier New", monospace;
-    font-size: 10px;
+    font-size: 10px;          /* giảm kích thước chữ code */
 }
 
 
@@ -868,6 +868,7 @@ li code {
     font-family: inherit;
     font-size: inherit;
 }
+
 
 /* =========================
    Tutorials
@@ -879,11 +880,10 @@ li code {
 
 .tutorial-image {
     display: block;
-    margin: 25px auto;
+    margin: 10px auto;
     width: 80%;
     max-width: 800px;
 }
-
 
 
 
