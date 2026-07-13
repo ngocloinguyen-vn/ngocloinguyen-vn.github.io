@@ -62,7 +62,7 @@ The closer the two points are, the more similar their composition is based on th
 </li>
 </ul>
 <p>
-Unlike PCA or PCoA, NMDS is non-parametric—it’s rank-based and does not assume normally distributed data, which is ideal for microbial ecology datasets that often contain many rare taxa (long-tailed distributions).
+Unlike PCA or PCoA, NMDS is non-parametric-it’s rank-based and does not assume normally distributed data, which is ideal for microbial ecology datasets that often contain many rare taxa (long-tailed distributions).
 </p>
 </div>
 <div class="timeline-item">
@@ -92,7 +92,6 @@ Unlike PCA or PCoA, NMDS is non-parametric—it’s rank-based and does not assu
 <li>
 Your input should be a community matrix (samples as rows, ASV as columns).
 </li>
-
 <li>
 Consider filtering rare taxa or low-read samples beforehand.
 </li>
@@ -123,27 +122,58 @@ OCE22_BL2_02 73508  18791     44       0      16       1       2       0       0
 
 <ul>
 <li>
-<strong>Species Accumulation Curve</strong>
+<strong>Convert to metagenomeSeq Object & CSS Normalize</strong>
+<p>Here, the CSS method is used for normalization. <br> 
+There are a few alternative normalization methods commonly used for microbiome or ecological count data, each with its own strengths depending on your analysis goals:</p>
 <ul>
 <li>
-<strong>Species Accumulation Curve</strong> shows how the number of observed ASVs/OTUs increases with additional sampling effort (e.g., number of samples).
+<strong>Total Sum Scaling (TSS):</strong> Normalizes each sample by dividing by the total number of reads;
+	simple but sensitive to library size differences and does not handle sparsity well.
+</li>
+<li>
+<strong>Rarefaction:</strong> Random subsampling to a fixed depth; useful for equalizing library sizes but can discard valuable data and introduce randomness.
+</li>
+	
+<li>
+<strong>Relative Abundance: </strong> Handles compositionality by log-transforming the ratio of each count to the geometric mean;
+	often used in conjunction with tools like ALDEx2 or compositions package.
 </li>
 
 <li>
-A <strong>plateau</strong> in the curve suggests that most species have been detected, while a rising curve indicates that more sampling may reveal additional species.
+<strong>Centered Log-Ratio (CLR) Transformation:</strong> Converts counts to proportions (e.g., counts per ASV divided by total sample count);
+	good for compositional comparisons but not suitable for abundance-sensitive metrics.
 </li>
+
+<li>
+<strong>Variance Stabilizing Transformation (VST) </strong>  from DESeq2: Reduces heteroscedasticity in count data, suitable for downstream statistical analysis.
+</li>
+
+<li>
+<strong>Quantile or Rank Normalization: </strong> Aligns distributions across samples, mostly used in gene expression but applicable to microbiome data for certain comparisons.
+</li>	
 </ul>
 </li>
-</ul> 
+</ul>
+<p>Each method has trade-offs, so your choice should align with your research question and downstream statistical requirements.</p>
+	
 <pre><code class="language-r">
-# Set seed for reproducibility
-set.seed(123)
+# Load required packages
+library(metagenomeSeq)    # For CSS normalization
 
-# Generate species accumulation curve
-specaccum_result <- specaccum(com, method = "random")
+# Transpose the input community matrix so that samples are rows, OTUs/ASVs are columns
+ASV_read_count = as.data.frame(t(com))
 
-# Plot the accumulation curve
-plot(specaccum_result, xlab = "Number of Samples", ylab = "Number of ASVS")
+# Convert to metagenomeSeq object
+metaSeqObject = newMRexperiment(ASV_read_count)
+
+# Compute normalization factor using CSS method
+metaSeqObject_CSS = cumNorm(metaSeqObject, p = cumNormStatFast(metaSeqObject))
+
+# Extract CSS-normalized counts (log-transformed)
+ASV_read_count_CSS = data.frame(MRcounts(metaSeqObject_CSS, norm = TRUE, log = TRUE))
+
+# Transpose so that samples are rows and ASVs are columns (vegan expects this)
+m_com = as.matrix(t(ASV_read_count_CSS))
 </code></pre>
     
 <img src="../alpha/species_accumulation_curve.png" 
