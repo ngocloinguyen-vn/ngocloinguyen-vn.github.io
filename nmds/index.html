@@ -43,7 +43,7 @@
 <section class="container">
 <div class="timeline">
 <div class="timeline-item">
-<h2>Starting with Non-Metric Multidimensional Scaling (NMDS) in R</h2>
+<h2>Starting with nMDS in R</h2>
 <p><strong>Date:</strong> July 01, 2025</p>
 </div>
 
@@ -51,7 +51,8 @@
 <h3>1. What is NMDS?</h3>
 <p>
 Non-metric Multidimensional Scaling (NMDS) is a powerful ordination technique used to reduce the dimensionality of complex ecological data,
-such as OTU or ASV tables, by representing patterns in two or three dimensions. In NMDS plots: <br> </p>
+such as OTU or ASV tables, by representing patterns in two or three dimensions.</p>
+<p>In NMDS plots:<br> </p>
 <ul>
 <li>
 Each point represents a sample.
@@ -66,97 +67,25 @@ Unlike PCA or PCoA, NMDS is non-parametric—it’s rank-based and does not assu
 </div>
 <div class="timeline-item">
     
-<h3>2. What are Species Accumulation and Rarefaction Curves?</h3>
+<h3>2. How NMDS Works</h3>
 <ul>
 <li>
-<strong>Species Accumulation Curve: </strong> A plot showing the cumulative number of species detected as more samples
-are added, useful to assess sampling effort and completeness.
+<strong>Non-metric: </strong>Based on ranks of dissimilarities, not the actual distances.
 </li>
 <li>
-<strong>Rarefaction Curve: </strong>A standardized way to compare species richness across samples by adjusting
-for differences in sequencing depth (subsampling).
+<strong>Iterative: </strong>NMDS runs multiple iterations to find a configuration that best preserves the rank order of pairwise dissimilarities. 
+</li>
+<li>
+<strong>Input: </strong>Requires a distance matrix (e.g., Bray-Curtis, Jaccard). 
 </li>
 </ul>
 </div>
 
 <div class="timeline-item">
-<h3>3. Alpha diversity indices</h3> 
-<p>A measure of species diversity within a single sample or site. Common indices include:
+<h3>3. How to perform NMDS</h3> 
+<p> To perform NMDS, we generally follow these steps using the <strong>vegan</strong> package.
 </p>
 <ul>
-<li>
-<strong>Richness</strong> (number of species/OTUs/ASVs)
-</li>
-<li>
-<strong>Shannon Index</strong> (accounts for abundance and evenness)
-</li>
-<li>
-<strong>Simpson Index</strong> (gives more weight to common species)
-</li>
-</ul>
-
-<h3>Should you normalize data for alpha diversity analysis?</h3>
-<p>
-<strong>No normalization is typically needed</strong> for presence/absence-based
-richness (e.g., <code>specnumber()</code>), as it just counts the number of
-taxa per sample.
-</p>
-<p>
-<strong>Yes, normalization is important when:</strong>
-</p>
-<ul>
-<li>
-Comparing diversity across samples with very different sequencing depths.
-</li>
-<li>
-Using abundance-sensitive indices like Richness, Shannon, Simpson, or evenness,
-where deeper sequencing inflates diversity estimates.
-</li>
-</ul>
-<p>
-In general, Richness (the number of different species) is more sensitive to
-sequencing depth than diversity indices like Shannon or Simpson. This is because
-richness is a simple count, and sequencing depth directly impacts how many rare
-species are detected, potentially inflating richness estimates.
-</p>
-
-<p>
-Shannon and Simpson indices, while also affected, are less sensitive because
-they incorporate the relative abundance of species. Overall, normalization is
-still recommended to ensure fair comparisons across samples with different
-sequencing depths.
-</p>
-<strong>And how to normalize:</strong>
-<ul>
-<li>
-<strong>Rarefaction (subsampling):</strong>
-Simplest and most common approach.
-</li>
-
-<li>
-<strong>CSS, TSS, or DESeq2 normalization:</strong>
-More advanced methods to handle compositional data. Useful if you want to
-retain all samples without discarding reads (as rarefaction does). Best for
-differential abundance and beta diversity.
-</li>
-</ul>
-<p>
-Below, I normalized the data using rarefaction before calculating Richness
-(Normalized Richness) and Shannon Diversity to ensure comparability across
-samples by minimizing biases from differing sequencing depths.
-</p>
-</div>
-
-<div class="timeline-item">
-<h3>4. How to perform alpha analysis</h3>
-
-<p>
-To perform alpha analysis, we generally follow these steps using the
-<strong>vegan</strong> package:
-</p>
-
-<ul>
-
 <li>
 <strong>Prepare your data</strong>
 <ul>
@@ -167,13 +96,8 @@ Your input should be a community matrix (samples as rows, ASV as columns).
 <li>
 Consider filtering rare taxa or low-read samples beforehand.
 </li>
-
-<li>
-Normalize sequencing depth if required before calculating alpha diversity.
-</li>
 </ul>
 </li>
-
 </ul>
 
 <pre><code class="language-r">
