@@ -175,43 +175,95 @@ ASV_read_count_CSS = data.frame(MRcounts(metaSeqObject_CSS, norm = TRUE, log = T
 # Transpose so that samples are rows and ASVs are columns (vegan expects this)
 m_com = as.matrix(t(ASV_read_count_CSS))
 </code></pre>
-    
-<img src="../alpha/species_accumulation_curve.png" 
-      class="tutorial-image">
 
 <ul>
 <li>
-<strong>Rarefaction Curve</strong>
+<strong>Run NMDS Ordination</strong>
 <ul>
 <li>
-<strong>A rarefaction curve</strong> plots the expected number of species against sequencing depth for each sample,
-    allowing comparison of species richness at a standardized read count.
+<strong>metaMDS()</strong> performs NMDS, an ordination technique for visualizing patterns in community composition.
 </li>
-
 <li>
-<strong> A steeper initial slope</strong> indicates high richness; if curves reach <strong>plateau</strong>,
-    it suggests sequencing captured most of the diversity, whereas non-plateaued curves imply under-sampling.
+<strong>autotransform = FALSE</strong> disables automatic transformation, 
+	appropriate when prior normalization (e.g., CSS with log transform <strong>log = TRUE</strong>) is already applied.
+</li>
+<li>
+<strong>Distance method</strong>: "bray" (Bray-Curtis) is widely used for ecological count data due to its sensitivity to compositional differences.
 </li>
 </ul>
 </li>
 </ul> 
 <pre><code class="language-r">
-# Set seed for reproducibility
-set.seed(123)
+# Run NMDS Ordination
 
-rarecurve(com, step = 100, col = "blue", label = FALSE,
-          xlab = "Sequence depth",
-          ylab = "Number of ASVS")
+set.seed(123)  # For reproducibility
+
+# Perform NMDS using Bray-Curtis distance
+nmds = metaMDS(m_com, autotransform = FALSE, distance = "bray")
+nmds
+
+> nmds
+Call:
+metaMDS(comm = m_com, distance = "bray", autotransform = F) 
+
+global Multidimensional Scaling using monoMDS
+
+Data:     m_com 
+Distance: bray 
+
+Dimensions: 2 
+Stress:     0.1447543 
+Stress type 1, weak ties
+Best solution was repeated 8 times in 20 tries
+The best solution was from try 1 (random start)
+Scaling: centring, PC rotation, halfchange scaling 
+Species: expanded scores based on ‘m_com’ 
+
+plot(nmds)
 </code></pre>
     
-<img src="../alpha/rarefaction_curve.png" 
-      class="tutorial-image">
-    
-<p>Plot the rarefaction curve combined with metadata</p>
+<p>Quickly interpreting the Output</p>
+<ul>
+<li>
+NMDS stress: indicates the goodness of fit, with values < 0.1 considered good, < 0.2 acceptable, and > 0.2 suggesting a poor fit and reduced reliability.
+</li>
+<li>
+NMDS1/NMDS2: Axes representing major gradients of variation in community composition.
+</li>
+<li>
+Points: Represent samples; distances reflect dissimilarity.
+</li>
+</ul> 
 
+<img src="../nmds/nmds1.png" 
+     class="tutorial-image">
+
+<ul>
+  <li>
+    <strong>Preparation for plotting:</strong>
+    <ul>
+      <li>Load required libraries: <code>ggplot2</code>, <code>ggrepel</code>, and <code>dplyr</code>.</li>
+      <li>Extract NMDS site scores and rename the axes to <code>x</code> and <code>y</code>.</li>
+      <li>Load metadata and merge relevant columns into the NMDS scores data frame.</li>
+      <li>Calculate convex hulls for each <code>year_layer</code> group based on NMDS coordinates.</li>
+      <li>Combine all hull points into a single data frame for plotting.</li>
+      <li>Define a color palette for the different layers (<code>SUR</code>, <code>MID</code>, <code>BOT</code>, <code>SED</code>).</li>
+    </ul>
+  </li>
+</ul>
+	
 <pre><code class="language-r">
-# Load sample metadata (assumed to match row order of 'com')
+library(ggplot2)
+library(ggrepel)
+library(dplyr)
+
+# Extract NMDS scores (x and y coordinates)
+data.scores <- as.data.frame(scores(nmds, display = "sites"))
+names(data.scores)[1:2] <- c("x", "y")  # Rename axes
+
+# Load metadata
 metadata <- read.csv("meta_env.csv", row.names = 1, header = TRUE)
+
 
 head(metadata) 
              station  year  year_layer layer 
@@ -220,74 +272,54 @@ OCE22_BL1_02    BL01 OCE22 OCE22_water   MID
 OCE22_BL1_03    BL01 OCE22 OCE22_water   BOT    
 OCE22_BL2_01    BL02 OCE22 OCE22_water   SUR   
 OCE22_BL2_02    BL02 OCE22 OCE22_water   MID    
-OCE22_BL2_03    BL02 OCE22 OCE22_water   BOT 
+OCE22_BL2_03    BL02 OCE22 OCE22_water   BOT   
 
-# Define line types for each sampling year
-lty_levels <- c("OCE22" = "solid", "OCE23" = "dotted")
 
-# Define colors for each layer type
+# Add metadata columns
+data.scores$layer      = metadata_matched$layer
+data.scores$year       = metadata_matched$year
+data.scores$station    = metadata_matched$station
+data.scores$year_layer = metadata$year_layer      #for hull data
+
+# Get convex hulls for each group
+grp1 <- data.scores[data.scores$year_layer=="OCE22_water",][chull(data.scores[data.scores$year_layer=="OCE22_water",c("x", "y")]),]
+grp2 <- data.scores[data.scores$year_layer=="OCE23_water",][chull(data.scores[data.scores$year_layer=="OCE23_water",c("x", "y")]),]
+grp3 <- data.scores[data.scores$year_layer=="OCE22_sediment", ][chull(data.scores[data.scores$year_layer=="OCE22_sediment",c("x", "y")]),]
+grp4 <- data.scores[data.scores$year_layer=="OCE23_sediment", ][chull(data.scores[data.scores$year_layer=="OCE22_sediment",c("x", "y")]),]
+
+# Combine hulls into a single dataframe for plotting
+hull.data <- rbind(grp1, grp2, grp3, grp4)
+
+# Color define for each layer
 layer_colors <- c("SUR" = "#1f77b4", "MID" = "#2ca02c", "BOT" = "#ff7f0e", "SED" = "#d62728")
-
-# Map line types based on the year variable
-lty_map <- c("OCE22" = "solid", "OCE23" = "dashed")
-
-# Plot rarefaction curves
-rarecurve(
-  com, step = 20,  # sampling increment
-  label = FALSE,  # do not label sample names
-  col = layer_colors[as.character(metadata$layer)],  # color by layer
-  lty = lty_map[as.character(metadata$year)],  # line type by year
-  lwd = 2,  # line width
-  cex = 0.6,  # point size
-  ylim = c(0, 2000),  # y-axis limit for species richness
-  xlim = c(0, 160000),  # x-axis limit for sequencing depth
-  xlab = "Sequence depth",
-  ylab = "Number of ASVS")
-
-legend("bottomright",
-       legend = c("SUR", "MID", "BOT", "SED"), 
-       col = layer_colors, lty = 1, 
-       title = "Layer", cex = 0.8, 
-       bty = "n",  xjust = 0.5)  
-
-legend( "bottom",
-       legend = c("OCE22", "OCE23"), 
-       col = "black", lty = lty_levels, 
-       title = "Year", cex = 0.8, bty = "n")
 </code></pre>
-    
-<img src="../alpha/rarefaction_curve1.png" 
-     class="tutorial-image">
 
-<ul>
-<li>
-<strong>Normalization and Diversity Calculation</strong>
-</li>
-</ul> 
+<li><strong>Now we can plot NMDS in </strong>strong><code>ggplot2</code>.</li>
+
 <pre><code class="language-r">
-# Calculate total number of sequences (reads) per sample
-total_read <- rowSums(com)  
-# Calculate observed species richness per sample (number of unique species)
-observed_richness <- specnumber(com)
- 
-# Find the minimum sequencing depth across all samples
-min_seq <- min(total_read)  
-min_seq  # Show the minimum sequencing depth
+p <- ggplot() +
+   geom_point(data = data.scores, aes(x,y, fill = year, color= layer , shape = year ), size=4) +
+   scale_color_manual(values = layer_colors) +
+   geom_polygon(data=hull.data, aes(x,y, fill = "#8ecae6", group = year_layer), alpha=0.1) +
+   scale_fill_manual(values = layer_colors) +
+   labs(colour = "Sample layer", shape = "Year" , x = "NMDS1", y = "NMDS2") +
+   theme(axis.text.y = element_text(colour = "black", size = 10, face = "bold"), 
+         axis.text.x = element_text(colour = "black", face = "bold", size = 10), 
+         legend.text = element_text(size = 10, face ="bold", colour ="black"), 
+         legend.position = "right", axis.title.y = element_text(face = "bold", size = 10), 
+         axis.title.x = element_text(face = "bold", size = 10, colour = "black"), 
+         legend.title = element_text(size = 10, colour = "black", face = "bold"), 
+         panel.background = element_blank(), 
+         panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
+         legend.key=element_blank()) + geom_text_repel() + guides(fill = "none")
 
-# Normalize (rarefy) the community matrix to the minimum sequencing depth
-# This ensures fair comparison of richness across samples
-m_com <- rrarefy(com, min_seq)  
-
-# Calculate species richness again, now on the rarefied data
-richness <- rarefy((com, min_seq) # Expected richness (mean) for quick estimation only
-
-# or
-richness <- specnumber(m_com) # Observed richness after rarefied (Noralized richness)
-
-
-# Calculate the Shannon diversity index (accounts for both richness and evenness)
-shannon <- diversity(m_com, index = "shannon")
+p
 </code></pre>
+
+
+
+	
+
 	
 <div style="height:50px;"></div>
 <ul>
@@ -350,85 +382,25 @@ SED 0.091 0.390 1.000
 
 P value adjustment method: bonferroni 
 </code></pre>
-	
-<div style="height:50px;"></div>
-<ul>
-<li>
-<strong>Plot alpha indices using ggplot2</strong>
-</li>
-</ul> 
-<pre><code class="language-r">
-# Load required library for plotting
-library(ggplot2)
 
-# Define custom fill colors for different years
-sample_color = c("#0081a7", "#fb8500") 
-
-# Normalized Richness across layers
-# Create a boxplot showing normalized species richness per sample layer,
-# grouped and filled by sampling year
-p1 <- ggplot(metadata, aes(x = layer, y = richness, fill = year)) + 
-  geom_boxplot() +  # Draw boxplots
-  scale_fill_manual(values = sample_color) +  # Apply custom year colors
-  labs(x = "Sample Layer", y = "Richness") +  # Axis labels
-  theme_classic() +  # Clean theme
-  theme(
-    axis.text.y = element_text(colour = "black", size = 10, face = "bold"),
-    axis.text.x = element_text(colour = "black", size = 10, face = "bold"),
-    axis.title.x = element_text(face = "bold", size = 10, colour = "black"),
-    axis.title.y = element_text(face = "bold", size = 10, colour = "black")
-  ) +
-  stat_compare_means(
-    method = "wilcox.test",  # Non-parametric pairwise test
-    comparisons = list(
-      c("SUR", "BOT"), 
-      c("SUR", "SED"),
-      c("MID", "SED"), 
-      c("BOT", "SED")
-    ),  # Specific group comparisons
-    label = "p.signif",  # Show significance stars
-    hide.ns = TRUE  # Hide non-significant labels
-  )
-p1 
-
-
-# Shannon Diversity across layers
-
-# Create a similar boxplot showing Shannon diversity per sample layer,
-# again grouped by sampling year
-p2 <- ggplot(metadata, aes(x = layer, y = shannon, fill = year)) + 
-  geom_boxplot() +
-  scale_fill_manual(values = sample_color) +
-  labs(x = "Sample Layer", y = "Shannon Diversity") +
-  theme_classic() + 
-  theme(
-    axis.text.y = element_text(colour = "black", size = 10, face = "bold"),
-    axis.text.x = element_text(colour = "black", size = 10, face = "bold"),
-    axis.title.x = element_text(face = "bold", size = 10, colour = "black"),
-    axis.title.y = element_text(face = "bold", size = 10, colour = "black")
-  ) +
-  stat_compare_means(
-    method = "wilcox.test", 
-    comparisons = list(c("SUR", "SED")),  # Only compare SUR and SED layers based statictis tests
-    label = "p.signif", 
-    hide.ns = TRUE
-  )
-p2 
-
-library(patchwork)
-
-p1 + p2
-</code></pre>
-    
-<img src="../alpha/alpha_diversity.png" 
+<img src="../nmds/nmds2.png" 
       class="tutorial-image">
+	
+<li><strong>4. Interpretation of Results</strong></li>
+<ul>
+  <li>The NMDS plot shows visible clustering of samples according to sampling time (indicated by color) and possibly by sample type (indicated by shape).</li>
+  <li>These observed patterns suggest that temporal variation and sample type might influence community composition.</li>
+  <li>However, since this is a visual interpretation, no formal conclusion about group differences can be drawn yet.</li>
+</ul>
 
-<p>After analyzing alpha diversity,
-    the next step is to assess beta diversity to understand differences in species composition between samples,
-	typically using ordination methods like NMDS or PCoA.
-</p>
-     
-  </div>  
+<li><strong>5. Suggestion for Next Steps</strong></li>
+<ul>
+  <li>Perform an ANOSIM (Analysis of Similarities) test to statistically evaluate whether differences between groups (e.g., sampling times, sample types) are significant.</li>
+  <li>Use SIMPER (Similarity Percentages) analysis or Indicator Species Analysis to identify which species or ASVs contribute most to differences among groups.</li>
+  <li>Apply envfit to overlay environmental variables on the NMDS plot to understand how environmental factors relate to observed community patterns.</li>
+  <li>Consider exploring other ordination methods or multivariate statistics to further validate and interpret community structure (e.g., PCA, RDA).</li>
+</ul>
+	
 </section>
   
 
