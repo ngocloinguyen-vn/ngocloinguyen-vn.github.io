@@ -227,13 +227,13 @@ plot(nmds)
 <p>Quickly interpreting the output</p>
 <ul>
 <li>
-NMDS stress: indicates the goodness of fit, with values < 0.1 considered good, < 0.2 acceptable, and > 0.2 suggesting a poor fit and reduced reliability.
+<strong>NMDS stress</strong>: indicates the goodness of fit, with values < 0.1 considered good, < 0.2 acceptable, and > 0.2 suggesting a poor fit and reduced reliability.
 </li>
 <li>
-NMDS1/NMDS2: Axes representing major gradients of variation in community composition.
+<strong>NMDS1/NMDS2</strong>: Axes representing major gradients of variation in community composition.
 </li>
 <li>
-Points: Represent samples; distances reflect dissimilarity.
+<strong>Points</strong>: Represent samples; distances reflect dissimilarity.
 </li>
 </ul> 
 
@@ -297,7 +297,7 @@ layer_colors <- c("SUR" = "#1f77b4", "MID" = "#2ca02c", "BOT" = "#ff7f0e", "SED"
 </code></pre>
 	
 <div style="height:50px;"></div>
-<li><strong>Now we can plot NMDS in </strong>strong><code>ggplot2</code>.</li>
+<li><strong>Now we can plot NMDS in <code>ggplot2</code>.</strong></li>
 
 <pre><code class="language-r">
 p <- ggplot() +
@@ -330,7 +330,7 @@ p
   <li>However, since this is a visual interpretation, no formal conclusion about group differences can be drawn yet.</li>
 </ul>
 	
-<div style="height:50px;"></div>
+<div style="height:30px;"></div>
 <h3>5. Suggestion for next steps</h3>
 <ul>
   <li>Perform an ANOSIM (Analysis of Similarities) test to statistically evaluate whether differences between groups (e.g., sampling times, sample types) are significant.</li>
