@@ -119,7 +119,8 @@ OCE22_BL1_03 10686  23020  19225       0      88       0       2       0      39
 OCE22_BL2_01  3195    346      0       0       0       0      69       0       0       7
 OCE22_BL2_02 73508  18791     44       0      16       1       2       0       0      50
 </code></pre>
-
+	
+<div style="height:50px;"></div>
 <ul>
 <li>
 <strong>Convert to metagenomeSeq Object & CSS Normalize</strong>
@@ -175,7 +176,8 @@ ASV_read_count_CSS = data.frame(MRcounts(metaSeqObject_CSS, norm = TRUE, log = T
 # Transpose so that samples are rows and ASVs are columns (vegan expects this)
 m_com = as.matrix(t(ASV_read_count_CSS))
 </code></pre>
-
+	
+<div style="height:50px;"></div>
 <ul>
 <li>
 <strong>Run NMDS Ordination</strong>
@@ -222,7 +224,7 @@ Species: expanded scores based on ‘m_com’
 plot(nmds)
 </code></pre>
     
-<p>Quickly interpreting the Output</p>
+<p>Quickly interpreting the output</p>
 <ul>
 <li>
 NMDS stress: indicates the goodness of fit, with values < 0.1 considered good, < 0.2 acceptable, and > 0.2 suggesting a poor fit and reduced reliability.
@@ -293,7 +295,8 @@ hull.data <- rbind(grp1, grp2, grp3, grp4)
 # Color define for each layer
 layer_colors <- c("SUR" = "#1f77b4", "MID" = "#2ca02c", "BOT" = "#ff7f0e", "SED" = "#d62728")
 </code></pre>
-
+	
+<div style="height:50px;"></div>
 <li><strong>Now we can plot NMDS in </strong>strong><code>ggplot2</code>.</li>
 
 <pre><code class="language-r">
@@ -316,84 +319,19 @@ p <- ggplot() +
 p
 </code></pre>
 
-
-
-	
-
-	
-<div style="height:50px;"></div>
-<ul>
-<li>
-<strong>Statistical Testing</strong>
-<ul>
-<li>
-  ​The <strong>Wilcoxon rank-sum test</strong>  is used because alpha diversity metrics often do not follow a normal distribution.
-</li>
-<li>
-  The <strong>Bonferroni correction adjusts p-values</strong> for multiple comparisons, reducing the chance of false positives.
-</li>
-<li>
-  <strong>Result interpretation:</strong> These tests tell you whether richness or Shannon diversity significantly differs
-    between any pairs of layers (e.g., SUR vs. BOT). Look for adjusted <strong>p-values < 0.05 (or < 0.1) for significance.</strong>
-</li>
-   
-</ul>
-</li>
-</ul> 
-    
-<pre><code class="language-r">
-# Load metadata with sample information (e.g., layer, year, etc.)
-metadata <- read.csv("meta_env.csv", row.names = 1, header = TRUE)
-
-# Ensure 'layer' is treated as an ordered factor with a defined level order
-metadata$layer <- factor(metadata$layer, levels = c("SUR", "MID", "BOT", "SED"))
-
-# Add calculated diversity metrics (from previous analysis) into the metadata
-metadata$shannon <- shannon         # Shannon diversity index
-metadata$richness <- richness       # Species richness (from rarefied data)
-
-# Perform pairwise Wilcoxon tests (non-parametric) for richness between layers
-pairwise.wilcox.test(metadata$richness, metadata$layer,
-                     p.adjust.method = "bonferroni")
-
-        Pairwise comparisons using Wilcoxon rank sum exact test 
-
-data:  metadata$richness and metadata$layer 
-
-    SUR   MID   BOT  
-MID 1.000 -     -    
-BOT 1.000 1.000 -    
-SED 0.013 0.013 0.091
-
-P value adjustment method: bonferroni 
-
-# Perform pairwise Wilcoxon tests for Shannon diversity between layers
-pairwise.wilcox.test(metadata$shannon, metadata$layer,
-                     p.adjust.method = "bonferroni")
-
-	Pairwise comparisons using Wilcoxon rank sum exact test 
-
-data:  metadata$shannon and metadata$layer 
-
-    SUR   MID   BOT  
-MID 1.000 -     -    
-BOT 1.000 1.000 -    
-SED 0.091 0.390 1.000
-
-P value adjustment method: bonferroni 
-</code></pre>
-
 <img src="../nmds/nmds2.png" 
       class="tutorial-image">
+
 	
-<h3>4. Interpretation of results<h3>
+<h3>4. Interpretation of results</h3>
 <ul>
   <li>The NMDS plot shows visible clustering of samples according to sampling time (indicated by color) and possibly by sample type (indicated by shape).</li>
   <li>These observed patterns suggest that temporal variation and sample type might influence community composition.</li>
   <li>However, since this is a visual interpretation, no formal conclusion about group differences can be drawn yet.</li>
 </ul>
-
-<h3>5. Suggestion for next steps<h3>
+	
+<div style="height:50px;"></div>
+<h3>5. Suggestion for next steps</h3>
 <ul>
   <li>Perform an ANOSIM (Analysis of Similarities) test to statistically evaluate whether differences between groups (e.g., sampling times, sample types) are significant.</li>
   <li>Use SIMPER (Similarity Percentages) analysis or Indicator Species Analysis to identify which species or ASVs contribute most to differences among groups.</li>
