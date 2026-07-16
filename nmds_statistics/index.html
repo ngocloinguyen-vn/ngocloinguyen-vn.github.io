@@ -1,1 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>nMDS statistics</title>
+    <meta name="description" content="nMDS analysis in R using vegan package">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-r.min.js"></script>   
+</head>
+    
+<body>
+<header>
+    <nav class="navbar">
+        <!-- Mobile menu -->
+        <button class="menu-toggle" aria-label="Open menu">
+            ☰
+        </button>
+
+        <ul>
+            <li><a href="../">HOME</a></li>
+            <li><a href="../aboutme/">ABOUT</a></li>
+            <li><a href="../project/">PROJECTs</a></li>
+            <li><a href="../publications/">PUBLICATIONs</a></li>
+            <li><a href="../outreach/">OUTREACH</a></li>
+            <li><a href="../workshops/">WORKSHOPs</a></li>
+            <li><a class="active" href="../tutorials/">TUTORIALs</a></li>
+            <li><a href="../gallery/">GALLERY</a></li>
+            <li><a href="../contact/">CONTACT</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<section class="container">
+<div class="timeline">
+<div class="timeline-item">
+<h2>nMDS statistics</h2>
+<p><strong>Date:</strong> July 23, 2025</p>
+</div>
+
+<div class="timeline-item">
+<h3>1. ANOSIM (Analysis of Similarities)</h3>
+
+<p>
+<strong>What is the ANOSIM R statistic?</strong> R measures how well the groups are separated based on community composition.
+</p>
+
+<p>
+It ranges from -1 to 1:
+</p>
+
+<ul>
+  <li>R ≈ 1: samples within groups are more similar to each other than to samples from other groups (strong separation).</li>
+  <li>R ≈ 0: no difference between groups (random grouping).</li>
+  <li>R &lt; 0: more similarity between groups than within groups (rare in ecological data).</li>
+</ul>
+
+<p>
+<strong>Significance values (p-values)</strong>
+</p>
+
+<p>
+The p-value tests the null hypothesis that there is no difference between groups.
+</p>
+
+<p>
+It is calculated by a permutation test (e.g., 999 permutations).
+</p>
+
+<p>
+A low p-value (&lt; 0.05) indicates that the observed R is unlikely due to chance, so groups are significantly different.
+</p>
+
+<pre><code class="language-r">
+# Run ANOSIM for layer variable
+
+anosim_layer <- anosim(m_com, grouping = metadata_id$layer, distance = "bray", permutations = 999)
+> anosim_layer
+
+Call:
+anosim(x = m_com, grouping = metadata_id$layer, permutations = 999,      distance = "bray") 
+Dissimilarity: bray 
+
+ANOSIM statistic R: 0.6162 
+      Significance: 0.001 
+
+Permutation: free
+Number of permutations: 999
+
+# Plot ANOSIM distances
+
+plot(anosim_layer)
+</code></pre>
+	
+<div style="height:50px;"></div>
+
+<ul>
+  <li>Analysis performed ANOSIM (Analysis of Similarities) using Bray–Curtis dissimilarity based on 999 permutations.</li>
+  <li>Grouping factor: Sample layer (e.g. SUR, MID, BOT, SED).</li>
+  <li>ANOSIM R statistic = 0.6162 indicates strong separation of community composition among layers, values &gt; 0.5 are generally interpreted as high dissimilarity between groups relative to within-group variation.</li>
+  <li>Significance (p = 0.001): the observed separation is highly statistically significant.</li>
+  <li>Microbial community structure differs significantly and strongly among sediment/water layers, differences between layers exceed variation within layers.</li>
+  <li>Rank dissimilarities within vs between groups:</li>
+</ul>
+
+<img src="../nmds_statistics/nmds_statistics1.png" 
+      class="tutorial-image">
+
+
+	
+<h3>2. PERMANOVA (Permutational Multivariate Analysis of Variance) </h3>
+  <p>PERMANOVA is a non-parametric method used to test whether multivariate community composition
+    differs among groups or along environmental gradients.</p>
+ <ul>
+  <li>Tests whether the centroids (multivariate means) of groups differ in multivariate space.</li>
+  <li>Based on a distance matrix (e.g. Bray–Curtis).</li>
+  <li>Uses permutations instead of distributional assumptions.</li>
+  <li>PERMANOVA asks whether communities differ systematically among groups or predictors, not just by chance.</li>
+</ul>
+
+<strong>Interpretation of results</strong>
+
+<ul>
+  <li>R²: fraction of community variation explained by the factor.</li>
+  <li>F value: strength of group separation relative to within-group variation.</li>
+  <li>p-value: statistical significance based on permutations.</li>
+</ul>
+
+
+<pre><code class="language-r">
+# Run PERMANOVA for layer variable
+
+adonis <- adonis2(m_com ~  layer, data = metadata_id, permutations = 999, method = "bray")
+> adonis
+
+Permutation test for adonis under reduced model
+Permutation: free
+Number of permutations: 999
+
+adonis2(formula = m_com ~ layer, data = metadata_id, permutations = 999, method = "bray")
+         Df SumOfSqs      R2      F Pr(>F)    
+Model     3   2.1217 0.43055 5.0404  0.001 ***
+Residual 20   2.8062 0.56945                  
+Total    23   4.9279 1.00000                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+</code></pre>
+
+<strong>Interpretation of results</strong>
+
+<ul>
+  <li>
+    <strong>Degrees of freedom (Df)</strong>
+    <ul>
+      <li>Model Df = 3 → four layers compared (SUR, MID, BOT, SED).</li>
+      <li>Residual Df = 20 → remaining unexplained variation.</li>
+      <li>Total Df = 23 → total number of samples minus one.</li>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Variation explained (R² = 0.4306)</strong>
+    <ul>
+      <li>43.1% of total community variation is explained by sample layer.</li>
+      <li>Indicates a strong structuring effect of layer on community composition.</li>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Residual variation (R² = 0.5694)</strong>
+    <ul>
+      <li>56.9% of variation is due to other unmeasured factors or stochasticity.</li>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Pseudo-F statistic (F = 5.04)</strong>
+    <ul>
+      <li>High F value indicates that between-layer differences are much larger than within-layer differences.</li>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Statistical significance (p = 0.001)</strong>
+    <ul>
+      <li>Differences in community composition among layers are highly significant.</li>
+      <li>The probability of observing this degree of separation by chance is &lt; 0.1%.</li>
+    </ul>
+  </li>
+
+  <li>
+    Microbial community composition differs strongly and significantly across vertical layers, layer is a major driver of community structure in this dataset.
+  </li>
+
+  <li>
+    PERMANOVA result (R² = 0.43) is consistent with your ANOSIM result (R = 0.62).
+  </li>
+
+  <li>
+    Both indicate strong vertical stratification of communities.
+  </li>
+</ul>
+
+<p>
+Next, test PERMDISP (beta dispersion test) using <code>betadisper</code> based on Bray–Curtis dissimilarity, to test homogeneity of multivariate dispersion among layers:
+</p>
+
+<pre><code class="language-r">
+# Run PERMDISP for layer variable
+
+betadisper(vegdist(m_com, "bray"), metadata_id$layer) |> anova()
+
+Analysis of Variance Table
+
+Response: Distances
+          Df   Sum Sq   Mean Sq F value  Pr(>F)  
+Groups     3 0.044931 0.0149771  4.8561 0.01069 *
+Residuals 20 0.061683 0.0030842                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+# Visualized by plot
+
+plot(betadisper(vegdist(m_com, "bray"), metadata_id$layer))
+</code></pre>
+
+
+<ul>
+  <li>PERMDISP test result: Significant differences in multivariate dispersion among layers (F = 4.86, p = 0.011).
+  Variability within layers differs; some layers are more heterogeneous than others (water layers, which could be visualized by plot).</li>
+</ul>
+
+
+<img src="../nmds_statistics/nmds_statistics2.png" 
+      class="tutorial-image">
+
+
+
+
+
+
+
+  
+<ul>
+  <li>The NMDS plot shows visible clustering of samples according to sampling time (indicated by color) and possibly by sample type (indicated by shape).</li>
+  <li>These observed patterns suggest that temporal variation and sample type might influence community composition.</li>
+  <li>However, since this is a visual interpretation, no formal conclusion about group differences can be drawn yet.</li>
+</ul>
+	
+<div style="height:30px;"></div>
+<h3>5. Suggestion for next steps</h3>
+<ul>
+  <li>Perform an ANOSIM (Analysis of Similarities) test to statistically evaluate whether differences between groups (e.g., sampling times, sample types) are significant.</li>
+  <li>Use SIMPER (Similarity Percentages) analysis or Indicator Species Analysis to identify which species or ASVs contribute most to differences among groups.</li>
+  <li>Apply envfit to overlay environmental variables on the NMDS plot to understand how environmental factors relate to observed community patterns.</li>
+  <li>Consider exploring other ordination methods or multivariate statistics to further validate and interpret community structure (e.g., PCA, RDA).</li>
+</ul>
+	
+</section>
+  
+
+<footer>
+
+<p>© 2020 Ngoc-Loi Nguyen</p>
+
+</footer>
+    
+<script>
+Prism.highlightAll();
+</script>
+
+<script src="../js/script.js"></script>
+
+</body>
+
+</html>
 
