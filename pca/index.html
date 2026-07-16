@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PCA with magnified inset</title>
+    <meta name="description" content="PCA with magnified inset">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-r.min.js"></script>   
+</head>
+    
+<body>
+<header>
+    <nav class="navbar">
+        <!-- Mobile menu -->
+        <button class="menu-toggle" aria-label="Open menu">
+            ☰
+        </button>
+
+        <ul>
+            <li><a href="../">HOME</a></li>
+            <li><a href="../aboutme/">ABOUT</a></li>
+            <li><a href="../project/">PROJECTs</a></li>
+            <li><a href="../publications/">PUBLICATIONs</a></li>
+            <li><a href="../outreach/">OUTREACH</a></li>
+            <li><a href="../workshops/">WORKSHOPs</a></li>
+            <li><a class="active" href="../tutorials/">TUTORIALs</a></li>
+            <li><a href="../gallery/">GALLERY</a></li>
+            <li><a href="../contact/">CONTACT</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<section class="container">
+<div class="timeline">
+<div class="timeline-item">
+<h2>Starting with nMDS in R</h2>
+<p><strong>Date:</strong> July 01, 2025</p>
+</div>
+
+<div class="timeline-item">
+
+<p>
+In this tutorial, we use the built-in iris dataset, which contains measurements of four features from three species of iris flowers. 
+  We will perform PCA to reduce the data to its main components, then plot the PCA scores in a scatterplot with points colored by species. 
+  To make it easier to see smaller clusters, we also add a magnified inset to zoom in on the overlap of two groups. 
+  This example shows how PCA helps reveal patterns in multivariate data and how visualization techniques can highlight important details.</p>
+
+<pre><code class="language-r">
+# Check for required packages, install if missing
+required <- c("FactoMineR", "factoextra", "ggplot2", "ggmagnify", "ggfx")
+new <- required[!(required %in% installed.packages()[, "Package"])]
+if(length(new)) {
+  install.packages(new)
+}
+
+# Load packages
+library(FactoMineR)   # PCA computation
+library(factoextra)   # PCA utilities, eigenvalues, visualization
+library(ggplot2)      # General plotting
+library(ggmagnify)    # Magnified inset for ggplot
+library(ggfx)         # Optional effects for ggplot
+
+# Prepare Example Data
+# Use first 4 numeric columns of iris dataset for PCA
+data <- iris[, 1:4]   # Sepal/ Petal lengths and widths
+Group <- iris$Species # Use species as grouping/color
+
+# Perform PCA 
+pca <- PCA(data, graph = FALSE)  # PCA computation
+
+# Extract PCA coordinates (scores) for plotting
+pcaScores <- as.data.frame(pca$ind$coord)
+colnames(pcaScores)[1:2] <- c("PC1", "PC2")  # Rename for clarity
+pcaScores$Group <- Group  # Add species as a factor for coloring
+
+# Variance explained by PC1 and PC2
+pc1_pct <- round(pca$eig[1,2], 2)  # PC1 % variance
+pc2_pct <- round(pca$eig[2,2], 2)  # PC2 % variance
+
+# Base PCA Scatter Plot
+# Standard scatterplot of PCA scores with color by species
+p <- ggplot(pcaScores, aes(x = PC1, y = PC2, color = Group)) +
+  geom_point(size = 3) +                 # Points
+  theme_bw(15) +                         # Clean theme
+  xlab(paste0("PC1 (", pc1_pct, "%)")) +
+  ylab(paste0("PC2 (", pc2_pct, "%)")) +
+  theme(
+    axis.text = element_text(color = "black"),
+    axis.ticks = element_line(color = "black"),
+    panel.grid = element_blank(),        # Remove gridlines
+    legend.position = "bottom"
+  )
+
+print(p)  # Display base PCA plot
+</code></pre>
+
+<img src="../pca/pca1.png" 
+     class="tutorial-image">
+
+	
+<pre><code class="language-r">
+# Define Region to Magnify
+# Coordinates of the rectangle to zoom in
+# xmin/xmax and ymin/ymax in PCA data units
+from <- c(xmin = 0 , xmax = 2, ymin = -1.5, ymax = 0.5)
+
+# Location where the magnified inset will appear (plot coordinates)
+to <- c(-4, 0, 4, 8)
+
+# Add Magnified Inset
+p_zoom <- p +
+  coord_cartesian(clip = "off") +        # Prevent clipping of magnified region
+  theme(
+    plot.margin = margin(
+      t = 8, r = 4, b = 1, l = 4, unit = "cm" # Expand plot margins for inset
+    )
+  ) +
+  geom_magnify(
+    from = from,           # Rectangle in original plot
+    to = to,               # Location of inset
+    target.linetype = 2,   # Dashed line for rectangle
+    proj.linetype   = 2    # Dashed projection lines to inset
+  )
+
+print(p_zoom)  # Display PCA with magnified inset
+</code></pre>
+	
+<div style="height:50px;"></div>
+<li><strong>Now we can plot NMDS in <code>ggplot2</code>.</strong></li>
+
+<pre><code class="language-r">
+p <- ggplot() +
+   geom_point(data = data.scores, aes(x,y, fill = year, color= layer , shape = year ), size=4) +
+   scale_color_manual(values = layer_colors) +
+   geom_polygon(data=hull.data, aes(x,y, fill = "#8ecae6", group = year_layer), alpha=0.1) +
+   scale_fill_manual(values = layer_colors) +
+   labs(colour = "Sample layer", shape = "Year" , x = "NMDS1", y = "NMDS2") +
+   theme(axis.text.y = element_text(colour = "black", size = 10, face = "bold"), 
+         axis.text.x = element_text(colour = "black", face = "bold", size = 10), 
+         legend.text = element_text(size = 10, face ="bold", colour ="black"), 
+         legend.position = "right", axis.title.y = element_text(face = "bold", size = 10), 
+         axis.title.x = element_text(face = "bold", size = 10, colour = "black"), 
+         legend.title = element_text(size = 10, colour = "black", face = "bold"), 
+         panel.background = element_blank(), 
+         panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
+         legend.key=element_blank()) + geom_text_repel() + guides(fill = "none")
+
+p
+</code></pre>
+
+<img src="../pca/pca2.png" 
+      class="tutorial-image">
+
+</section>
+  
+
+<footer>
+
+<p>© 2020 Ngoc-Loi Nguyen</p>
+
+</footer>
+    
+<script>
+Prism.highlightAll();
+</script>
+
+<script src="../js/script.js"></script>
+
+</body>
+
+</html>
