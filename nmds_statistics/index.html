@@ -67,18 +67,11 @@ It ranges from -1 to 1:
 <p>
 <strong>Significance values (p-values)</strong>
 </p>
-
-<p>
-The p-value tests the null hypothesis that there is no difference between groups.
-</p>
-
-<p>
-It is calculated by a permutation test (e.g., 999 permutations).
-</p>
-
-<p>
-A low p-value (&lt; 0.05) indicates that the observed R is unlikely due to chance, so groups are significantly different.
-</p>
+<ul>
+<li>The p-value tests the null hypothesis that there is no difference between groups.</li>
+<li>It is calculated by a permutation test (e.g., 999 permutations).</li>
+<li>A low p-value (&lt; 0.05) indicates that the observed R is unlikely due to chance, so groups are significantly different.</li>
+</ul>
 
 <pre><code class="language-r">
 # Run ANOSIM for layer variable
@@ -114,8 +107,6 @@ plot(anosim_layer)
 
 <img src="../nmds_statistics/nmds_statistics1.png" 
       class="tutorial-image">
-
-
 	
 <h3>2. PERMANOVA (Permutational Multivariate Analysis of Variance) </h3>
   <p>PERMANOVA is a non-parametric method used to test whether multivariate community composition
@@ -126,7 +117,8 @@ plot(anosim_layer)
   <li>Uses permutations instead of distributional assumptions.</li>
   <li>PERMANOVA asks whether communities differ systematically among groups or predictors, not just by chance.</li>
 </ul>
-
+	
+<div style="height:10px;"></div>
 <strong>Interpretation of results</strong>
 
 <ul>
@@ -134,7 +126,8 @@ plot(anosim_layer)
   <li>F value: strength of group separation relative to within-group variation.</li>
   <li>p-value: statistical significance based on permutations.</li>
 </ul>
-
+	
+<div style="height:50px;"></div>
 
 <pre><code class="language-r">
 # Run PERMANOVA for layer variable
@@ -154,7 +147,8 @@ Total    23   4.9279 1.00000
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 </code></pre>
-
+	
+<div style="height:10px;"></div>
 <strong>Interpretation of results</strong>
 
 <ul>
@@ -209,7 +203,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
     Both indicate strong vertical stratification of communities.
   </li>
 </ul>
-
+	
+<div style="height:50px;"></div>
 <p>
 Next, test PERMDISP (beta dispersion test) using <code>betadisper</code> based on Bray–Curtis dissimilarity, to test homogeneity of multivariate dispersion among layers:
 </p>
@@ -243,28 +238,12 @@ plot(betadisper(vegdist(m_com, "bray"), metadata_id$layer))
 <img src="../nmds_statistics/nmds_statistics2.png" 
       class="tutorial-image">
 
+<p>
+  In general, NMDS was used to visualize differences in community composition based on dissimilarities matrix. 
+  Statistical significance of group differences was assessed using PERMANOVA (adonis2) and supported by ANOSIM. 
+  Homogeneity of multivariate dispersion was evaluated using PERMDISP to ensure that significant results reflected differences in community composition rather than within-group variability.
+</p>
 
-
-
-
-
-
-  
-<ul>
-  <li>The NMDS plot shows visible clustering of samples according to sampling time (indicated by color) and possibly by sample type (indicated by shape).</li>
-  <li>These observed patterns suggest that temporal variation and sample type might influence community composition.</li>
-  <li>However, since this is a visual interpretation, no formal conclusion about group differences can be drawn yet.</li>
-</ul>
-	
-<div style="height:30px;"></div>
-<h3>5. Suggestion for next steps</h3>
-<ul>
-  <li>Perform an ANOSIM (Analysis of Similarities) test to statistically evaluate whether differences between groups (e.g., sampling times, sample types) are significant.</li>
-  <li>Use SIMPER (Similarity Percentages) analysis or Indicator Species Analysis to identify which species or ASVs contribute most to differences among groups.</li>
-  <li>Apply envfit to overlay environmental variables on the NMDS plot to understand how environmental factors relate to observed community patterns.</li>
-  <li>Consider exploring other ordination methods or multivariate statistics to further validate and interpret community structure (e.g., PCA, RDA).</li>
-</ul>
-	
 </section>
   
 
