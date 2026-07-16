@@ -857,9 +857,9 @@ CARDS - Các khối nội dung dạng thẻ
 /* Khung chứa nhiều card */
 .cards{
     display:grid;
-    grid-template-columns: 1fr;
+    grid-template-columns:1fr;
     gap:25px;
-    margin-top:0px;
+    margin-top:0;
     width:100%;
 }
 
@@ -883,10 +883,37 @@ CARDS - Các khối nội dung dạng thẻ
 }
 
 
-/* Tiêu đề trong card */
+/* Tiêu đề */
 .card h3{
     color:var(--primary);
     margin-bottom:15px;
+}
+
+
+/* =========================
+BUTTON trong card
+========================= */
+
+/* Mỗi link hiển thị thành một dòng riêng */
+.card .button{
+    display:inline-block;
+    margin:5px 5px 5px 0;
+    padding:8px 14px;
+
+    border-radius:8px;
+    text-decoration:none;
+
+    white-space:normal;
+    line-height:1.4;
+
+    box-sizing:border-box;
+}
+
+
+/* Không cho nút bị tràn */
+.card a{
+    max-width:100%;
+    overflow-wrap:break-word;
 }
 
 
