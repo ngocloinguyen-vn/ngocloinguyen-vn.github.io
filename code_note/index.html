@@ -61,7 +61,7 @@ par(mar = c(3, 4, 2, 2))
 display.brewer.all()
 </code></pre>
 	
-<img src="../code_note/code_note1.png" 
+<img src="../code_note/note1.png" 
      class="tutorial-image">
 
 <p>
@@ -73,7 +73,7 @@ Note: Spectral is a diverging palette, useful for showing data that diverges aro
 display.brewer.pal(n = 11, name = "Spectral")
 </code></pre>
 	
-<img src="../code_note/code_note2.png" 
+<img src="../code_note/note2.png" 
       class="tutorial-image">
 
  <p>Create a custom color palette with 15 colors interpolated from the 11-color Spectral palette. </p>
@@ -92,7 +92,7 @@ colors <- colorRampPalette(brewer.pal(11, "Spectral"))(15)
 barplot(rep(1, length(colors)), col = colors, border = NA, space = 0,
         main = "Custom 15-Color Palette from Spectral", axes = FALSE)
   </code></pre>
-<img src="../code_note/code_note3.png" 
+<img src="../code_note/note3.png" 
       class="tutorial-image">
   
  <p> Create a custom color palette with 20 colors interpolated from the 9-color YlOrRd​</p>
@@ -105,7 +105,7 @@ barplot(rep(1, length(colors)), col = colors, border = NA, space = 0,
         main = "Custom 20-Color Palette from YlOrRd", axe = F)
   </code></pre>
   
-<img src="../code_note/code_note4.png" 
+<img src="../code_note/note4.png" 
       class="tutorial-image">
 	
 </section>
