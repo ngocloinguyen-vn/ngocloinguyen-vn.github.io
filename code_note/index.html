@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Code notes</title>
+    <meta name="description" content="Code notes">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-r.min.js"></script>   
+</head>
+    
+<body>
+<header>
+    <nav class="navbar">
+        <!-- Mobile menu -->
+        <button class="menu-toggle" aria-label="Open menu">
+            ☰
+        </button>
+
+        <ul>
+            <li><a href="../">HOME</a></li>
+            <li><a href="../aboutme/">ABOUT</a></li>
+            <li><a href="../project/">PROJECTs</a></li>
+            <li><a href="../publications/">PUBLICATIONs</a></li>
+            <li><a href="../outreach/">OUTREACH</a></li>
+            <li><a href="../workshops/">WORKSHOPs</a></li>
+            <li><a class="active" href="../tutorials/">TUTORIALs</a></li>
+            <li><a href="../gallery/">GALLERY</a></li>
+            <li><a href="../contact/">CONTACT</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<section class="container">
+<div class="timeline">
+<div class="timeline-item">
+<h2>Code note</h2>
+<p><strong>Date:</strong> Septemper 01, 2025</p>
+</div>
+
+<div class="timeline-item">
+<h3>Generate the color list from RColorBrewer package</h3>
+
+<pre><code class="language-r">
+# Load the RColorBrewer package for pre-defined color palettes
+library(RColorBrewer)
+
+# Set margins for plotting (bottom, left, top, right)
+par(mar = c(3, 4, 2, 2))
+
+# Display all available color palettes from RColorBrewer
+display.brewer.all()
+</code></pre>
+	
+<img src="../code_note/code_note1.png" 
+     class="tutorial-image">
+
+<p>
+Display the "Spectral" palette with its maximum of 11 colors​ <br>
+Note: Spectral is a diverging palette, useful for showing data that diverges around a midpoint
+</div>p>
+	
+<pre><code class="language-r">
+display.brewer.pal(n = 11, name = "Spectral")
+</code></pre>
+	
+<img src="../code_note/code_note2.png" 
+      class="tutorial-image">
+
+ <p>Create a custom color palette with 15 colors interpolated from the 11-color Spectral palette. </p>
+
+<pre><code class="language-r">
+colors <- colorRampPalette(brewer.pal(11, "Spectral"))(15)
+
+# List of color with could mannally pick
+> colors
+ [1] "#9E0142" "#C52C4B" "#E25249" "#F57647" "#FBA45C" "#FDCA78" "#FEE899" "#FFFFBF" "#EDF7A3" "#CCEA9D"
+[11] "#A1D9A4" "#6FC5A4" "#48A0B2" "#3E77B5" "#5E4FA2"
+</code></pre>
+
+<p>​Plot the generated color palette as a horizontal bar of color swatches</p>
+  <pre><code class="language-r">
+barplot(rep(1, length(colors)), col = colors, border = NA, space = 0,
+        main = "Custom 15-Color Palette from Spectral", axes = FALSE)
+  </code></pre>
+<img src="../code_note/code_note3.png" 
+      class="tutorial-image">
+  
+ <p> Create a custom color palette with 20 colors interpolated from the 9-color YlOrRd​</p>
+  <pre><code class="language-r">
+# Interpolate a sequential palette for 20 shades
+colors <- colorRampPalette(brewer.pal(9, "YlOrRd"))(20)
+
+# Plot the generated color palette as a horizontal bar of color swatches
+barplot(rep(1, length(colors)), col = colors, border = NA, space = 0,
+        main = "Custom 20-Color Palette from YlOrRd", axe = F)
+  </code></pre>
+  
+<img src="../code_note/code_note4.png" 
+      class="tutorial-image">
+	
+</section>
+  
+
+<footer>
+
+<p>© 2020 Ngoc-Loi Nguyen</p>
+
+</footer>
+    
+<script>
+Prism.highlightAll();
+</script>
+
+<script src="../js/script.js"></script>
+
+</body>
+
+</html>
+
+
+
