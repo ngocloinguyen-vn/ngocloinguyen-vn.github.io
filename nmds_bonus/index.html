@@ -135,10 +135,14 @@ OCE22_BL2_03    45     7.85 3.741      0.58   6.466
 <div style="height:50px;"></div>
 <ul>
 <li>
-Run NMDS with metaMDS(), more detail here.
+<p>
+Run <code>metaMDS()</code> for NMDS analysis, more detail 
+<a href="nmds.html">here</a>.
+</p>
+	
 </li>
 <li> 
-Run envfit() to fit environmental variables onto NMDS.
+Run <code>envfit()</code> to fit environmental variables onto NMDS.
 </li>
 </ul> 
   
@@ -203,8 +207,8 @@ The envfit results show how well environmental variables align with the NMDS ord
 </p>
 
 <ul>
-  <li>Temperature: strongest, significant (r²=0.47, p=0.002)</li>
-  <li>Density, salinity, turbidity: significant (r² ~0.28–0.32, p &lt; 0.05)</li>
+  <li><strong>Temperature</strong>: strongest, significant (r²=0.47, p=0.002)</li>
+  <li><strong>Density, salinity, turbidity</strong>: significant (r² ~0.28–0.32, p &lt; 0.05)</li>
   <li>Depth: marginal (r²=0.25, p=0.064)</li>
   <li>Layer (factor): explains most variation (r²=0.68, p=0.001)</li>
 </ul>
@@ -212,7 +216,8 @@ The envfit results show how well environmental variables align with the NMDS ord
 <p>
 Conclusion: temperature and layers strongly influence community structure.
 </p>
-
+	
+<div style="height:30px;"></div>
 <p>
 Next, we need to extract the data from the envfit results (with p value =&lt; 0.05) and integrate it into the ggplot visualizations.
 </p>
@@ -355,7 +360,8 @@ p <- ggplot() +
 
 p
 </code></pre>
-  
+
+<p>Final plot for nMDS</p>
 <img src="../nmds_bonus/nmds_bonus3.png" 
       class="tutorial-image">
 	
