@@ -830,9 +830,10 @@ pre code {
 /* Inline R function */
 p code,
 li code {
-    font-family: inherit;
-    font-size: inherit;
+    font-family:"Courier New", monospace;
+    font-size:0.9em;
 }
+
 
 
 /* =========================
