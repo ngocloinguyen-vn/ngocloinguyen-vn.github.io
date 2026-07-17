@@ -59,18 +59,18 @@ It ranges from -1 to 1:
 </p>
 
 <ul>
-  <li>R ≈ 1: samples within groups are more similar to each other than to samples from other groups (strong separation).</li>
-  <li>R ≈ 0: no difference between groups (random grouping).</li>
-  <li>R &lt; 0: more similarity between groups than within groups (rare in ecological data).</li>
+  <li><strong>R ≈ 1</strong>: samples within groups are more similar to each other than to samples from other groups (strong separation).</li>
+  <li><strong>R ≈ 0</strong>: no difference between groups (random grouping).</li>
+  <li><strong>R &lt; 0</strong>: more similarity between groups than within groups (rare in ecological data).</li>
 </ul>
 
 <p>
 <strong>Significance values (p-values)</strong>
 </p>
 <ul>
-<li>The p-value tests the null hypothesis that there is no difference between groups.</li>
-<li>It is calculated by a permutation test (e.g., 999 permutations).</li>
-<li>A low p-value (&lt; 0.05) indicates that the observed R is unlikely due to chance, so groups are significantly different.</li>
+<li>The <strong>p-value</strong> tests the null hypothesis that there is no difference between groups.</li>
+<li>It is calculated by <strong>a permutation test<strong> (e.g., 999 permutations).</li>
+<li><strong>A low p-value (&lt; 0.05)</strong> indicates that the observed R is unlikely due to chance, so groups are significantly different.</li>
 </ul>
 
 <pre><code class="language-r">
@@ -99,10 +99,10 @@ plot(anosim_layer)
 <ul>
   <li>Analysis performed ANOSIM (Analysis of Similarities) using Bray–Curtis dissimilarity based on 999 permutations.</li>
   <li>Grouping factor: Sample layer (e.g. SUR, MID, BOT, SED).</li>
-  <li>ANOSIM R statistic = 0.6162 indicates strong separation of community composition among layers, values &gt; 0.5 are generally interpreted as high dissimilarity between groups relative to within-group variation.</li>
-  <li>Significance (p = 0.001): the observed separation is highly statistically significant.</li>
+  <li><strong>ANOSIM R statistic = 0.6162</strong> indicates strong separation of community composition among layers, values &gt; 0.5 are generally interpreted as high dissimilarity between groups relative to within-group variation.</li>
+  <li>Significance (<strong>p = 0.001</strong>): the observed separation is highly statistically significant.</li>
   <li>Microbial community structure differs significantly and strongly among sediment/water layers, differences between layers exceed variation within layers.</li>
-  <li>Rank dissimilarities within vs between groups:</li>
+  <li>Rank dissimilarities <strong>within vs between groups</strong>:</li>
 </ul>
 
 <img src="../nmds_statistics/nmds_statistics1.png" 
@@ -112,19 +112,19 @@ plot(anosim_layer)
   <p>PERMANOVA is a non-parametric method used to test whether multivariate community composition
     differs among groups or along environmental gradients.</p>
  <ul>
-  <li>Tests whether the centroids (multivariate means) of groups differ in multivariate space.</li>
-  <li>Based on a distance matrix (e.g. Bray–Curtis).</li>
+  <li>Tests whether the <strong>centroids (multivariate means)</strong> of groups differ in multivariate space.</li>
+  <li>Based on a <strong>distance matrix</strong> (e.g. Bray–Curtis).</li>
   <li>Uses permutations instead of distributional assumptions.</li>
-  <li>PERMANOVA asks whether communities differ systematically among groups or predictors, not just by chance.</li>
+  <li>PERMANOVA asks whether communities differ <strong>systematically among groups or predictors</strong>, not just by chance.</li>
 </ul>
 	
 <div style="height:10px;"></div>
 <strong>Interpretation of results</strong>
 
 <ul>
-  <li>R²: fraction of community variation explained by the factor.</li>
-  <li>F value: strength of group separation relative to within-group variation.</li>
-  <li>p-value: statistical significance based on permutations.</li>
+  <li><strong>R²</strong>: fraction of community variation explained by the factor.</li>
+  <li><strong>F value</strong>: strength of group separation relative to within-group variation.</li>
+  <li><strong>p-value</strong>: statistical significance based on permutations.</li>
 </ul>
 	
 <div style="height:50px;"></div>
@@ -164,8 +164,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
   <li>
     <strong>Variation explained (R² = 0.4306)</strong>
     <ul>
-      <li>43.1% of total community variation is explained by sample layer.</li>
-      <li>Indicates a strong structuring effect of layer on community composition.</li>
+      <li><strong>43.1% of total community variation</strong> is explained by sample layer.
+      Indicates a strong structuring effect of layer on community composition.</li>
     </ul>
   </li>
 
@@ -179,7 +179,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
   <li>
     <strong>Pseudo-F statistic (F = 5.04)</strong>
     <ul>
-      <li>High F value indicates that between-layer differences are much larger than within-layer differences.</li>
+      <li>High F value indicates that <strong>between-layer differences</strong> are much larger than within-layer differences.</li>
     </ul>
   </li>
 
@@ -190,23 +190,17 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
       <li>The probability of observing this degree of separation by chance is &lt; 0.1%.</li>
     </ul>
   </li>
-
-  <li>
-    Microbial community composition differs strongly and significantly across vertical layers, layer is a major driver of community structure in this dataset.
-  </li>
-
-  <li>
-    PERMANOVA result (R² = 0.43) is consistent with your ANOSIM result (R = 0.62).
-  </li>
-
-  <li>
-    Both indicate strong vertical stratification of communities.
-  </li>
 </ul>
+<p>
+    Microbial community composition differs <strong>strongly and significantly</strong> across vertical layers, layer is a major driver of community structure in this dataset.<br>
+    PERMANOVA result (R² = 0.43) is consistent with your ANOSIM result (R = 0.62).<br>
+    Both indicate <strong>strong vertical stratification</strong> of communities.
+</p>
 	
 <div style="height:50px;"></div>
 <p>
-Next, test PERMDISP (beta dispersion test) using <code>betadisper</code> based on Bray–Curtis dissimilarity, to test homogeneity of multivariate dispersion among layers:
+Next, test <strong>PERMDISP (beta dispersion test)</strong> using <code>betadisper</code> based on <strong>Bray–Curtis dissimilarity</strong>,
+	to test <strong>homogeneity of multivariate dispersion</strong> among layers:
 </p>
 
 <pre><code class="language-r">
@@ -230,7 +224,7 @@ plot(betadisper(vegdist(m_com, "bray"), metadata_id$layer))
 
 
 <ul>
-  <li>PERMDISP test result: Significant differences in multivariate dispersion among layers (F = 4.86, p = 0.011).
+  <li><strong>PERMDISP test result</strong>: Significant differences in multivariate dispersion among layers (F = 4.86, p = 0.011).
   Variability within layers differs; some layers are more heterogeneous than others (water layers, which could be visualized by plot).</li>
 </ul>
 
@@ -239,9 +233,9 @@ plot(betadisper(vegdist(m_com, "bray"), metadata_id$layer))
       class="tutorial-image">
 
 <p>
-  In general, NMDS was used to visualize differences in community composition based on dissimilarities matrix. 
-  Statistical significance of group differences was assessed using PERMANOVA (adonis2) and supported by ANOSIM. 
-  Homogeneity of multivariate dispersion was evaluated using PERMDISP to ensure that significant results reflected differences in community composition rather than within-group variability.
+  In general, <strong>NMDS</strong> was used to visualize differences in community composition based on dissimilarities matrix. 
+  Statistical significance of group differences was assessed using <strong>PERMANOVA (adonis2)</strong> and supported by <strong>ANOSIM</strong>. 
+  Homogeneity of multivariate dispersion was evaluated using <strong>PERMDISP</strong> to ensure that significant results reflected differences in community composition rather than within-group variability.
 </p>
 
 </section>
