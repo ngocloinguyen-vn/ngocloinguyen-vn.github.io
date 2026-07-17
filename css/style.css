@@ -831,7 +831,7 @@ pre code {
 p code,
 li code {
     font-family:"Courier New", monospace;
-    font-size:0.9em;
+    font-size: inherit;
 }
 
 
