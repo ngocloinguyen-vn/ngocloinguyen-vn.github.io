@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>nMDS in R</title>
-    <meta name="description" content="nMDS analysis in R using vegan package">
+    <meta name="description" content="nMDS analysis">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -123,8 +123,8 @@ OCE22_BL2_02 73508  18791     44       0      16       1       2       0       0
 <div style="height:50px;"></div>
 <ul>
 <li>
-<strong>Convert to metagenomeSeq Object & CSS Normalize</strong>
-<p>Here, the CSS method is used for normalization. <br> 
+<strong>Convert to metagenomeSeq Object & Cumulative Sum Scaling (CSS) normalization</strong>
+<p>Here, the <strong>CSS method</strong> is used for normalization. <br> 
 There are a few alternative normalization methods commonly used for microbiome or ecological count data, each with its own strengths depending on your analysis goals:</p>
 <ul>
 <li>
@@ -244,12 +244,12 @@ plot(nmds)
   <li>
     <strong>Preparation for plotting:</strong>
     <ul>
-      <li>Load required libraries: <code>ggplot2</code>, <code>ggrepel</code>, and <code>dplyr</code>.</li>
-      <li>Extract NMDS site scores and rename the axes to <code>x</code> and <code>y</code>.</li>
+      <li>Load required libraries: <strong>ggplot2</strong>, <strong>ggrepel</strong> and <strong>dplyr</strong>.</li>
+      <li>Extract NMDS site scores and rename the axes to x and y.</li>
       <li>Load metadata and merge relevant columns into the NMDS scores data frame.</li>
-      <li>Calculate convex hulls for each <code>year_layer</code> group based on NMDS coordinates.</li>
+      <li>Calculate convex hulls for each <strong>year_layer</strong> group based on NMDS coordinates.</li>
       <li>Combine all hull points into a single data frame for plotting.</li>
-      <li>Define a color palette for the different layers (<code>SUR</code>, <code>MID</code>, <code>BOT</code>, <code>SED</code>).</li>
+      <li>Define a color palette for the different layers (<strong>SUR, MID, BOT, SED</strong>).</li>
     </ul>
   </li>
 </ul>
@@ -333,9 +333,9 @@ p
 <div style="height:30px;"></div>
 <h3>5. Suggestion for next steps</h3>
 <ul>
-  <li>Perform an ANOSIM (Analysis of Similarities) test to statistically evaluate whether differences between groups (e.g., sampling times, sample types) are significant.</li>
-  <li>Use SIMPER (Similarity Percentages) analysis or Indicator Species Analysis to identify which species or ASVs contribute most to differences among groups.</li>
-  <li>Apply envfit to overlay environmental variables on the NMDS plot to understand how environmental factors relate to observed community patterns.</li>
+  <li>Perform an <strong>ANOSIM (Analysis of Similarities)</strong> test to statistically evaluate whether differences between groups (e.g., sampling times, sample types) are significant.</li>
+  <li>Use <strong>SIMPER (Similarity Percentages)</strong> analysis or Indicator Species Analysis to identify which species or ASVs contribute most to differences among groups.</li>
+  <li>Apply <strong>envfit</strong> to overlay environmental variables on the NMDS plot to understand how environmental factors relate to observed community patterns.</li>
   <li>Consider exploring other ordination methods or multivariate statistics to further validate and interpret community structure (e.g., PCA, RDA).</li>
 </ul>
 	
