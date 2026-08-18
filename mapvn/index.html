@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>nMDS in R</title>
+    <meta name="description" content="nMDS analysis">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-r.min.js"></script>   
+</head>
+    
+<body>
+<header>
+    <nav class="navbar">
+        <!-- Mobile menu -->
+        <button class="menu-toggle" aria-label="Open menu">
+            ☰
+        </button>
+
+        <ul>
+            <li><a href="../">HOME</a></li>
+            <li><a href="../aboutme/">ABOUT</a></li>
+            <li><a href="../project/">PROJECTs</a></li>
+            <li><a href="../publications/">PUBLICATIONs</a></li>
+            <li><a href="../outreach/">OUTREACH</a></li>
+            <li><a href="../workshops/">WORKSHOPs</a></li>
+            <li><a class="active" href="../tutorials/">TUTORIALs</a></li>
+            <li><a href="../gallery/">GALLERY</a></li>
+            <li><a href="../contact/">CONTACT</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<section class="container">
+<div class="timeline">
+<div class="timeline-item">
+<h2>Starting with nMDS in R</h2>
+<p><strong>Date:</strong> July 01, 2025</p>
+</div>
+
+<div class="timeline-item">
+<h3>1. What is NMDS?</h3>
+<p>
+Non-metric Multidimensional Scaling (NMDS) is a powerful ordination technique used to reduce the dimensionality of complex ecological data,
+such as OTU or ASV tables, by representing patterns in two or three dimensions.</p>
+<p>In NMDS plots:<br> </p>
+<ul>
+<li>
+Each point represents a sample.
+</li>
+<li>
+The closer the two points are, the more similar their composition is based on the input variables (e.g., OTUs/ASVs).
+</li>
+</ul>
+<p>
+Unlike PCA or PCoA, NMDS is non-parametric-it’s rank-based and does not assume normally distributed data, which is ideal for microbial ecology datasets that often contain many rare taxa (long-tailed distributions).
+</p>
+</div>
+<div class="timeline-item">
+    
+<h3>2. How NMDS Works</h3>
+<ul>
+<li>
+<strong>Non-metric: </strong>Based on ranks of dissimilarities, not the actual distances.
+</li>
+<li>
+<strong>Iterative: </strong>NMDS runs multiple iterations to find a configuration that best preserves the rank order of pairwise dissimilarities. 
+</li>
+<li>
+<strong>Input: </strong>Requires a distance matrix (e.g., Bray-Curtis, Jaccard). 
+</li>
+</ul>
+</div>
+
+<div class="timeline-item">
+<h3>3. How to perform NMDS</h3> 
+<p> To perform NMDS, we generally follow these steps using the <strong>vegan</strong> package.
+</p>
+<ul>
+<li>
+<strong>Prepare your data</strong>
+<ul>
+<li>
+Your input should be a community matrix (samples as rows, ASV as columns).
+</li>
+<li>
+Consider filtering rare taxa or low-read samples beforehand.
+</li>
+</ul>
+</li>
+</ul>
+
+<pre><code class="language-r">
+# Load Required Packages
+install.packages("vegan")  # if not already installed
+library(vegan)
+
+#input dataset and turn abundance data frame into a matrix
+com = read.csv("ASV_table.csv",row.names = 1, header= TRUE)
+com <- as.matrix(t(com))
+
+# Show first 5 rows and first 10 columns 
+com[1:5, 1:10]
+
+> com[1:5, 1:10]
+              ASV1  ASV10 ASV100 ASV1000 ASV1001 ASV1002 ASV1003 ASV1004 ASV1005 ASV1006
+OCE22_BL1_01     0 143055      7       0       1       0       2       0       0       3
+OCE22_BL1_02 38639  18080   1481     518     103       0       7       0       4     251
+OCE22_BL1_03 10686  23020  19225       0      88       0       2       0      39      44
+OCE22_BL2_01  3195    346      0       0       0       0      69       0       0       7
+OCE22_BL2_02 73508  18791     44       0      16       1       2       0       0      50
+</code></pre>
+	
+<div style="height:50px;"></div>
+<ul>
+<li>
+<strong>Convert to metagenomeSeq Object & Cumulative Sum Scaling (CSS) normalization</strong>
+<p>Here, the <strong>CSS method</strong> is used for normalization. <br> 
+There are a few alternative normalization methods commonly used for microbiome or ecological count data, each with its own strengths depending on your analysis goals:</p>
+<ul>
+<li>
+<strong>Total Sum Scaling (TSS):</strong> Normalizes each sample by dividing by the total number of reads;
+	simple but sensitive to library size differences and does not handle sparsity well.
+</li>
+<li>
+<strong>Rarefaction:</strong> Random subsampling to a fixed depth; useful for equalizing library sizes but can discard valuable data and introduce randomness.
+</li>
+	
+<li>
+<strong>Relative Abundance: </strong> Handles compositionality by log-transforming the ratio of each count to the geometric mean;
+	often used in conjunction with tools like ALDEx2 or compositions package.
+</li>
+
+<li>
+<strong>Centered Log-Ratio (CLR) Transformation:</strong> Converts counts to proportions (e.g., counts per ASV divided by total sample count);
+	good for compositional comparisons but not suitable for abundance-sensitive metrics.
+</li>
+
+<li>
+<strong>Variance Stabilizing Transformation (VST) </strong>  from DESeq2: Reduces heteroscedasticity in count data, suitable for downstream statistical analysis.
+</li>
+
+<li>
+<strong>Quantile or Rank Normalization: </strong> Aligns distributions across samples, mostly used in gene expression but applicable to microbiome data for certain comparisons.
+</li>	
+</ul>
+</li>
+</ul>
+<p>Each method has trade-offs, so your choice should align with your research question and downstream statistical requirements.</p>
+	
+<pre><code class="language-r">
+# Load required packages
+library(metagenomeSeq)    # For CSS normalization
+
+# Transpose the input community matrix so that samples are rows, OTUs/ASVs are columns
+ASV_read_count = as.data.frame(t(com))
+
+# Convert to metagenomeSeq object
+metaSeqObject = newMRexperiment(ASV_read_count)
+
+# Compute normalization factor using CSS method
+metaSeqObject_CSS = cumNorm(metaSeqObject, p = cumNormStatFast(metaSeqObject))
+
+# Extract CSS-normalized counts (log-transformed)
+ASV_read_count_CSS = data.frame(MRcounts(metaSeqObject_CSS, norm = TRUE, log = TRUE))
+
+# Transpose so that samples are rows and ASVs are columns (vegan expects this)
+m_com = as.matrix(t(ASV_read_count_CSS))
+</code></pre>
+	
+<div style="height:50px;"></div>
+<ul>
+<li>
+<strong>Run NMDS Ordination</strong>
+<ul>
+<li>
+<strong>metaMDS()</strong> performs NMDS, an ordination technique for visualizing patterns in community composition.
+</li>
+<li>
+<strong>autotransform = FALSE</strong> disables automatic transformation, 
+	appropriate when prior normalization (e.g., CSS with log transform <strong>log = TRUE</strong>) is already applied.
+</li>
+<li>
+<strong>Distance method</strong>: "bray" (Bray-Curtis) is widely used for ecological count data due to its sensitivity to compositional differences.
+</li>
+</ul>
+</li>
+</ul> 
+<pre><code class="language-r">
+# Run NMDS Ordination
+
+set.seed(123)  # For reproducibility
+
+# Perform NMDS using Bray-Curtis distance
+nmds = metaMDS(m_com, autotransform = FALSE, distance = "bray")
+nmds
+
+> nmds
+Call:
+metaMDS(comm = m_com, distance = "bray", autotransform = F) 
+
+global Multidimensional Scaling using monoMDS
+
+Data:     m_com 
+Distance: bray 
+
+Dimensions: 2 
+Stress:     0.1447543 
+Stress type 1, weak ties
+Best solution was repeated 8 times in 20 tries
+The best solution was from try 1 (random start)
+Scaling: centring, PC rotation, halfchange scaling 
+Species: expanded scores based on ‘m_com’ 
+
+plot(nmds)
+</code></pre>
+    
+<p>Quickly interpreting the output</p>
+<ul>
+<li>
+<strong>NMDS stress</strong>: indicates the goodness of fit, with values < 0.1 considered good, < 0.2 acceptable, and > 0.2 suggesting a poor fit and reduced reliability.
+</li>
+<li>
+<strong>NMDS1/NMDS2</strong>: Axes representing major gradients of variation in community composition.
+</li>
+<li>
+<strong>Points</strong>: Represent samples; distances reflect dissimilarity.
+</li>
+</ul> 
+
+<img src="../nmds/nmds1.png" 
+     class="tutorial-image">
+
+<ul>
+  <li>
+    <strong>Preparation for plotting:</strong>
+    <ul>
+      <li>Load required libraries: <strong>ggplot2</strong>, <strong>ggrepel</strong> and <strong>dplyr</strong>.</li>
+      <li>Extract NMDS site scores and rename the axes to x and y.</li>
+      <li>Load metadata and merge relevant columns into the NMDS scores data frame.</li>
+      <li>Calculate convex hulls for each <strong>year_layer</strong> group based on NMDS coordinates.</li>
+      <li>Combine all hull points into a single data frame for plotting.</li>
+      <li>Define a color palette for the different layers (<strong>SUR, MID, BOT, SED</strong>).</li>
+    </ul>
+  </li>
+</ul>
+	
+<pre><code class="language-r">
+library(ggplot2)
+library(ggrepel)
+library(dplyr)
+
+# Extract NMDS scores (x and y coordinates)
+data.scores <- as.data.frame(scores(nmds, display = "sites"))
+names(data.scores)[1:2] <- c("x", "y")  # Rename axes
+
+# Load metadata
+metadata <- read.csv("meta_env.csv", row.names = 1, header = TRUE)
+
+
+head(metadata) 
+             station  year  year_layer layer 
+OCE22_BL1_01    BL01 OCE22 OCE22_water   SUR  
+OCE22_BL1_02    BL01 OCE22 OCE22_water   MID  
+OCE22_BL1_03    BL01 OCE22 OCE22_water   BOT    
+OCE22_BL2_01    BL02 OCE22 OCE22_water   SUR   
+OCE22_BL2_02    BL02 OCE22 OCE22_water   MID    
+OCE22_BL2_03    BL02 OCE22 OCE22_water   BOT   
+
+
+# Add metadata columns
+data.scores$layer      = metadata_matched$layer
+data.scores$year       = metadata_matched$year
+data.scores$station    = metadata_matched$station
+data.scores$year_layer = metadata$year_layer      #for hull data
+
+# Get convex hulls for each group
+grp1 <- data.scores[data.scores$year_layer=="OCE22_water",][chull(data.scores[data.scores$year_layer=="OCE22_water",c("x", "y")]),]
+grp2 <- data.scores[data.scores$year_layer=="OCE23_water",][chull(data.scores[data.scores$year_layer=="OCE23_water",c("x", "y")]),]
+grp3 <- data.scores[data.scores$year_layer=="OCE22_sediment", ][chull(data.scores[data.scores$year_layer=="OCE22_sediment",c("x", "y")]),]
+grp4 <- data.scores[data.scores$year_layer=="OCE23_sediment", ][chull(data.scores[data.scores$year_layer=="OCE22_sediment",c("x", "y")]),]
+
+# Combine hulls into a single dataframe for plotting
+hull.data <- rbind(grp1, grp2, grp3, grp4)
+
+# Color define for each layer
+layer_colors <- c("SUR" = "#1f77b4", "MID" = "#2ca02c", "BOT" = "#ff7f0e", "SED" = "#d62728")
+</code></pre>
+	
+<div style="height:50px;"></div>
+<li><strong>Now we can plot NMDS in <code>ggplot2</code>.</strong></li>
+
+<pre><code class="language-r">
+p <- ggplot() +
+   geom_point(data = data.scores, aes(x,y, fill = year, color= layer , shape = year ), size=4) +
+   scale_color_manual(values = layer_colors) +
+   geom_polygon(data=hull.data, aes(x,y, fill = "#8ecae6", group = year_layer), alpha=0.1) +
+   scale_fill_manual(values = layer_colors) +
+   labs(colour = "Sample layer", shape = "Year" , x = "NMDS1", y = "NMDS2") +
+   theme(axis.text.y = element_text(colour = "black", size = 10, face = "bold"), 
+         axis.text.x = element_text(colour = "black", face = "bold", size = 10), 
+         legend.text = element_text(size = 10, face ="bold", colour ="black"), 
+         legend.position = "right", axis.title.y = element_text(face = "bold", size = 10), 
+         axis.title.x = element_text(face = "bold", size = 10, colour = "black"), 
+         legend.title = element_text(size = 10, colour = "black", face = "bold"), 
+         panel.background = element_blank(), 
+         panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
+         legend.key=element_blank()) + geom_text_repel() + guides(fill = "none")
+
+p
+</code></pre>
+
+<img src="../nmds/nmds2.png" 
+      class="tutorial-image">
+
+	
+<h3>4. Interpretation of results</h3>
+<ul>
+  <li>The NMDS plot shows visible clustering of samples according to sampling time (indicated by color) and possibly by sample type (indicated by shape).</li>
+  <li>These observed patterns suggest that temporal variation and sample type might influence community composition.</li>
+  <li>However, since this is a visual interpretation, no formal conclusion about group differences can be drawn yet.</li>
+</ul>
+	
+<div style="height:30px;"></div>
+<h3>5. Suggestion for next steps</h3>
+<ul>
+  <li>Perform an <strong>ANOSIM (Analysis of Similarities)</strong> test to statistically evaluate whether differences between groups (e.g., sampling times, sample types) are significant.</li>
+  <li>Use <strong>SIMPER (Similarity Percentages)</strong> analysis or Indicator Species Analysis to identify which species or ASVs contribute most to differences among groups.</li>
+  <li>Apply <strong>envfit</strong> to overlay environmental variables on the NMDS plot to understand how environmental factors relate to observed community patterns.</li>
+  <li>Consider exploring other ordination methods or multivariate statistics to further validate and interpret community structure (e.g., PCA, RDA).</li>
+</ul>
+	
+</section>
+  
+
+<footer>
+
+<p>© 2020 Ngoc-Loi Nguyen</p>
+
+</footer>
+    
+<script>
+Prism.highlightAll();
+</script>
+
+<script src="../js/script.js"></script>
+
+</body>
+
+</html>
