@@ -55,7 +55,8 @@ The examples demonstrate how to visualize spatial data and customize maps for re
 </p>
    
 <h3>2. Simple world map with cities</h3>
-<p>A simple and flexible approach is to use sf + rnaturalearth + ggplot2, then add cities with geom_point() and geom_text_repel()</p>
+<p>A simple and flexible approach is to use <strong>sf + rnaturalearth + ggplot2</strong>, 
+	then add cities (sites) with <code>geom_point()</code>code> and <code>geom_text_repel()</code>code></p>
 
 <pre><code class="language-r">
 # Install and load packages
@@ -120,7 +121,7 @@ map
      class="tutorial-image">
 	
 <h3>3. World map with different variables</h3>
-<p>The world map can be colored according to each country's GDP using the GDP variable provided by rnaturalearth::ne_countries().
+<p>The world map can be colored according to each country's GDP using the GDP variable provided by <code>rnaturalearth::ne_countries()</code>code>.
 	Because GDP values vary considerably across countries, applying a logarithmic transformation helps produce a more balanced and informative color scale.</p>
 
 <pre><code class="language-r">
@@ -151,7 +152,7 @@ map
      class="tutorial-image">
 
 <p>If you want to demonstrate different variables for coloring a world map,
-	rnaturalearth::ne_countries() provides several useful attributes besides GDP.</p>
+	<code>rnaturalearth::ne_countries()</code>code> provides several useful attributes besides GDP.</p>
 <ul>
 <li> Population — pop_est </li>
 <li> GDP — gdp_md </li>
@@ -163,9 +164,11 @@ map
 <li> Subregion — subregion </li>
 <li> Income group — depending on the Natural Earth dataset/version </li>
 </ul>
-
+	
+<div style="height:50px;"></div>
+	
 <h3>4. Create a map of a specific region</h3>
-<p>This example focuses on Norway and demonstrates how to create a detailed regional map using sf and ggplot2. 
+<p>This example focuses on Norway and demonstrates how to create a detailed regional map using <strong>st</strong> and <strong>ggplot2</strong>. 
 	In addition to the coastline, the map displays major cities, 
 	with a scale bar and north arrow added using ggspatial to provide geographic context.</p>
 
@@ -218,11 +221,18 @@ map
 	
 <h3>5. Create a map of Vietnam</h3>
 
-<p>This example uses a GeoJSON dataset containing Vietnam's provincial boundaries and demonstrates how to read and visualize spatial data directly with sf. 
+<p>This example uses a GeoJSON dataset containing Vietnam's provincial boundaries and demonstrates how to read and visualize spatial data directly with <strong>sf</strong>. 
 The map can also be extended to include Vietnam's offshore island groups, including Hoàng Sa (Paracel Islands) and Trường Sa (Spratly Islands), 
 to provide a more complete geographic representation of Vietnam.</p>
 	
-<p> Map of 64 Vietnam's provincial boundaries before 01/07/2025</p>
+<p><strong>Map of 64 Vietnam's provincial boundaries before 2025</strong></p>
+<p>The GeoJSON file can be downloaded
+  <a href="https://data.opendevelopmentmekong.net/dataset/55bdad36-c476-4be9-a52d-aa839534200a/resource/b8f60493-7564-4707-aa72-a0172ba795d8/download/vn_iso_province.geojson" download>here</a>.
+</p>
+
+<p>A copy of the GeoJSON file is also available
+  <a href="https://raw.githubusercontent.com/ngocloinguyen-vn/ngocloinguyen-vn.github.io/8d7147c4d794df417cb9ac2411d2b5775e302ca7/map/vn_64_provinces.geojson" download>here</a>.
+</p>
 	
 <pre><code class="language-r">
 # Load required packages
@@ -230,9 +240,12 @@ library(sf)
 library(ggplot2)
 library(patchwork)
 
-# URL of the Vietnam provincial boundary GeoJSON file and read the GeoJSON file as an sf spatial object
+# URL of the Vietnam 64 provincial boundary GeoJSON file and read the GeoJSON file as an sf spatial object
 URL <- 'https://data.opendevelopmentmekong.net/dataset/55bdad36-c476-4be9-a52d-aa839534200a/resource/b8f60493-7564-4707-aa72-a0172ba795d8/download/vn_iso_province.geojson'
 vietnam <- st_read(URL)
+
+# Or import from download file
+vietnam <- st_read("vn_64_provinces.geojson")
 
 # Plot Vietnam's provincial boundaries
 map1 <- ggplot(vietnam) +  
@@ -268,22 +281,24 @@ map1 + map2
 <img src="../map/map5.png" 
     class="tutorial-image">
 
-<p> Map of 34 Vietnam's provincial boundaries after 01/07/2025</p>
+<p><strong>Map of 34 Vietnam's provincial boundaries after 2025</strong></p>
 
+<p>The GeoJSON file can be downloaded
+  <a href="https://github.com/nguyenduy1133/Free-GIS-Data/blob/ccb9f4ae992418bfeefd06da1eb42d0249632176/Vietnam%20Administrative%20Divisions%20(Post-2025)%20-%20%C4%90%C6%A1n%20v%E1%BB%8B%20h%C3%A0nh%20ch%C3%ADnh%20Vi%E1%BB%87t%20Nam%20(T%E1%BB%AB%202025)/Provinces.geojson" download>
+here (https://github.com/nguyenduy1133/Free-GIS-Data)</a>.
+</p>
+
+<p>A copy of the GeoJSON file is also available
+  <a href="https://raw.githubusercontent.com/ngocloinguyen-vn/ngocloinguyen-vn.github.io/8d7147c4d794df417cb9ac2411d2b5775e302ca7/map/vn_34_provinces.geojson" download>here</a>.
+</p>
+	
 <pre><code class="language-r">
 # Load required packages
 library(sf)
 library(ggplot2)
 library(patchwork)
 
-# The Vietnam administrative boundary dataset is available from:
-# https://github.com/nguyenduy1133/Free-GIS-Data
-
-# A copy of the GeoJSON file is also available at:
-# https://github.com/ngocloinguyen-vnmapvn/34_provinces.geojson
-
-vietnam <- st_read("34_provinces.geojson")	
-
+vietnam <- st_read("vn_34_provinces.geojson")
 	
 # Plot Vietnam's provincial boundaries
 map1 <- ggplot(vietnam) +  
@@ -313,15 +328,15 @@ map2 <- ggplot(vietnam) +
 
 map2
 
-map1 + map2
-	
+map1 + map2	
 </code></pre>
 
 <img src="../map/map6.png" 
     class="tutorial-image">
 
+
+
 </section>
-  
 
 <footer>
 
