@@ -56,7 +56,7 @@ The examples demonstrate how to visualize spatial data and customize maps for re
    
 <h3>2. Simple world map with cities</h3>
 <p>A simple and flexible approach is to use <strong>sf + rnaturalearth + ggplot2</strong>, 
-	then add cities (sites) with <code>geom_point()</code>code> and <code>geom_text_repel()</code>code></p>
+	then add cities (sites) with <code>geom_point()</code> and <code>geom_text_repel()</code>.</p>
 
 <pre><code class="language-r">
 # Install and load packages
@@ -93,7 +93,8 @@ map
 <img src="../map/map1.png" 
      class="tutorial-image">
 
-<p>For cleaner version, it could be use a minimal theme and and modify map elements</p>
+<p>For a cleaner presentation, a minimal theme can be used to reduce visual distractions and emphasize the geographic features and city locations. 
+Map elements such as country boundaries, city markers, labels, axes, and titles can also be customized.</p>
 
 <pre><code class="language-r">
 map <- ggplot() +
@@ -121,7 +122,7 @@ map
      class="tutorial-image">
 	
 <h3>3. World map with different variables</h3>
-<p>The world map can be colored according to each country's GDP using the GDP variable provided by <code>rnaturalearth::ne_countries()</code>code>.
+<p>The world map can be colored according to each country's GDP using the GDP variable provided by <code>rnaturalearth::ne_countries()</code>.
 	Because GDP values vary considerably across countries, applying a logarithmic transformation helps produce a more balanced and informative color scale.</p>
 
 <pre><code class="language-r">
@@ -152,17 +153,17 @@ map
      class="tutorial-image">
 
 <p>If you want to demonstrate different variables for coloring a world map,
-	<code>rnaturalearth::ne_countries()</code>code> provides several useful attributes besides GDP.</p>
+	<code>rnaturalearth::ne_countries()</code> provides several useful attributes besides GDP.</p>
 <ul>
-<li> Population — pop_est </li>
-<li> GDP — gdp_md </li>
-<li> GDP per capita — can be calculated from gdp_md / pop_est </li>
-<li> Country area — area_km2 </li>
-<li> Country name — name </li>
-<li> Continent — continent </li>
-<li> Region — region_un </li>
-<li> Subregion — subregion </li>
-<li> Income group — depending on the Natural Earth dataset/version </li>
+<li> <strong>Population</strong> — pop_est </li>
+<li> <strong>GDP</strong> — gdp_md </li>
+<li> <strong>GDP per capita</strong> — can be calculated from gdp_md / pop_est </li>
+<li> <strong>Country area</strong> — area_km2 </li>
+<li> <<strong>Country name</strong> — name </li>
+<li> <strong>Continent</strong> — continent </li>
+<li> <strong>Region</strong> — region_un </li>
+<li> <strong>Subregion</strong> — subregion </li>
+<li> <strong>Income group</strong> — depending on the Natural Earth dataset/version </li>
 </ul>
 	
 <div style="height:50px;"></div>
@@ -223,7 +224,7 @@ map
 
 <p>This example uses a GeoJSON dataset containing Vietnam's provincial boundaries and demonstrates how to read and visualize spatial data directly with <strong>sf</strong>. 
 The map can also be extended to include Vietnam's offshore island groups, including Hoàng Sa (Paracel Islands) and Trường Sa (Spratly Islands), 
-to provide a more complete geographic representation of Vietnam.</p>
+to provide a complete geographic representation of Vietnam.</p>
 	
 <p><strong>Map of 64 Vietnam's provincial boundaries before 2025</strong></p>
 <p>The GeoJSON file can be downloaded
@@ -252,8 +253,8 @@ map1 <- ggplot(vietnam) +
        geom_sf(fill = "gray", linewidth = 0.2) +
        theme_minimal()
 
-# Approximate geographic locations of the Hoàng Sa
-# (Paracel Islands) and Trường Sa (Spratly Islands)
+# Approximate geographic locations of
+# Hoàng Sa (Paracel Islands) and Trường Sa (Spratly Islands)
 islands <- data.frame(
   name = c("Hoàng Sa", "Trường Sa"),
   longitude = c(112.0, 115.0),
@@ -284,12 +285,13 @@ map1 + map2
 <p><strong>Map of 34 Vietnam's provincial boundaries after 2025</strong></p>
 
 <p>The GeoJSON file can be downloaded
-  <a href="https://github.com/nguyenduy1133/Free-GIS-Data/blob/ccb9f4ae992418bfeefd06da1eb42d0249632176/Vietnam%20Administrative%20Divisions%20(Post-2025)%20-%20%C4%90%C6%A1n%20v%E1%BB%8B%20h%C3%A0nh%20ch%C3%ADnh%20Vi%E1%BB%87t%20Nam%20(T%E1%BB%AB%202025)/Provinces.geojson" download>
-here (https://github.com/nguyenduy1133/Free-GIS-Data)</a>.
+<a href="https://raw.githubusercontent.com/nguyenduy1133/Free-GIS-Data/ccb9f4ae992418bfeefd06da1eb42d0249632176/Vietnam%20Administrative%20Divisions%20(Post-2025)%20-%20%C4%90%C6%A1n%20v%E1%BB%8B%20h%C3%A0nh%20ch%C3%ADnh%20Vi%E1%BB%87t%20Nam%20(T%E1%BB%AB%202025)/Provinces.geojson" download>
+<strong>here</strong></a>.
 </p>
 
 <p>A copy of the GeoJSON file is also available
-  <a href="https://raw.githubusercontent.com/ngocloinguyen-vn/ngocloinguyen-vn.github.io/8d7147c4d794df417cb9ac2411d2b5775e302ca7/map/vn_34_provinces.geojson" download>here</a>.
+<a href="https://raw.githubusercontent.com/ngocloinguyen-vn/ngocloinguyen-vn.github.io/8d7147c4d794df417cb9ac2411d2b5775e302ca7/map/vn_34_provinces.geojson" download>
+	  <storng>here</storng></a>.
 </p>
 	
 <pre><code class="language-r">
@@ -345,36 +347,27 @@ map1 + map2
   <li>
     <strong>Vietnam Provincial Boundaries</strong> —
     <a href="https://github.com/nguyenduy1133/Free-GIS-Data" target="_blank" rel="noopener noreferrer">
-      Free-GIS-Data
+      Free-GIS-Data (https://github.com/nguyenduy1133/Free-GIS-Data)
     </a>
-    provides GIS data for Vietnam's administrative divisions, including
-    provincial boundary datasets.
+    provides GIS data for provincial boundary datasets before and after 2025.
   </li>
 
   <li>
     <strong>Vietnam Provincial Boundaries Database</strong> —
     <a href="https://github.com/thanglequoc/vietnamese-provinces-database" target="_blank" rel="noopener noreferrer">
-      Vietnamese Provinces Database
+      Vietnamese Provinces Database (https://github.com/thanglequoc/vietnamese-provinces-database)
     </a>
-    provides a database of Vietnam's provinces and administrative information.
+    provides a database of Vietnam's provinces, wards, communes and administrative information after 2025.
   </li>
 
   <li>
     <strong>Interactive Vietnam Map Component</strong> —
     <a href="https://github.com/hoccungduy/vietnam-map-34-provinces" target="_blank" rel="noopener noreferrer">
-      Vietnam Map – 34 Provinces
+      Vietnam Map – 34 Provinces (https://github.com/hoccungduy/vietnam-map-34-provinces)
     </a>
     provides an interactive map component for visualizing Vietnam's 34 provinces.
   </li>
 </ul>
-
-<p>
-  These resources are maintained by their respective authors and are provided
-  here as additional references for Vietnam administrative boundary data and
-  map visualization.
-</p>
-	
-
 </section>
 
 <footer>
