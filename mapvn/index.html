@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>nMDS in R</title>
-    <meta name="description" content="nMDS analysis">
+    <title>World and Vietnam maps in R</title>
+    <meta name="description" content="World and Vietnam maps in R">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,81 +43,50 @@
 <section class="container">
 <div class="timeline">
 <div class="timeline-item">
-<h2>Starting with nMDS in R</h2>
-<p><strong>Date:</strong> July 01, 2025</p>
+<h2>World and Vietnam maps in R</h2>
+<p><strong>Date:</strong> August 23, 2026</p>
 </div>
 
 <div class="timeline-item">
-<h3>1. What is NMDS?</h3>
+<h3>1. Overview</h3>
 <p>
-Non-metric Multidimensional Scaling (NMDS) is a powerful ordination technique used to reduce the dimensionality of complex ecological data,
-such as OTU or ASV tables, by representing patterns in two or three dimensions.</p>
-<p>In NMDS plots:<br> </p>
-<ul>
-<li>
-Each point represents a sample.
-</li>
-<li>
-The closer the two points are, the more similar their composition is based on the input variables (e.g., OTUs/ASVs).
-</li>
-</ul>
-<p>
-Unlike PCA or PCoA, NMDS is non-parametric-it’s rank-based and does not assume normally distributed data, which is ideal for microbial ecology datasets that often contain many rare taxa (long-tailed distributions).
+This note provides R code for creating geographic maps of the world and Vietnam. 
+The examples demonstrate how to visualize spatial data and customize maps for research and presentation purposes.
 </p>
-</div>
-<div class="timeline-item">
-    
-<h3>2. How NMDS Works</h3>
-<ul>
-<li>
-<strong>Non-metric: </strong>Based on ranks of dissimilarities, not the actual distances.
-</li>
-<li>
-<strong>Iterative: </strong>NMDS runs multiple iterations to find a configuration that best preserves the rank order of pairwise dissimilarities. 
-</li>
-<li>
-<strong>Input: </strong>Requires a distance matrix (e.g., Bray-Curtis, Jaccard). 
-</li>
-</ul>
-</div>
-
-<div class="timeline-item">
-<h3>3. How to perform NMDS</h3> 
-<p> To perform NMDS, we generally follow these steps using the <strong>vegan</strong> package.
-</p>
-<ul>
-<li>
-<strong>Prepare your data</strong>
-<ul>
-<li>
-Your input should be a community matrix (samples as rows, ASV as columns).
-</li>
-<li>
-Consider filtering rare taxa or low-read samples beforehand.
-</li>
-</ul>
-</li>
-</ul>
+   
+<h3>2. Simple world map with cities</h3>
+<p>A simple and flexible approach is to use sf + rnaturalearth + ggplot2, then add cities with geom_point() and geom_text_repel()</p>
 
 <pre><code class="language-r">
-# Load Required Packages
-install.packages("vegan")  # if not already installed
-library(vegan)
+# Install and load packages
+install.packages(
+	c("sf", "ggplot2", "rnaturalearth", "rnaturalearthdata", "ggrepel"))
 
-#input dataset and turn abundance data frame into a matrix
-com = read.csv("ASV_table.csv",row.names = 1, header= TRUE)
-com <- as.matrix(t(com))
+library(sf)
+library(ggplot2)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(ggrepel)
 
-# Show first 5 rows and first 10 columns 
-com[1:5, 1:10]
+# Load the world map data
+world <- ne_countries( scale = "medium", returnclass = "sf")
 
-> com[1:5, 1:10]
-              ASV1  ASV10 ASV100 ASV1000 ASV1001 ASV1002 ASV1003 ASV1004 ASV1005 ASV1006
-OCE22_BL1_01     0 143055      7       0       1       0       2       0       0       3
-OCE22_BL1_02 38639  18080   1481     518     103       0       7       0       4     251
-OCE22_BL1_03 10686  23020  19225       0      88       0       2       0      39      44
-OCE22_BL2_01  3195    346      0       0       0       0      69       0       0       7
-OCE22_BL2_02 73508  18791     44       0      16       1       2       0       0      50
+# Define important cities (location or sampling sites)
+cities <- data.frame(
+  city = c("New York", "London", "Paris", "Tokyo", "Beijing", "Singapore", "Sydney", "Cape Town", "São Paulo"),
+  longitude = c( -74.006, -0.128, 2.352, 139.6917, 116.4074, 103.8198, 151.2093, 18.4241, -46.6333),
+  latitude = c( 40.7128, 51.5074, 48.8566, 35.6762, 39.9042, 1.3521, -33.8688, -33.9249, -23.5505))
+	
+# Plot the world map and cities
+map <- ggplot() +
+  geom_sf(data = world, fill = "grey90", color = "white", linewidth = 0.2 ) +
+  geom_point(data = cities, aes(x = longitude, y = latitude), size = 2) +
+  geom_text_repel(data = cities, aes(x = longitude, y = latitude, label = city),
+    size = 3, min.segment.length = 0, box.padding = 0.5) +
+  coord_sf(expand = FALSE) +
+  theme_minimal() +
+  labs(title = "Simple world map with city")
+map
 </code></pre>
 	
 <div style="height:50px;"></div>
