@@ -118,9 +118,9 @@ map
 
 <img src="../mapvn/map2.png" 
      class="tutorial-image">
-
-
-<p> The world map can be colored according to each country's GDP using the GDP variable provided by rnaturalearth::ne_countries().
+	
+<h3>3. World map with different variables</h3>
+<p>The world map can be colored according to each country's GDP using the GDP variable provided by rnaturalearth::ne_countries().
 	Because GDP values vary considerably across countries, applying a logarithmic transformation helps produce a more balanced and informative color scale.</p>
 
 <pre><code class="language-r">
@@ -162,114 +162,164 @@ map
 <li> Region — region_un </li>
 <li> Subregion — subregion </li>
 <li> Income group — depending on the Natural Earth dataset/version </li>
+</ul>ul>
+
+<h3>4. Create a map of a specific region</h3>
+<p>This example focuses on Norway and demonstrates how to create a detailed regional map using sf and ggplot2. 
+	In addition to the coastline, the map displays major cities, 
+	with a scale bar and north arrow added using ggspatial to provide geographic context.</p>
 
 
-<h3>2. Simple world map with cities</h3>
-
-
-
-
-	
-	
-<ul>
-  <li>
-    <strong>Preparation for plotting:</strong>
-    <ul>
-      <li>Load required libraries: <strong>ggplot2</strong>, <strong>ggrepel</strong> and <strong>dplyr</strong>.</li>
-      <li>Extract NMDS site scores and rename the axes to x and y.</li>
-      <li>Load metadata and merge relevant columns into the NMDS scores data frame.</li>
-      <li>Calculate convex hulls for each <strong>year_layer</strong> group based on NMDS coordinates.</li>
-      <li>Combine all hull points into a single data frame for plotting.</li>
-      <li>Define a color palette for the different layers (<strong>SUR, MID, BOT, SED</strong>).</li>
-    </ul>
-  </li>
-</ul>
-	
 <pre><code class="language-r">
+# Load required packages
 library(ggplot2)
-library(ggrepel)
-library(dplyr)
-
-# Extract NMDS scores (x and y coordinates)
-data.scores <- as.data.frame(scores(nmds, display = "sites"))
-names(data.scores)[1:2] <- c("x", "y")  # Rename axes
-
-# Load metadata
-metadata <- read.csv("meta_env.csv", row.names = 1, header = TRUE)
-
-
-head(metadata) 
-             station  year  year_layer layer 
-OCE22_BL1_01    BL01 OCE22 OCE22_water   SUR  
-OCE22_BL1_02    BL01 OCE22 OCE22_water   MID  
-OCE22_BL1_03    BL01 OCE22 OCE22_water   BOT    
-OCE22_BL2_01    BL02 OCE22 OCE22_water   SUR   
-OCE22_BL2_02    BL02 OCE22 OCE22_water   MID    
-OCE22_BL2_03    BL02 OCE22 OCE22_water   BOT   
-
-
-# Add metadata columns
-data.scores$layer      = metadata_matched$layer
-data.scores$year       = metadata_matched$year
-data.scores$station    = metadata_matched$station
-data.scores$year_layer = metadata$year_layer      #for hull data
-
-# Get convex hulls for each group
-grp1 <- data.scores[data.scores$year_layer=="OCE22_water",][chull(data.scores[data.scores$year_layer=="OCE22_water",c("x", "y")]),]
-grp2 <- data.scores[data.scores$year_layer=="OCE23_water",][chull(data.scores[data.scores$year_layer=="OCE23_water",c("x", "y")]),]
-grp3 <- data.scores[data.scores$year_layer=="OCE22_sediment", ][chull(data.scores[data.scores$year_layer=="OCE22_sediment",c("x", "y")]),]
-grp4 <- data.scores[data.scores$year_layer=="OCE23_sediment", ][chull(data.scores[data.scores$year_layer=="OCE22_sediment",c("x", "y")]),]
-
-# Combine hulls into a single dataframe for plotting
-hull.data <- rbind(grp1, grp2, grp3, grp4)
-
-# Color define for each layer
-layer_colors <- c("SUR" = "#1f77b4", "MID" = "#2ca02c", "BOT" = "#ff7f0e", "SED" = "#d62728")
-</code></pre>
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(ggspatial)
 	
-<div style="height:50px;"></div>
-<li><strong>Now we can plot NMDS in <code>ggplot2</code>.</strong></li>
+# Norway coastline
+norway <- ne_countries(country = "Norway", scale = "large", returnclass = "sf")
+
+# Major Norwegian cities
+cities <- data.frame(
+  city = c("Oslo", "Bergen", "Trondheim", "Tromsø"),
+  lon = c(10.7522, 5.3221, 10.3951, 18.9553),
+  lat = c(59.9139, 60.39299, 63.4305, 69.6492))
+
+map<- ggplot() +
+  geom_sf( data = norway, fill = "grey97",
+             color = "grey55", linewidth = 0.3) +
+  geom_point(
+    data = cities, aes(lon, lat), shape = 21,
+    fill = "red", color = "white", size = 2.5, stroke = 0.4) +
+  geom_text_repel( data = cities, aes(lon, lat, label = city),
+    size = 3,  color = "black", fontface = "italic", box.padding = 0.2,
+    point.padding = 0.2, segment.color = NA ) +
+  annotation_scale( location = "bl", width_hint = 0.25) +
+  annotation_north_arrow(location = "br", which_north = "true",
+	                     style = north_arrow_fancy_orienteering()) +
+  coord_sf(
+    xlim = c(2, 32), ylim = c(57, 72), expand = FALSE) +
+  labs( x = "Longitude (°E)", y = "Latitude (°N)") +
+  theme_bw(base_size = 12) +
+  theme(
+    panel.grid.major = element_line(color = "grey90", linewidth = 0.2),
+    panel.background = element_rect(fill = "#DCEEF8"),
+    legend.position = "none",
+    axis.title = element_text(face = "bold"),
+    axis.text = element_text(color = "black"))
+
+map	
+</code></pre>
+
+<img src="../mapvn/map4.png" 
+     class="tutorial-image">
+	
+<h3>5. Create a map of Vietnam</h3>
+
+<p>This example uses a GeoJSON dataset containing Vietnam's provincial boundaries and demonstrates how to read and visualize spatial data directly with sf. 
+The map can also be extended to include Vietnam's offshore island groups, including Hoàng Sa (Paracel Islands) and Trường Sa (Spratly Islands), 
+to provide a more complete geographic representation of Vietnam.</p>
+	
+<p> Map of 64 Vietnam's provincial boundaries before 01/07/2025</p>
+	
+<pre><code class="language-r">
+# Load required packages
+library(sf)
+library(ggplot2)
+library(patchwork)
+
+# URL of the Vietnam provincial boundary GeoJSON file and read the GeoJSON file as an sf spatial object
+URL <- 'https://data.opendevelopmentmekong.net/dataset/55bdad36-c476-4be9-a52d-aa839534200a/resource/b8f60493-7564-4707-aa72-a0172ba795d8/download/vn_iso_province.geojson'
+vietnam <- st_read(URL)
+
+# Plot Vietnam's provincial boundaries
+map1 <- ggplot(vietnam) +  
+       geom_sf(fill = "gray", linewidth = 0.2) +
+       theme_minimal()
+
+# Approximate geographic locations of the Hoàng Sa
+# (Paracel Islands) and Trường Sa (Spratly Islands)
+islands <- data.frame(
+  name = c("Hoàng Sa", "Trường Sa"),
+  longitude = c(112.0, 115.0),
+  latitude  = c(16.5, 11.0))
+	
+# Plot Vietnam's provincial boundaries with different colours
+# and add labels for Hoàng Sa and Trường Sa
+
+map2 <- ggplot(vietnam) +  
+  geom_sf(data = vietnam, aes(fill = Name_EN),
+          linewidth = 0.2, show.legend = FALSE) +
+  geom_text(
+    data = islands,
+    aes(x = longitude, y = latitude, label = name),
+    nudge_y = 0.8, color = "blue", fontface = "bold", size = 3) +
+  coord_sf(expand = FALSE) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+map2
+
+map1 + map2
+</code></pre>
+
+<img src="../mapvn/map5.png" 
+    class="tutorial-image">
+
+<p> Map of 34 Vietnam's provincial boundaries after 01/07/2025</p>
 
 <pre><code class="language-r">
-p <- ggplot() +
-   geom_point(data = data.scores, aes(x,y, fill = year, color= layer , shape = year ), size=4) +
-   scale_color_manual(values = layer_colors) +
-   geom_polygon(data=hull.data, aes(x,y, fill = "#8ecae6", group = year_layer), alpha=0.1) +
-   scale_fill_manual(values = layer_colors) +
-   labs(colour = "Sample layer", shape = "Year" , x = "NMDS1", y = "NMDS2") +
-   theme(axis.text.y = element_text(colour = "black", size = 10, face = "bold"), 
-         axis.text.x = element_text(colour = "black", face = "bold", size = 10), 
-         legend.text = element_text(size = 10, face ="bold", colour ="black"), 
-         legend.position = "right", axis.title.y = element_text(face = "bold", size = 10), 
-         axis.title.x = element_text(face = "bold", size = 10, colour = "black"), 
-         legend.title = element_text(size = 10, colour = "black", face = "bold"), 
-         panel.background = element_blank(), 
-         panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
-         legend.key=element_blank()) + geom_text_repel() + guides(fill = "none")
+# Load required packages
+library(sf)
+library(ggplot2)
+library(patchwork)
 
-p
+# The Vietnam administrative boundary dataset is available from:
+# https://github.com/nguyenduy1133/Free-GIS-Data
+
+# A copy of the GeoJSON file is also available at:
+# https://github.com/ngocloinguyen-vnmapvn/34_provinces.geojson
+
+vietnam <- st_read("34_provinces.geojson")	
+
+	
+# Plot Vietnam's provincial boundaries
+map1 <- ggplot(vietnam) +  
+       geom_sf(fill = "gray", linewidth = 0.2) +
+       theme_minimal() 
+
+# Approximate geographic locations of the Hoàng Sa
+# (Paracel Islands) and Trường Sa (Spratly Islands)
+islands <- data.frame(
+  name = c("Hoàng Sa", "Trường Sa"),
+  longitude = c(112.0, 115.0),
+  latitude  = c(16.5, 11.0))
+	
+# Plot Vietnam's provincial boundaries with different colours
+# and add labels for Hoàng Sa and Trường Sa
+
+map2 <- ggplot(vietnam) +  
+  geom_sf(data = vietnam, aes(fill = Name_EN),
+          linewidth = 0.2, show.legend = FALSE) +
+  geom_text(
+    data = islands,
+    aes(x = longitude, y = latitude, label = name),
+    nudge_y = 0.8, color = "blue", fontface = "bold", size = 3) +
+  coord_sf(expand = FALSE) +
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+map2
+
+map1 + map2
+	
 </code></pre>
 
-<img src="../nmds/nmds2.png" 
-      class="tutorial-image">
+<img src="../mapvn/map6.png" 
+    class="tutorial-image">
 
-	
-<h3>4. Interpretation of results</h3>
-<ul>
-  <li>The NMDS plot shows visible clustering of samples according to sampling time (indicated by color) and possibly by sample type (indicated by shape).</li>
-  <li>These observed patterns suggest that temporal variation and sample type might influence community composition.</li>
-  <li>However, since this is a visual interpretation, no formal conclusion about group differences can be drawn yet.</li>
-</ul>
-	
-<div style="height:30px;"></div>
-<h3>5. Suggestion for next steps</h3>
-<ul>
-  <li>Perform an <strong>ANOSIM (Analysis of Similarities)</strong> test to statistically evaluate whether differences between groups (e.g., sampling times, sample types) are significant.</li>
-  <li>Use <strong>SIMPER (Similarity Percentages)</strong> analysis or Indicator Species Analysis to identify which species or ASVs contribute most to differences among groups.</li>
-  <li>Apply <strong>envfit</strong> to overlay environmental variables on the NMDS plot to understand how environmental factors relate to observed community patterns.</li>
-  <li>Consider exploring other ordination methods or multivariate statistics to further validate and interpret community structure (e.g., PCA, RDA).</li>
-</ul>
-	
 </section>
   
 
