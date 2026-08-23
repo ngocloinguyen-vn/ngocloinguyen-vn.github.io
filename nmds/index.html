@@ -180,7 +180,7 @@ m_com = as.matrix(t(ASV_read_count_CSS))
 <div style="height:50px;"></div>
 <ul>
 <li>
-<strong>Run NMDS Ordination</strong>
+<strong>Run NMDS ordination</strong>
 <ul>
 <li>
 <strong>metaMDS()</strong> performs NMDS, an ordination technique for visualizing patterns in community composition.
@@ -196,7 +196,7 @@ m_com = as.matrix(t(ASV_read_count_CSS))
 </li>
 </ul> 
 <pre><code class="language-r">
-# Run NMDS Ordination
+# Run NMDS ordination
 
 set.seed(123)  # For reproducibility
 
@@ -242,7 +242,7 @@ plot(nmds)
 
 <ul>
   <li>
-    <strong>Preparation for plotting:</strong>
+    <strong>Preparation for plotting</strong>
     <ul>
       <li>Load required libraries: <strong>ggplot2</strong>, <strong>ggrepel</strong> and <strong>dplyr</strong>.</li>
       <li>Extract NMDS site scores and rename the axes to x and y.</li>
@@ -297,7 +297,7 @@ layer_colors <- c("SUR" = "#1f77b4", "MID" = "#2ca02c", "BOT" = "#ff7f0e", "SED"
 </code></pre>
 	
 <div style="height:50px;"></div>
-<li><strong>Now we can plot NMDS in ggplot2.</strong></li>
+<li><strong>Now we can plot NMDS in ggplot2</strong></li>
 
 <pre><code class="language-r">
 p <- ggplot() +
