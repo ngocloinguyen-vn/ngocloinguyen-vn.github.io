@@ -270,9 +270,10 @@ p
 	
 <img src="../nmds_bonus/nmds_bonus2.png" 
       class="tutorial-image">
-
 	
-<h3>2. Loop code for the hull data and add the polygons to the ggplot.</h3>
+<div style="height:50px;"></div>
+	
+<h3>2. Loop code for the hull data and add the polygons to the ggplot</h3>
 <p>To visualize group boundaries in the NMDS plot, convex hulls can be calculated for each project (grouping by year_layer).
   The following code loops through all unique projects, ideal when working with many groups,
   computes their convex hulls based on NMDS coordinates, and combines the results for plotting. </p>
@@ -298,8 +299,9 @@ for (proj in unique_projects) {
 hull.data_combined <- do.call(rbind, hull.data)
 </code></pre>
 
+<div style="height:50px;"></div>
 
-<h3>3. Use Ellipses Instead of Hulls</h3>
+<h3>3. Use ellipses instead of hulls</h3>
 <p>Alternatively, statistical ellipses (e.g., 95% confidence intervals) can be used to represent group dispersion.
   Ellipses are especially useful for highlighting group variance and overlap in a more interpretable.</p>
 
@@ -361,7 +363,7 @@ p <- ggplot() +
 p
 </code></pre>
 
-<p>Final plot for nMDS</p>
+<p>Final plot for nMDS as follow:</p>
 <img src="../nmds_bonus/nmds_bonus3.png" 
       class="tutorial-image">
 	
