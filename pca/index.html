@@ -43,18 +43,20 @@
 <section class="container">
 <div class="timeline">
 <div class="timeline-item">
-<h2>Starting with nMDS in R</h2>
+<h2>PCA and Inset Visualization Using the Built-in Iris Dataset</h2>
 <p><strong>Date:</strong> July 01, 2025</p>
 </div>
 
 <div class="timeline-item">
-
+<h3>1. PCA scatterplot</h3>
 <p>
 In this tutorial, we use the built-in iris dataset, which contains measurements of four features from three species of iris flowers. 
   We will perform PCA to reduce the data to its main components, then plot the PCA scores in a scatterplot with points colored by species. 
   To make it easier to see smaller clusters, we also add a magnified inset to zoom in on the overlap of two groups. 
   This example shows how PCA helps reveal patterns in multivariate data and how visualization techniques can highlight important details.</p>
 
+<p>Performing PCA and visualizing sample scores by species:</p>
+	
 <pre><code class="language-r">
 # Check for required packages, install if missing
 required <- c("FactoMineR", "factoextra", "ggplot2", "ggmagnify", "ggfx")
@@ -106,8 +108,12 @@ print(p)  # Display base PCA plot
 
 <img src="../pca/pca1.png" 
      class="tutorial-image">
-
 	
+<div style="height:50px;"></div>
+	
+<h3>2. Magnified inset</h3>
+	
+<p>Adding a magnified inset to highlight overlapping groups:</p>	
 <pre><code class="language-r">
 # Define Region to Magnify
 # Coordinates of the rectangle to zoom in
@@ -134,30 +140,6 @@ p_zoom <- p +
 
 print(p_zoom)  # Display PCA with magnified inset
 </code></pre>
-	
-<div style="height:50px;"></div>
-<li><strong>Now we can plot NMDS in <code>ggplot2</code>.</strong></li>
-
-<pre><code class="language-r">
-p <- ggplot() +
-   geom_point(data = data.scores, aes(x,y, fill = year, color= layer , shape = year ), size=4) +
-   scale_color_manual(values = layer_colors) +
-   geom_polygon(data=hull.data, aes(x,y, fill = "#8ecae6", group = year_layer), alpha=0.1) +
-   scale_fill_manual(values = layer_colors) +
-   labs(colour = "Sample layer", shape = "Year" , x = "NMDS1", y = "NMDS2") +
-   theme(axis.text.y = element_text(colour = "black", size = 10, face = "bold"), 
-         axis.text.x = element_text(colour = "black", face = "bold", size = 10), 
-         legend.text = element_text(size = 10, face ="bold", colour ="black"), 
-         legend.position = "right", axis.title.y = element_text(face = "bold", size = 10), 
-         axis.title.x = element_text(face = "bold", size = 10, colour = "black"), 
-         legend.title = element_text(size = 10, colour = "black", face = "bold"), 
-         panel.background = element_blank(), 
-         panel.border = element_rect(colour = "black", fill = NA, size = 1.2),
-         legend.key=element_blank()) + geom_text_repel() + guides(fill = "none")
-
-p
-</code></pre>
-
 <img src="../pca/pca2.png" 
       class="tutorial-image">
 
