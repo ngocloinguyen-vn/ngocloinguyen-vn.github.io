@@ -205,12 +205,17 @@ normFactors(metaSeqObject_CSS)
     CSS does not force every sample to sum to the same total count.
   </li>
 
-  <li>
-    <strong>Avoid unnecessary transformations:</strong>
-    If you use
-    <code>MRcounts(..., norm = TRUE, log = FALSE)</code>,
-    the output is CSS-normalized but <strong>not log-transformed</strong>.
-  </li>
+<li>
+  <strong>Choose the log transformation appropriately:</strong>
+  When using
+  <code>MRcounts(..., norm = TRUE, log = FALSE)</code>,
+  the output contains CSS-normalized counts without an additional log transformation.
+  If <code>log = TRUE</code> is used, the CSS-normalized counts are additionally
+  log-transformed, which can reduce the influence of highly abundant ASVs and make
+  the distribution less skewed. However, the choice depends on the downstream analysis;
+  do not apply log transformation automatically if the analysis is intended to use
+  CSS-normalized abundance values directly.
+</li>
 
   <li>
     <strong>Keep the raw table:</strong>
