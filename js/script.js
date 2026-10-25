@@ -1,27 +1,4 @@
 // =========================
-// Highlight navbar after scrolling
-// Thêm hiệu ứng cho header khi cuộn trang
-// =========================
-
-window.addEventListener("scroll", () => {
-
-    const header = document.querySelector("header");
-
-    if(header){
-
-        if(window.scrollY > 50){
-            header.classList.add("scrolled");
-        } 
-        else {
-            header.classList.remove("scrolled");
-        }
-
-    }
-
-});
-
-
-// =========================
 // MOBILE NAVBAR TOGGLE
 // Mở / đóng menu hamburger trên điện thoại
 // =========================
@@ -32,12 +9,28 @@ const navMenu = document.querySelector(".navbar ul");
 
 if(menuToggle && navMenu){
 
+    const setMenuOpen = (isOpen) => {
+        navMenu.classList.toggle("show", isOpen);
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    };
+
     menuToggle.addEventListener("click", () => {
-
-        navMenu.classList.toggle("show");
-
+        setMenuOpen(!navMenu.classList.contains("show"));
     });
 
+    navMenu.addEventListener("click", (event) => {
+        if(event.target.closest("a")){
+            setMenuOpen(false);
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if(event.key === "Escape" && navMenu.classList.contains("show")){
+            setMenuOpen(false);
+            menuToggle.focus();
+        }
+    });
 }
 
 
@@ -51,67 +44,60 @@ if(menuToggle && navMenu){
 
 const galleryImages = document.querySelectorAll(".gallery.multi img");
 
+const closeZoom = () => {
+    const zoomedImage = document.querySelector(".gallery.multi img.zoom");
+    const overlay = document.querySelector(".gallery-overlay");
 
-galleryImages.forEach(img => {
+    if(zoomedImage){
+        zoomedImage.classList.remove("zoom");
+        zoomedImage.setAttribute("aria-pressed", "false");
+        zoomedImage.focus();
+    }
 
-    img.addEventListener("click", function(){
+    if(overlay){
+        overlay.remove();
+    }
+};
 
-        const currentOverlay = document.querySelector(".gallery-overlay");
+const toggleZoom = (img) => {
+    if(img.classList.contains("zoom")){
+        closeZoom();
+        return;
+    }
 
+    closeZoom();
 
-        // Nếu ảnh đang zoom -> trở lại bình thường
-        if(this.classList.contains("zoom")){
+    const overlay = document.createElement("div");
+    overlay.className = "gallery-overlay";
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.addEventListener("click", closeZoom);
 
-            this.classList.remove("zoom");
+    document.body.appendChild(overlay);
+    img.classList.add("zoom");
+    img.setAttribute("aria-pressed", "true");
+};
 
-            if(currentOverlay){
-                currentOverlay.remove();
-            }
+galleryImages.forEach((img) => {
+    img.tabIndex = 0;
+    img.setAttribute("role", "button");
+    img.setAttribute("aria-pressed", "false");
+    img.setAttribute("aria-label", img.alt ? `Enlarge image: ${img.alt}` : "Enlarge image");
 
-            return;
+    img.addEventListener("click", () => toggleZoom(img));
 
+    img.addEventListener("keydown", (event) => {
+        if(event.key === "Enter" || event.key === " "){
+            event.preventDefault();
+            toggleZoom(img);
         }
-
-
-        // Đóng các ảnh đang zoom khác
-        document.querySelectorAll(".gallery.multi img.zoom")
-            .forEach(image => {
-
-                image.classList.remove("zoom");
-
-            });
-
-
-        // Xóa overlay cũ nếu có
-        if(currentOverlay){
-            currentOverlay.remove();
-        }
-
-
-        // Tạo nền tối
-        const overlay = document.createElement("div");
-
-        overlay.className = "gallery-overlay";
-
-        document.body.appendChild(overlay);
-
-
-        // Zoom ảnh được chọn
-        this.classList.add("zoom");
-
-
-        // Click nền tối để đóng
-        overlay.addEventListener("click", () => {
-
-            this.classList.remove("zoom");
-
-            overlay.remove();
-
-        });
-
-
     });
+});
 
+document.addEventListener("keydown", (event) => {
+    if(event.key === "Escape" && document.querySelector(".gallery-overlay")){
+        event.preventDefault();
+        closeZoom();
+    }
 });
 
 

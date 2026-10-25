@@ -7,8 +7,13 @@
     ========================== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
-    <meta name="description" content="Home">
+    <title>Ngoc-Loi Nguyen | Environmental DNA &amp; Marine Microbial Ecology</title>
+    <meta name="description" content="Ngoc-Loi Nguyen is a postdoctoral researcher studying environmental DNA, microbial genomics, and marine microbial ecology.">
+    <meta property="og:title" content="Ngoc-Loi Nguyen | Environmental DNA &amp; Marine Microbial Ecology">
+    <meta property="og:description" content="Research, projects, publications, and outreach by Ngoc-Loi Nguyen.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ngocloinguyen-vn.github.io/">
+    <link rel="canonical" href="https://ngocloinguyen-vn.github.io/">
 
     <!-- =========================
         STYLES
@@ -28,20 +33,20 @@
         NAVBAR
     ========================== -->
     <header>
-        <nav class="navbar">
+        <nav class="navbar" aria-label="Primary">
              <!-- Nút hamburger chỉ hiện trên mobile -->
-        <button class="menu-toggle" aria-label="Open menu">
+        <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="primary-navigation" aria-expanded="false">
             ☰
         </button>
             
-            <ul>
-                <li><a class="active" href="./">HOME</a></li>
+            <ul id="primary-navigation">
+                <li><a class="active" aria-current="page" href="./">HOME</a></li>
                 <li><a href="/aboutme/">ABOUT</a></li>
-                <li><a href="/project/">PROJECTs</a></li>
-                <li><a href="/publications/">PUBLICATIONs</a></li>
+                <li><a href="/project/">PROJECTS</a></li>
+                <li><a href="/publications/">PUBLICATIONS</a></li>
                 <li><a href="/outreach/">OUTREACH</a></li>
-                <li><a href="/workshops/">WORKSHOPs</a></li>
-                <li><a href="/tutorials/">TUTORIALs</a></li>
+                <li><a href="/workshops/">WORKSHOPS</a></li>
+                <li><a href="/tutorials/">TUTORIALS</a></li>
                 <li><a href="/gallery/">GALLERY</a></li>
                 <li><a href="/contact/">CONTACT</a></li>
             </ul>
@@ -51,9 +56,10 @@
     <!-- =========================
         HERO SECTION
     ========================== -->
-    <section class="hero">
+    <main>
+    <section class="hero" aria-labelledby="home-title">
         <div class="hero-text">
-            <h1>NGOC-LOI NGUYEN</h1>
+            <h1 id="home-title">NGOC-LOI NGUYEN</h1>
             <p>
                 As a postdoctoral researcher at the Laboratory of Environmental DNA in the Department of Paleoceanography
                 at the Institute of Oceanology Polish Academy of Sciences,
@@ -63,19 +69,14 @@
     </section>
 
     <!-- =========================
-        MAIN CONTENT
-    ========================== -->
-    <section class="container">
-    </section>
-
-    <!-- =========================
         MAP WIDGET (MapMyVisitors)
     ========================== -->
     <div class="visitor-widget">
-        <script type='text/javascript' id='mapmyvisitors'
+        <script async id='mapmyvisitors'
             src='https://mapmyvisitors.com/map.js?cl=b2b2b2&w=250&t=tt&d=swbZRfdojf6BZ6vxy3BdlHKdAVagqPprKw1wBdbas9w&ct=474747&co=ffffff&cmo=ffb37f&cmn=ff520c'>
         </script>
     </div>
+    </main>
 
     <!-- =========================
         FOOTER

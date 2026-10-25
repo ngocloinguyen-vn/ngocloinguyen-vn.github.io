@@ -9,6 +9,7 @@
     --border:#e5e7eb;           /* Màu đường viền */
     --max-width:1000px;         /* Chiều rộng tối đa của nội dung chính */
     --wide-width:1400px;        /* Chiều rộng lớn cho video, gallery, banner */
+    --shadow:0 8px 20px rgba(15,23,42,.12);
 }
 
 *{
@@ -40,6 +41,19 @@ body{
 a{
     text-decoration:none;                /* Bỏ gạch chân mặc định của link */
     color:inherit;                       /* Link dùng màu của phần tử cha */
+}
+
+a:focus-visible,
+button:focus-visible,
+.gallery-item img:focus-visible{
+    outline:3px solid var(--primary);
+    outline-offset:3px;
+}
+
+.container a:not(.button),
+footer a{
+    text-decoration:underline;
+    text-underline-offset:.18em;
 }
 
 
@@ -377,10 +391,6 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
         grid-template-columns:1fr;
     }
   
-  .gallery{
-    grid-template-columns:1fr;
-}
-
 }
 
 
@@ -388,23 +398,6 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
       GALLERY
 ========================= */
 
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
-}
-
-.gallery img{
-    border-radius:12px;
-    border:1px solid var(--border);
-    box-shadow:none;
-    transition:.3s;
-}
-
-.gallery img:hover{
-    transform:scale(1.03);
-}
-  
 /* =========================
    GALLERY - Image Gallery
 ========================= */
@@ -427,6 +420,7 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
 
 .gallery{
     display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));
     gap:10px;
 }
 
@@ -874,6 +868,7 @@ CARDS - Các khối nội dung dạng thẻ
     box-sizing:border-box;
     min-width:0;
     overflow:hidden;
+    transition:background-color .2s ease, transform .2s ease;
 }
 
 
@@ -922,6 +917,21 @@ BUTTON trong card
 .card:hover{
     background:#eceff1;
     transform:translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce){
+    html{
+        scroll-behavior:auto;
+    }
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+    }
 }
 
 
