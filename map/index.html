@@ -21,11 +21,11 @@
 <header>
     <nav class="navbar">
         <!-- Mobile menu -->
-        <button class="menu-toggle" aria-label="Open menu">
+        <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open menu">
             ☰
         </button>
 
-        <ul>
+        <ul id="primary-navigation">
             <li><a href="../">HOME</a></li>
             <li><a href="../aboutme/">ABOUT</a></li>
             <li><a href="../project/">PROJECTs</a></li>
@@ -91,7 +91,7 @@ map
 </code></pre>
 
 <img src="../map/map1.png" 
-     class="tutorial-image">
+     class="tutorial-image" width="867" height="624">
 
 <p>For a cleaner presentation, a minimal theme can be used to reduce visual distractions and emphasize the geographic features and city locations. 
 Map elements such as country boundaries, city markers, labels, axes, and titles can also be customized.</p>
@@ -119,7 +119,7 @@ map
 </code></pre>
 
 <img src="../map/map2.png" 
-     class="tutorial-image">
+     class="tutorial-image" width="867" height="624">
 	
 <h3>3. World map with different variables</h3>
 <p>The world map can be colored according to each country's GDP using the GDP variable provided by <code>rnaturalearth::ne_countries()</code>.
@@ -150,7 +150,7 @@ map
 </code></pre>
 
 <img src="../map/map3.png" 
-     class="tutorial-image">
+     class="tutorial-image" width="867" height="624">
 
 <p>If you want to demonstrate different variables for coloring a world map,
 	<code>rnaturalearth::ne_countries()</code> provides several useful attributes besides GDP.</p>
@@ -218,7 +218,7 @@ map
 </code></pre>
 
 <img src="../map/map4.png" 
-     class="tutorial-image">
+     class="tutorial-image" width="867" height="624">
 
 <div style="height:50px;"></div>
 <h3>5. Create a map of Vietnam</h3>
@@ -283,7 +283,7 @@ map1 + map2
 </code></pre>
 
 <img src="../map/map5.png" 
-    class="tutorial-image">
+    class="tutorial-image" width="867" height="624">
 
 <p><strong> 5.2. Map of 34 Vietnam's provincial boundaries after 2025</strong></p>
 
@@ -337,7 +337,7 @@ map1 + map2
 </code></pre>
 
 <img src="../map/map6.png" 
-    class="tutorial-image">
+    class="tutorial-image" width="884" height="624">
 
 <h3>Additional Vietnam Map Resources</h3>
 

@@ -21,11 +21,11 @@
 <header>
     <nav class="navbar">
         <!-- Mobile menu -->
-        <button class="menu-toggle" aria-label="Open menu">
+        <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open menu">
             ☰
         </button>
 
-        <ul>
+        <ul id="primary-navigation">
             <li><a href="../">HOME</a></li>
             <li><a href="../aboutme/">ABOUT</a></li>
             <li><a href="../project/">PROJECTs</a></li>
@@ -107,7 +107,7 @@ print(p)  # Display base PCA plot
 </code></pre>
 
 <img src="../pca/pca1.png" 
-     class="tutorial-image">
+     class="tutorial-image" width="607" height="477">
 	
 <div style="height:50px;"></div>
 	
@@ -141,7 +141,7 @@ p_zoom <- p +
 print(p_zoom)  # Display PCA with magnified inset
 </code></pre>
 <img src="../pca/pca2.png" 
-      class="tutorial-image">
+      class="tutorial-image" width="586" height="527">
 
 </section>
   

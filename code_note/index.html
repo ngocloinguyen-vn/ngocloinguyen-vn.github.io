@@ -21,11 +21,11 @@
 <header>
     <nav class="navbar">
         <!-- Mobile menu -->
-        <button class="menu-toggle" aria-label="Open menu">
+        <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open menu">
             ☰
         </button>
 
-        <ul>
+        <ul id="primary-navigation">
             <li><a href="../">HOME</a></li>
             <li><a href="../aboutme/">ABOUT</a></li>
             <li><a href="../project/">PROJECTs</a></li>
@@ -64,7 +64,7 @@ display.brewer.all()
 </code></pre>
 	
 <img src="../code_note/note1.png" 
-     class="tutorial-image">
+     class="tutorial-image" width="757" height="800">
 
 <p>
 Display the "Spectral" palette with its maximum of 11 colors​ <br>
@@ -76,7 +76,7 @@ display.brewer.pal(n = 11, name = "Spectral")
 </code></pre>
 	
 <img src="../code_note/note2.png" 
-      class="tutorial-image">
+      class="tutorial-image" width="1201" height="289">
 
  <p>Create a custom color palette with 15 colors interpolated from the 11-color Spectral palette. </p>
 
@@ -95,7 +95,7 @@ barplot(rep(1, length(colors)), col = colors, border = NA, space = 0,
         main = "Custom 15-Color Palette from Spectral", axes = FALSE)
   </code></pre>
 <img src="../code_note/note3.png" 
-      class="tutorial-image">
+      class="tutorial-image" width="1147" height="243">
   
  <p> Create a custom color palette with 20 colors interpolated from the 9-color YlOrRd​</p>
   <pre><code class="language-r">
@@ -108,7 +108,7 @@ barplot(rep(1, length(colors)), col = colors, border = NA, space = 0,
   </code></pre>
   
 <img src="../code_note/note4.png" 
-      class="tutorial-image">
+      class="tutorial-image" width="928" height="220">
 	
 </section>
   

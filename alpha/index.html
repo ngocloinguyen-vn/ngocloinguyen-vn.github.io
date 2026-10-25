@@ -21,11 +21,11 @@
 <header>
     <nav class="navbar">
         <!-- Mobile menu -->
-        <button class="menu-toggle" aria-label="Open menu">
+        <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open menu">
             ☰
         </button>
 
-        <ul>
+        <ul id="primary-navigation">
             <li><a href="../">HOME</a></li>
             <li><a href="../aboutme/">ABOUT</a></li>
             <li><a href="../project/">PROJECTs</a></li>
@@ -217,7 +217,7 @@ plot(specaccum_result, xlab = "Number of Samples", ylab = "Number of ASVS")
 </code></pre>
     
 <img src="../alpha/species_accumulation_curve.png" 
-      class="tutorial-image">
+      class="tutorial-image" width="573" height="438">
 
 <ul>
 <li>
@@ -245,7 +245,7 @@ rarecurve(com, step = 100, col = "blue", label = FALSE,
 </code></pre>
     
 <img src="../alpha/rarefaction_curve.png" 
-      class="tutorial-image">
+      class="tutorial-image" width="633" height="469">
     
 <p>Plot the rarefaction curve combined with metadata:</p>
 
@@ -297,7 +297,7 @@ legend( "bottom",
 </code></pre>
     
 <img src="../alpha/rarefaction_curve1.png" 
-     class="tutorial-image">
+     class="tutorial-image" width="593" height="418">
 
 <ul>
 <li>
@@ -461,7 +461,7 @@ p1 + p2
 </code></pre>
     
 <img src="../alpha/alpha_diversity.png" 
-      class="tutorial-image">
+      class="tutorial-image" width="1222" height="508">
 
 <p>After analyzing alpha diversity,
     the next step is to assess beta diversity to understand differences in species composition between samples,

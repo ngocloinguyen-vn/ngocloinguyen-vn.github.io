@@ -451,8 +451,6 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
     border-radius:12px;
     border:1px solid #ddd;
 
-    cursor:pointer;
-
     transition:.3s ease;
 }
 
@@ -465,48 +463,54 @@ SMALL MOBILE -    Màn hình nhỏ hơn 600px
     transform:scale(1.03);
 }
 
+.gallery-zoom{
+    display:block;
+    width:100%;
+    padding:0;
+    border:0;
+    border-radius:12px;
+    background:transparent;
+    cursor:zoom-in;
+    overflow:hidden;
+}
+
 /* =========================
    Image Zoom
 ========================= */
 
-.gallery-item img.zoom{
-
+.gallery-dialog{
     position:fixed;
-
-    top:50%;
-    left:50%;
-
-    transform:translate(-50%,-50%);
-
-    width:auto;
     max-width:90vw;
-
-    height:auto;
     max-height:90vh;
-
-    aspect-ratio:auto;
-    object-fit:contain;
-
-    z-index:9999;
-
-    cursor:zoom-out;
-
-    box-shadow:0 0 30px rgba(0,0,0,.45);
-
-    background:white;
+    padding:0;
+    border:0;
+    overflow:visible;
+    background:transparent;
 }
 
-/* nền tối */
+.gallery-dialog::backdrop{
+    background:rgba(0,0,0,.82);
+}
 
-.gallery-overlay{
+.gallery-dialog img{
+    width:auto;
+    max-width:90vw;
+    max-height:90vh;
+    object-fit:contain;
+    border-radius:12px;
+    box-shadow:0 0 30px rgba(0,0,0,.45);
+}
 
+.gallery-dialog-close{
     position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.8);
-
-    z-index:9998;
+    top:16px;
+    right:16px;
+    padding:8px 14px;
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:6px;
+    background:#111;
+    color:#fff;
+    cursor:pointer;
 }
 
 /* =========================

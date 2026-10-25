@@ -21,11 +21,11 @@
 <header>
     <nav class="navbar">
         <!-- Mobile menu -->
-        <button class="menu-toggle" aria-label="Open menu">
+        <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open menu">
             ☰
         </button>
 
-        <ul>
+        <ul id="primary-navigation">
             <li><a href="../">HOME</a></li>
             <li><a href="../aboutme/">ABOUT</a></li>
             <li><a href="../project/">PROJECTs</a></li>
@@ -106,7 +106,7 @@ plot(anosim_layer)
 </ul>
 
 <img src="../nmds_statistics/nmds_statistics1.png" 
-      class="tutorial-image">
+      class="tutorial-image" width="1070" height="800">
 	
 <h3>2. PERMANOVA (Permutational Multivariate Analysis of Variance) </h3>
   <p>PERMANOVA is a non-parametric method used to test whether multivariate community composition
@@ -230,7 +230,7 @@ plot(betadisper(vegdist(m_com, "bray"), metadata_id$layer))
 
 
 <img src="../nmds_statistics/nmds_statistics2.png" 
-      class="tutorial-image">
+      class="tutorial-image" width="747" height="559">
 
 <p>
   In general, <strong>NMDS</strong> was used to visualize differences in community composition based on dissimilarities matrix. 
