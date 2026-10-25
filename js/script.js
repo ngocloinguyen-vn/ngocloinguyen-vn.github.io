@@ -25,44 +25,33 @@ if (menuToggle && navMenu) {
     });
 }
 
-// Accessible gallery lightbox. Original files stay available for full-size viewing.
-const galleryImages = document.querySelectorAll(".gallery.multi .gallery-zoom img");
+// Gallery image zoom
+const galleryImages = document.querySelectorAll(".gallery.multi img");
 
-if (galleryImages.length && typeof HTMLDialogElement !== "undefined") {
-    const dialog = document.createElement("dialog");
-    const preview = new Image();
-    const closeButton = document.createElement("button");
-    let returnFocusTo = null;
+galleryImages.forEach((img) => {
+    img.addEventListener("click", function () {
+        const currentOverlay = document.querySelector(".gallery-overlay");
 
-    dialog.className = "gallery-dialog";
-    dialog.setAttribute("aria-label", "Image preview");
-    preview.alt = "";
-    closeButton.type = "button";
-    closeButton.className = "gallery-dialog-close";
-    closeButton.textContent = "Close image";
-    dialog.append(closeButton, preview);
-    document.body.append(dialog);
+        if (this.classList.contains("zoom")) {
+            this.classList.remove("zoom");
+            if (currentOverlay) currentOverlay.remove();
+            return;
+        }
 
-    closeButton.addEventListener("click", () => dialog.close());
-    dialog.addEventListener("click", (event) => {
-        if (event.target === dialog) dialog.close();
-    });
-    dialog.addEventListener("close", () => {
-        returnFocusTo?.focus();
-        returnFocusTo = null;
-        preview.removeAttribute("src");
-    });
+        document.querySelectorAll(".gallery.multi img.zoom").forEach((image) => {
+            image.classList.remove("zoom");
+        });
 
-    galleryImages.forEach((img) => {
-        const button = img.closest(".gallery-zoom");
-        if (!button) return;
+        if (currentOverlay) currentOverlay.remove();
 
-        button.addEventListener("click", () => {
-            returnFocusTo = button;
-            preview.src = button.dataset.full || img.currentSrc || img.src;
-            preview.alt = img.alt;
-            dialog.showModal();
-            closeButton.focus();
+        const overlay = document.createElement("div");
+        overlay.className = "gallery-overlay";
+        document.body.appendChild(overlay);
+        this.classList.add("zoom");
+
+        overlay.addEventListener("click", () => {
+            this.classList.remove("zoom");
+            overlay.remove();
         });
     });
-}
+});
